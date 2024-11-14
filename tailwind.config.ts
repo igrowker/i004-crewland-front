@@ -15,6 +15,10 @@ export default {
         customYellow: "#FFED61",
         background: "#03071E",
       },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        title: ["Unbounded", "sans-serif"],
+      },
     },
   },
   plugins: [],
