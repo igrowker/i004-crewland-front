@@ -1,13 +1,17 @@
-import ReusableInput from "@/components/ReusableInput";
+import ReusableInput from "@/components/elements/Inputs/ReusableInput";
+import Title from "@/components/elements/Titles/Title";
 
 export default function Register() {
   return (
     <section className="bg-background min-h-screen">
       <div className="flex gap-5 p-4">
         <span className="w-6 h-6 bg-slate-100/50 block rounded-full"></span>
-        <h1 className="font-title font-medium text-xl text-customWhite">
-          Crear un nuevo Usuario
-        </h1>
+        <Title 
+          text="Crear un nuevo Usuario"
+          size="large"
+          weight="bold"
+          className="tracking-[.09em] font-title text-xl"
+        />
       </div>
       <form className="flex flex-col mx-4 py-4 gap-6">
         <ReusableInput
@@ -22,6 +26,11 @@ export default function Register() {
           type="email"
           label="Correo Electronico"
           placeholder="juanperez@gmail.com"
+        />
+        <ReusableInput
+          type="number"
+          label="Numero de Telefono"
+          placeholder="+51 123 456 789"
         />
         <ReusableInput
           type="password"

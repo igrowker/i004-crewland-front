@@ -13,7 +13,7 @@ export default function ReusableInput({ label, type, placeholder, password }: Re
 
   return (
     <div className="flex flex-col gap-2 relative">
-      <label htmlFor={label}>{label}*</label>
+      <label htmlFor={label} className='text-customWhite'>{label}*</label>
       {password ? (
         // inputs solamente para tipo password
         <>
@@ -25,7 +25,7 @@ export default function ReusableInput({ label, type, placeholder, password }: Re
           />
           <span 
             onClick={()=>setToggleType(!toggleType)}
-            className="w-6 h-6 bg-slate-100/50 block absolute bottom-3 right-0 rounded-full"
+            className="text-customWhite w-6 h-6 bg-slate-100/50 block absolute bottom-3 right-0 rounded-full"
           />
         </>
       ) : (
@@ -33,11 +33,10 @@ export default function ReusableInput({ label, type, placeholder, password }: Re
         <input
           id={label}
           type={type || 'text'}
-          className="outline-none bg-transparent border-b pb-1"
+          className="text-customWhite outline-none bg-transparent border-b pb-1"
           placeholder={placeholder}
         />
       )}
-
     </div>
   )
 }
