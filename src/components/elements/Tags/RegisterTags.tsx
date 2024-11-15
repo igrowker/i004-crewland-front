@@ -32,7 +32,7 @@ export default function RegisterTags({
             />
             <span
                 className={`w-3 h-3 rounded-full mr-2 ${
-                    isSelected ? 'bg-purple-400 outline outline-offset-1' : 'bg-transparent border border-customWhite'
+                    isSelected ? 'bg-purple-400 outline outline-offset-1 outline-1' : 'bg-transparent border border-customWhite'
                 }`}
             ></span>
             {text}
