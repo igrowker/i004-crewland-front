@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react';
 
 interface ReusableInputProps {
   label: string;
@@ -20,13 +21,20 @@ export default function ReusableInput({ label, type, placeholder, password }: Re
           <input
             id={label}
             type={toggleType ? "text" : "password"}
-            className="outline-none bg-transparent border-b pb-1"
+            className="outline-none bg-transparent border-b pb-1 text-customWhite"
             placeholder={placeholder}
           />
-          <span 
-            onClick={()=>setToggleType(!toggleType)}
-            className="text-customWhite w-6 h-6 bg-slate-100/50 block absolute bottom-3 right-0 rounded-full"
-          />
+          {toggleType ? (
+            <Eye
+              className='cursor-pointer text-customWhite absolute bottom-3 right-0'
+              onClick={() => setToggleType(!toggleType)}
+            />
+          ) : (
+            <EyeOff
+              className='cursor-pointer text-customWhite absolute bottom-3 right-0'
+              onClick={() => setToggleType(!toggleType)}
+            />
+          )}
         </>
       ) : (
         // inputs para cualquier tipo
