@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 interface ReusableInputProps {
   label: string;
   type?: string;
-  placeholder: string;
+  placeholder?: string;
   password?: boolean;
 }
 

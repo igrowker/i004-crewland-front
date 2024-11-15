@@ -7,7 +7,9 @@ export default function Register() {
   return (
     <section className="bg-background min-h-screen">
       <div className="flex items-center p-4 pt-6">
-        <X className="text-customWhite cursor-pointer"/>
+        <Link href={'/auth/login'}>
+          <X className="text-customWhite cursor-pointer"/>
+        </Link>
         <Title 
           text="Crear un nuevo Usuario"
           className="w-full font-normal"
