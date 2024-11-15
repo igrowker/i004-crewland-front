@@ -4,7 +4,6 @@ type TitleProps = {
     text: string;
     size?: 'small' | 'medium' | 'large';
     color?: string;
-    font?: string;
     align?: 'left' | 'center' | 'right';
     weight?: 'bold' | 'extrabold' | 'black';
     className?: string;
@@ -14,7 +13,6 @@ export default function Title({
     text,
     size = 'medium',
     color = 'text-customWhite',
-    font = 'title',
     align = 'center',
     weight = 'bold',
     className = '',
@@ -26,7 +24,13 @@ export default function Title({
         large: 'text-3xl md:text-4xl',
     };
 
-    const titleStyles = `${sizeStyles[size]} ${color} font-${font} text-${align} font-${weight} ${className}`;
+    const weightStyles = {
+        bold: 'font-bold',
+        extrabold: 'font-extrabold',
+        black: 'font-black',
+    };
+
+    const titleStyles = `${sizeStyles[size]} ${weightStyles[weight]} ${color} font-title text-${align} ${className}`;
 
     return <h1 className={titleStyles}>{text}</h1>;
 }
