@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AuthProvider } from "@/context/AuthContext";
 import {Unbounded, Roboto} from "next/font/google";
 import "./globals.css";
 
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${unbounded.variable} ${roboto.variable}`}>
       <body>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
