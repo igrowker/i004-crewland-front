@@ -7,22 +7,28 @@ interface ReusableInputProps {
   type?: string;
   placeholder?: string;
   password?: boolean;
+  id: string;
+  name?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function ReusableInput({ label, type, placeholder, password }: ReusableInputProps) {
+export default function ReusableInput({ label, type, placeholder, password, id, onChange }: ReusableInputProps) {
   const [toggleType, setToggleType] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col gap-2 relative">
-      <label htmlFor={label} className='text-customWhite'>{label}*</label>
+      <label htmlFor={id} className='text-customWhite'>{label}*</label>
       {password ? (
         // inputs solamente para tipo password
         <>
           <input
-            id={label}
+            id={id}
+            name={id}
             type={toggleType ? "text" : "password"}
             className="outline-none bg-transparent border-b pb-1 text-customWhite"
             placeholder={placeholder}
+            onChange={onChange}
+            required
           />
           {toggleType ? (
             <Eye
@@ -39,10 +45,13 @@ export default function ReusableInput({ label, type, placeholder, password }: Re
       ) : (
         // inputs para cualquier tipo
         <input
-          id={label}
+          id={id}
+          name={id}
           type={type || 'text'}
           className="text-customWhite outline-none bg-transparent border-b pb-1"
           placeholder={placeholder}
+          onChange={onChange}
+          required
         />
       )}
     </div>
