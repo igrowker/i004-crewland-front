@@ -17,7 +17,7 @@ export default {
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
-        title: ["Unbounded", "sans-serif"],
+        title: ["Unbounded", "serif"],
       },
     },
   },

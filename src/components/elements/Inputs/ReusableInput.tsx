@@ -10,9 +10,10 @@ interface ReusableInputProps {
   id: string;
   name?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-export default function ReusableInput({ label, type, placeholder, password, id, onChange }: ReusableInputProps) {
+export default function ReusableInput({ label, type, placeholder, password, id, onChange, error }: ReusableInputProps) {
   const [toggleType, setToggleType] = useState<boolean>(false);
 
   return (
@@ -54,6 +55,8 @@ export default function ReusableInput({ label, type, placeholder, password, id, 
           required
         />
       )}
+      {/* Error de validacion */}
+      {error && <span className='text-red-600'>{error}</span>}
     </div>
   )
 }

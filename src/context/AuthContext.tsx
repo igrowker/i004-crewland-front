@@ -8,11 +8,11 @@ export const AuthRegisterContext = createContext<interfaceGlobalState | null>(nu
 //PROOVEDOR, en donde se establecen los estados globales para manejarlos en los componentes hijos(children)
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [authRegister, setAuthRegister] = useState<AuthRegisterInterface>({
-    name: '',
-    username: '',
-    email: '',
-    phoneNumber: 0,
-    password: '',
+    name: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
   });
 
   return (

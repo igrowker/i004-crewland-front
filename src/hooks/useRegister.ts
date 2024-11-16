@@ -1,4 +1,5 @@
 import { AuthRegisterInterface } from "@/interfaces/authRegister";
+import { registerSchema } from "@/validations/registerSchema";
 import React ,{ useState } from "react";
 
 export default function useRegister() {
@@ -7,23 +8,40 @@ export default function useRegister() {
     name: "",
     username: "",
     email: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     password: "",
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  // VALIDACIONES ANTES DE ENVIARLOS AL BACK:
-  const isEqualPassword = register.password === confirmPassword;
-
-
-
-
-  
   // Recolección de los valores de cada campo del registro
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setRegister((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { register, isEqualPassword, handleChange, setConfirmPassword };
+  // Validaciones del registro antes de enviarlo al servidor
+  const ValidateRegister = async () => {
+    const result = await registerSchema.safeParseAsync({...register, confirmPassword})
+    if (result.success) {
+       // si las validaciones son exitosas
+      console.log(result)
+      setErrors({})
+      return true
+
+    } else {
+      // si las validaciones no son exitosas, mostrar el error a cada input correspondiente
+      console.log(result)
+      const errosMessages: {[key: string]: string} = {};
+      result.error.errors.forEach((error) => {
+        errosMessages[error.path[0]] = error.message
+      })
+      
+      setErrors(errosMessages)
+      return false
+    }
+  }
+
+
+  return { errors, register, ValidateRegister , handleChange, setConfirmPassword };
 }
