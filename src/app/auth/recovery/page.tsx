@@ -1,10 +1,23 @@
+'use client'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function RecoveryPage() {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      localStorage.setItem('recoveryEmail', email)
+    }
+    router.push('/auth/recovery/success')
+  }
   return (
-    <section className='bg-background min-h-screen p-16'>
+    <section className='bg-background min-h-screen px-16'>
       <div className='flex flex-col items-start gap-5 mb-8'>
         <Title
           text='Recuperar contraseña'
@@ -17,8 +30,8 @@ export default function RecoveryPage() {
           <Image
             src='/recovery_password_lock.svg'
             alt='Recovery password'
-            width={180}
-            height={180}
+            width={150}
+            height={150}
             priority
           />
         </div>
@@ -29,11 +42,13 @@ export default function RecoveryPage() {
         </p>
       </div>
 
-      <form className='flex flex-col gap-6'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
         <ReusableInput
           type='email'
           label='Correo electrónico'
           placeholder='juanperez@gmail.com'
+          /* value={email}
+          onChange={(e) => setEmail(e.target.value)} */
         />
         <button
           type='submit'
