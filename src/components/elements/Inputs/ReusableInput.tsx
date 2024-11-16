@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react'
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, CircleAlert  } from 'lucide-react';
 
 interface ReusableInputProps {
   label: string;
@@ -56,7 +56,13 @@ export default function ReusableInput({ label, type, placeholder, password, id, 
         />
       )}
       {/* Error de validacion */}
-      {error && <span className='text-red-600'>{error}</span>}
+      {error && 
+        <span className='p-1 flex items-center outline outline-1 absolute -bottom-11 z-40 bg-customYellow text-background rounded-md'>
+          <span className='z-30 absolute -top-1 left-4 w-3 h-3 bg-customYellow rotate-45'></span>
+          <CircleAlert className='w-12 text-3xl relative z-50'/>
+          <p className='w-full text-sm'>{error}</p>
+        </span>
+      }
     </div>
   )
 }
