@@ -19,8 +19,8 @@ export default function Register() {
   const { setAuthRegister } = contexto;
 
   // Navegar a la siguiente pagina despues de validar todos los campos
-  const nextPage = async () => {
-    const isValidForm = await ValidateRegister();
+  const nextPage = () => {
+    const isValidForm = ValidateRegister();
 
     if (isValidForm) {
       setAuthRegister(register);

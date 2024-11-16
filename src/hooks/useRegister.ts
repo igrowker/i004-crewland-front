@@ -21,8 +21,8 @@ export default function useRegister() {
   };
 
   // Validaciones del registro antes de enviarlo al servidor
-  const ValidateRegister = async () => {
-    const result = await registerSchema.safeParseAsync({...register, confirmPassword})
+  const ValidateRegister = () => {
+    const result = registerSchema.safeParse({...register, confirmPassword})
     if (result.success) {
        // si las validaciones son exitosas
       console.log(result)
