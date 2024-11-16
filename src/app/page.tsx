@@ -1,4 +1,5 @@
 import Button from "@/components/elements/Buttons/Button";
+import Container from "@/components/elements/Container/Container";
 import TagsList from "@/components/elements/Tags/ListTags";
 import Title from "@/components/elements/Titles/Title";
 import Image from "next/image";
@@ -21,10 +22,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center text-customWhite justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+     <Container>
+       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex justify-center items-center">
-          <Title text="CREWLAND" size="large" weight="extrabold"/>
+          <Title text="CREWLAND" size="large" weight="black"/>
           <Image
           className=""
           src="/crewland_logo.svg"
@@ -46,6 +47,6 @@ export default function Home() {
         </div>
         <TagsList tags={tags} />
       </main>
-    </div>
+     </Container>
   );
 }
