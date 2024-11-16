@@ -16,8 +16,8 @@ export default {
         background: "#03071E",
       },
       fontFamily: {
-        sans: ["Roboto", "sans-serif"],
-        title: ["Unbounded", "sans-serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        title: ["var(--font-title)", "serif"],
       },
     },
   },
