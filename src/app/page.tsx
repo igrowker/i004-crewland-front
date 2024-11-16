@@ -25,7 +25,7 @@ export default function Home() {
      <Container>
        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex justify-center items-center">
-          <Title text="Everyone" size="large" weight="black"/>
+          <Title text="CREWLAND" size="large" weight="black"/>
           <Image
           className=""
           src="/crewland_logo.svg"
