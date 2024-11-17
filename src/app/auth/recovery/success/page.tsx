@@ -1,7 +1,9 @@
 'use client'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
+import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function SuccessPage() {
@@ -37,12 +39,17 @@ export default function SuccessPage() {
   return (
     <section className='bg-background min-h-screen px-16'>
       <div className='flex flex-col items-start gap-5 mb-8'>
-        <Title
-          text='Recuperar contraseña'
-          size='large'
-          weight='extrabold'
-          className='text-white'
-        />
+        <div className='flex items-center'>
+          <Link href='/auth/login'>
+            <ArrowLeft className='text-white' size={40} />
+          </Link>
+          <Title
+            text='Recuperar contraseña'
+            size='large'
+            weight='extrabold'
+            className='text-white'
+          />
+        </div>
 
         <div className='flex justify-center w-full'>
           <Image
@@ -54,7 +61,7 @@ export default function SuccessPage() {
           />
         </div>
 
-        <p className='text-white mt-8 text-center'>
+        <p className='text-white mt-8'>
           Se ha enviado un correo de recuperación a la casilla: <br />
           <span className='font-bold'>
             {email || 'No se encontró el correo'}
@@ -64,6 +71,7 @@ export default function SuccessPage() {
 
       <form className='flex flex-col gap-6'>
         <ReusableInput
+          id='email'
           type='email'
           label='Correo electrónico'
           placeholder='juanperez@gmail.com'
