@@ -1,19 +1,27 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
 import Button from "@/components/elements/Buttons/Button";
 import Title from "@/components/elements/Titles/Title";
 export default function Login() {
-
+const router = useRouter()
   const  handleLoginSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget);
-    const username = formData.get('username');
-    const password = formData.get('password');
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("contraseña") as string
+
+    if(email&&password){
+      router.push("/home")
+    } else {
+      console.error("Fields are required")
+    }
 
   }
+
   return (
     <>
       <header className=" absolute top-8 left-0 m-4 bg-background">
@@ -29,23 +37,24 @@ export default function Login() {
     </header>
     <div className=" flex flex-col justify-center bg-background min-h-screen">
       <section className="mt-32">
-      <div className="flex flex-row justify-center p-4">
+      <div className="flex flex-row justify-center items-center mb-8">
         <Title
           text="CREWLAND"       
-          className=" text-4xl"
+          className=" text-[35px]"
         />
         <Image
-          className="white"
+          className="white top-[0px]"
           src="/crewland_logo.svg"
           alt="Crewland logo"
-          width={70}
+          width={60}
           height={50}
         />
       </div>
   
       <form onSubmit={handleLoginSubmit}  className="flex flex-col mx-4 py-4 gap-6">
         <div className="flex flex-col">
-          <ReusableInput
+              <ReusableInput
+            id="email"
             label=""
             type="email"
             placeholder="Correo Electronico"
@@ -54,7 +63,8 @@ export default function Login() {
           <span></span>
         </div>
         <div className="flex flex-col">
-          <ReusableInput
+              <ReusableInput
+            id="contraseña"
             label=""
             type="password"
             placeholder="Contraseña"
@@ -72,8 +82,8 @@ export default function Login() {
           </div>
 
         <div className="flex flex-col gap-4">
-        <Button text="Iniciar Sesión" variant="primary"  />
-        <Button text="Registrarse" variant="ghost"  />
+        <Button text="Iniciar Sesión" variant="primary" />
+        <Button text="Registrarse" variant="ghost" onClick={() => router.push("/auth/register")} />
         </div>
       </form>
       <div className="flex flex-col items-center">
