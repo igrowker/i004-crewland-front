@@ -69,7 +69,7 @@ export default function SuccessPage() {
           id='email'
           type='email'
           label='Correo electrónico'
-          placeholder='juanperez@gmail.com'
+          placeholder={email}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
