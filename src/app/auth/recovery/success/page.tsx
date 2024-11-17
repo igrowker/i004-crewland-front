@@ -7,7 +7,9 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function SuccessPage() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(
+    () => localStorage.getItem('recoveryEmail') || ''
+  )
   const [timeLeft, setTimeLeft] = useState(120)
 
   const formatTime = (seconds: number) => {
@@ -29,18 +31,11 @@ export default function SuccessPage() {
     return () => clearInterval(timer)
   }, [timeLeft])
 
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('recoveryEmail')
-    if (savedEmail) {
-      setEmail(savedEmail)
-    }
-  }, [])
-
   return (
     <section className='bg-background min-h-screen px-16'>
       <div className='flex flex-col items-start gap-5 mb-8'>
         <div className='flex items-center'>
-          <Link href='/auth/login'>
+          <Link href='/auth/recovery'>
             <ArrowLeft className='text-white' size={40} />
           </Link>
           <Title
@@ -75,6 +70,8 @@ export default function SuccessPage() {
           type='email'
           label='Correo electrónico'
           placeholder='juanperez@gmail.com'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <div className='flex flex-col items-center justify-center mt-4'>
@@ -83,7 +80,6 @@ export default function SuccessPage() {
             className={`text-white ${
               timeLeft === 0 ? 'cursor-pointer' : 'cursor-not-allowed'
             } mt-2`}
-            style={{ textDecoration: 'none' }}
           >
             {formatTime(timeLeft)}
           </span>
@@ -99,12 +95,13 @@ export default function SuccessPage() {
           Enviar nuevamente
         </button>
       </form>
-
       <div className='flex flex-col items-center justify-center mt-8'>
         <p className='text-white'>¿No puedes cambiar la contraseña?</p>
-        <span className='text-white underline cursor-pointer'>
-          Crear una nueva cuenta
-        </span>
+        <Link href='/auth/register'>
+          <span className='text-white underline cursor-pointer'>
+            Crear una nueva cuenta
+          </span>
+        </Link>
       </div>
     </section>
   )
