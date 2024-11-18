@@ -42,50 +42,56 @@ export default function Register() {
       <form className="flex flex-col mx-4 py-4 gap-6">
         <ReusableInput
           id="name"
-          label="Nombre completo*"
+          label="Nombre completo"
           placeholder="Juan Perez"
           onChange={(e) => handleChange(e)}
           error={errors.name}
+          isRequired={true}
         />
         <ReusableInput
           id="username"
-          label="Nombre de usuario*"
+          label="Nombre de usuario"
           placeholder="Juan-Perez24"
           onChange={(e) => handleChange(e)}
           error={errors.username}
+          isRequired={true}
         />
         <ReusableInput
           id="email"
           type="email"
-          label="Correo Electronico*"
+          label="Correo Electronico"
           placeholder="juanperez@gmail.com"
           onChange={(e) => handleChange(e)}
           error={errors.email}
+          isRequired={true}
         />
         <ReusableInput
           id="phoneNumber"
-          label="Numero de Telefono*"
+          label="Numero de Telefono"
           placeholder="123 456 789"
           onChange={(e) => handleChange(e)}
           error={errors.phoneNumber}
+          isRequired={true}
         />
         <ReusableInput
           id="password"
           type="password"
-          label="Contraseña*"
+          label="Contraseña"
           password={true}
           placeholder="password"
           onChange={(e) => handleChange(e)}
           error={errors.password}
+          isRequired={true}
         />
         <ReusableInput
           id="confirmPassword"
           type="password"
-          label="Repite tu Contraseña*"
+          label="Repite tu Contraseña"
           password={true}
           placeholder="confirmedPassword"
           onChange={(e) => setConfirmPassword(e.target.value)}
           error={errors.confirmPassword}
+          isRequired={true}
         />
       </form>
       <div className="mx-4 mt-8">

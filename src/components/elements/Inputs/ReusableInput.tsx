@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Eye, EyeOff, CircleAlert  } from 'lucide-react';
 
 interface ReusableInputProps {
-  label?: string;
+  label: string;
   type?: string;
   placeholder?: string;
   password?: boolean;
