@@ -1,7 +1,7 @@
 'use client'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
-import { ArrowLeft } from 'lucide-react'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -36,7 +36,7 @@ export default function SuccessPage() {
       <div className='flex flex-col items-start gap-5 mb-8'>
         <div className='flex items-center'>
           <Link href='/auth/recovery'>
-            <ArrowLeft className='text-white' size={40} />
+            <X className='text-customWhite cursor-pointer' size={30} />
           </Link>
           <Title
             text='Recuperar contraseña'
@@ -50,13 +50,13 @@ export default function SuccessPage() {
           <Image
             src='/recovery_password_lock.svg'
             alt='Recovery password'
-            width={180}
-            height={180}
+            width={150}
+            height={150}
             priority
           />
         </div>
 
-        <p className='text-white mt-8'>
+        <p className='text-white mt-5'>
           Se ha enviado un correo de recuperación a la casilla: <br />
           <span className='font-bold'>
             {email || 'No se encontró el correo'}
@@ -74,12 +74,12 @@ export default function SuccessPage() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <div className='flex flex-col items-center justify-center mt-4'>
+        <div className='flex flex-col items-center justify-center'>
           <p className='text-white'>¿No lo has recibido?</p>
           <span
             className={`text-white ${
               timeLeft === 0 ? 'cursor-pointer' : 'cursor-not-allowed'
-            } mt-2`}
+            }`}
           >
             {formatTime(timeLeft)}
           </span>
