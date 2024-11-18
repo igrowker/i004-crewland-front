@@ -6,21 +6,23 @@ import { useState } from "react";
 const pages = [
   {
     id: 0,
-    background: "/landing1.png", // Ruta de la imagen de fondo (asegúrate de que las imágenes estén en `public/images`)
-    title: "Crewland",
-    text: "Bienvenidos a",
+    background: "/landing1.png",
+    // title: "Crewland",
+    title: "Bienvenidos a",
+    img: "/crewland.png",
+    text: "!Tu aventura empieza acá! Te ayudamos a disfrutar de una experiencia inolvidable",
   },
   {
     id: 1,
-    background: "/images/page2.jpg",
-    title: "Bienvenido a Página 2",
-    text: "Aquí tienes información adicional.",
+    background: "/landing2.png",
+    title: "Publica anuncios y cordina",
+    text: "Crea un anuncio para buscar compañeros o responder a otros. Con la mensajeria de Crewland, es fácil coordinar el punto de encuentro y los detalles del viaje",
   },
   {
     id: 2,
-    background: "/images/page3.jpg",
-    title: "Bienvenido a Página 3",
-    text: "Gracias por visitarnos.",
+    background: "/landing3.png",
+    title: "Encuentra y conecta con Crews",
+    text: "Encuentra a otros que van al mismo evento. !Puedes conseguir compañeros para el transporte, el alojamiento y hacer de la experiencia algo épico",
   },
 ];
 
@@ -31,11 +33,11 @@ export default function LandingPage() {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  const handleTouchStart = (e: TouchEvent) => {
+  const handleTouchStart = (e) => {
     touchStartX = e.changedTouches[0].screenX;
   };
 
-  const handleTouchEnd = (e: TouchEvent) => {
+  const handleTouchEnd = (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   };
@@ -55,7 +57,7 @@ export default function LandingPage() {
 
   return (
     <div
-      className="absolute inset-0 bg-cover bg-center "
+      className="relative w-screen h-screen overflow-hidden inset-0 bg-cover bg-center"
       style={{
         backgroundImage: `url(${pages[activePage].background})`,
       }}
@@ -63,21 +65,23 @@ export default function LandingPage() {
       onTouchEnd={handleTouchEnd}
     >
       {/* Fondo oscuro */}
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       {/* Logo */}
       <Header />
 
       {/* Contenido principal */}
       <div className="flex flex-col items-center justify-center h-full text-center text-white">
-        <p className="mt-4 text-xl z-10">{pages[activePage].text}</p>
-        {/* <div className="flex items-center">
-          <h1 className="text-4xl font-bold z-10">{pages[activePage].title}</h1>
-          <img className="z-10" src="/logo_no-background.png" alt="" />
-        </div> */}
-        <img className="z-10 w-3/4 mb-6" src="/crewland.png" alt="" />
-        <p className="z-10">!Tu aventura empieza acá!</p>
-        <p className="z-10">Te ayudamos a disfrutar de una</p>
-        <p className="z-10">experiencia unica</p>
+        <h1 className="text-4xl font-bold z-10">{pages[activePage].title}</h1>
+        {pages[activePage].img && (
+          <img
+            className="z-10 mt-4 px-4"
+            src={pages[activePage].img}
+            alt="Imagen adicional"
+          />
+        )}
+        <p className="mt-4 text-xl z-10 text-center">
+          {pages[activePage].text}
+        </p>
       </div>
 
       {/* Indicadores (puntos) */}
@@ -86,7 +90,7 @@ export default function LandingPage() {
           <div
             key={page.id}
             className={`w-3 h-3 mx-2 rounded-full ${
-              activePage === page.id ? "bg-white" : "bg-gray-400"
+              activePage === page.id ? "bg-primary" : "bg-customWhite"
             }`}
           ></div>
         ))}
