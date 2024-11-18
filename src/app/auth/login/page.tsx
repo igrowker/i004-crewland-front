@@ -66,7 +66,7 @@ const router = useRouter()
           </div>
         </form>
 
-        <Link href="/auth/forgot-password" className="text-customWhite mt-2 hover:text-primary underline">
+        <Link href="/auth/recovery" className="text-customWhite mt-2 hover:text-primary underline">
           ¿Olvidaste tu contraseña?
         </Link>
       </section>
