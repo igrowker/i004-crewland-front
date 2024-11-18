@@ -1,34 +1,47 @@
-"use client"
+'use client'
 import { useState } from 'react'
 import { Eye, EyeOff, CircleAlert  } from 'lucide-react';
 
 interface ReusableInputProps {
-  label: string;
-  type?: string;
-  placeholder?: string;
-  password?: boolean;
-  id: string;
-  name?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  label?: string
+  type?: string
+  placeholder?: string
+  password?: boolean
+  id?: string
+  name?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  error?: string
+  value?: string
 }
 
-export default function ReusableInput({ label, type, placeholder, password, id, onChange, error }: ReusableInputProps) {
-  const [toggleType, setToggleType] = useState<boolean>(false);
+export default function ReusableInput({
+  label,
+  type,
+  placeholder,
+  password,
+  id,
+  onChange,
+  error,
+  value
+}: ReusableInputProps) {
+  const [toggleType, setToggleType] = useState<boolean>(false)
 
   return (
-    <div className="flex flex-col gap-2 relative">
-      <label htmlFor={id} className='text-customWhite'>{label}*</label>
+    <div className='flex flex-col gap-2 relative'>
+      <label htmlFor={id} className='text-customWhite'>
+        {label}
+      </label>
       {password ? (
         // inputs solamente para tipo password
         <>
           <input
             id={id}
             name={id}
-            type={toggleType ? "text" : "password"}
-            className="outline-none bg-transparent border-b pb-1 text-customWhite"
+            type={toggleType ? 'text' : 'password'}
+            className='outline-none bg-transparent border-b pb-1 text-customWhite'
             placeholder={placeholder}
             onChange={onChange}
+            value={value}
             required
           />
           {toggleType ? (
@@ -49,7 +62,7 @@ export default function ReusableInput({ label, type, placeholder, password, id, 
           id={id}
           name={id}
           type={type || 'text'}
-          className="text-customWhite outline-none bg-transparent border-b pb-1"
+          className='text-customWhite outline-none bg-transparent border-b pb-1'
           placeholder={placeholder}
           onChange={onChange}
           required
