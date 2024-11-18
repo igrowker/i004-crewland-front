@@ -30,7 +30,7 @@ export default function Title({
         black: 'font-black',
     };
 
-    const titleStyles = `${sizeStyles[size]} ${weightStyles[weight]} ${color} font-title text-${align} ${className}`;
+    const titleStyles = `font-title ${sizeStyles[size]} ${weightStyles[weight]} ${color} text-${align} ${className}`;
 
     return <h1 className={titleStyles}>{text}</h1>;
 }

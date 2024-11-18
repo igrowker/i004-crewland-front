@@ -7,8 +7,8 @@ type ButtonProps = {
     width?: string;
     height?: string;
     onClick?: () => void;
-    font?: boolean;
     href?: string;
+    className?: string;
 };
 
 export default function Button({
@@ -19,6 +19,7 @@ export default function Button({
     height = 'auto',
     onClick,
     href,
+    className = '',
 }: ButtonProps) {
 
     const buttonStyles = {
@@ -29,7 +30,7 @@ export default function Button({
     const content = (
         <span
             style={{ width, height,}}
-            className={`rounded-lg px-4 py-2 flex items-center justify-center min-w-80 ${buttonStyles[variant]}`}
+            className={`rounded-lg px-4 py-2 flex items-center justify-center ${buttonStyles[variant]} ${className}`}
         >
             {icon && <span className="mr-2">{icon}</span>}
             {text}
