@@ -45,7 +45,7 @@ const router = useRouter()
           />
         </div>
 
-        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-6 w-full">
+        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-6 w-80">
           <ReusableInput id="email" label="email" hideLabel={true} type="email" placeholder="Correo Electrónico" />
           <ReusableInput id="contraseña" label="contraseña" hideLabel={true} type="password" placeholder="Contraseña" />
 
