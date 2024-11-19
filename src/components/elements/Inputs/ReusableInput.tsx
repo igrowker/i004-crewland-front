@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Eye, EyeOff, CircleAlert  } from 'lucide-react';
+import { Eye, EyeOff, CircleAlert } from 'lucide-react';
 
 interface ReusableInputProps {
   label: string;
@@ -29,12 +29,13 @@ export default function ReusableInput({
   hideLabel = false,
 }: ReusableInputProps) {
   const [toggleType, setToggleType] = useState<boolean>(false)
+  const Icon = toggleType ? Eye : EyeOff;
 
   return (
     <div className="flex flex-col gap-2 relative">
       {!hideLabel && (
-        <label htmlFor={id} className={`text-customWhite ${isRequired ? 'after:content-["*"] after:text-red-600' : ''}`}>
-          {label}
+        <label htmlFor={id} className={`${error ? "text-customRed" : "text-customWhite"} ${isRequired ? 'after:content-["*"] after:text-customRed' : ''}`}>
+          {error ? `Ops! ${error}` : label}
         </label>
       )}
       {password ? (
@@ -43,43 +44,38 @@ export default function ReusableInput({
             id={id}
             name={id}
             type={toggleType ? "text" : "password"}
-            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-red-600' : 'border-customGray'}`}
+            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-customRed' : 'border-customGray'}`}
             placeholder={placeholder}
             onChange={onChange}
             value={value}
             required={isRequired}
           />
-          {toggleType ? (
-            <Eye
-              className="cursor-pointer text-customWhite absolute bottom-3 right-0"
-              onClick={() => setToggleType(!toggleType)}
-            />
-          ) : (
-            <EyeOff
-              className="cursor-pointer text-customWhite absolute bottom-3 right-0"
-              onClick={() => setToggleType(!toggleType)}
-            />
-          )}
+          <Icon
+            color={`#${error ? "fa8080" : "f2f2f2"}`}
+            className="cursor-pointer text-customWhite absolute bottom-3 right-0"
+            onClick={() => setToggleType(!toggleType)}
+          />
         </>
       ) : (
-        <input
-          id={id}
-          name={id}
-          type={type || 'text'}
-          className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-red-600' : 'border-customGray'}`}
-          placeholder={placeholder}
-          onChange={onChange}
-          required={isRequired}
-        />
+        <>
+          <input
+            id={id}
+            name={id}
+            type={type || 'text'}
+            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-customRed' : 'border-customGray'}`}
+            placeholder={placeholder}
+            onChange={onChange}
+            required={isRequired}
+          />
+          {error &&
+            <CircleAlert
+              color={`#${error ? "fa8080" : "f2f2f2"}`}
+              className="cursor-pointer text-customWhite absolute bottom-3 right-0"
+              onClick={() => setToggleType(!toggleType)}
+            />
+          }
+        </>
       )}
-      {/* Error de validacion */}
-      {error && 
-        <span className='p-1 flex items-center outline outline-1 absolute -bottom-11 z-40 bg-customYellow text-background rounded-md'>
-          <span className='z-30 absolute -top-1 left-4 w-3 h-3 bg-customYellow rotate-45'></span>
-          <CircleAlert className='w-12 text-3xl relative z-50'/>
-          <p className='w-full text-sm'>{error}</p>
-        </span>
-      }
     </div>
   );
 }

@@ -9,6 +9,8 @@ export default function useRegister() {
     username: "",
     email: "",
     phoneNumber: "",
+    birth: "",
+    gender: "",
     password: "",
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -24,19 +26,14 @@ export default function useRegister() {
   const ValidateRegister = () => {
     const result = registerSchema.safeParse({...register, confirmPassword})
     if (result.success) {
-       // si las validaciones son exitosas
-      console.log(result)
       setErrors({})
       return true
 
     } else {
-      // si las validaciones no son exitosas, mostrar el error a cada input correspondiente
-      console.log(result)
       const errosMessages: {[key: string]: string} = {};
       result.error.errors.forEach((error) => {
         errosMessages[error.path[0]] = error.message
       })
-      
       setErrors(errosMessages)
       return false
     }

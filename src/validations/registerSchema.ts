@@ -1,16 +1,16 @@
 import { z } from "zod";
 
 export const registerSchema = z.object({
-  name: z.string().min(1, { message: "El nombre es obligatorio" }),
-  username: z.string().min(1, { message: "El nombre de usuario es obligatorio" }),
-  email: z.string().email({ message: "Correo electronico invalido" }),
-  phoneNumber: z.string().min(1, { message: "Numero de telefono obligatorio" }),
+  name: z.string().min(1, { message: "Nombre (obligatorio)" }),
+  username: z.string().min(1, { message: "Nombre de usuario (obligatorio)" }),
+  email: z.string().email({ message: "Correo electrónico tiene un formato inválido" }),
+  phoneNumber: z.string().min(1, { message: "Número de teléfono (obligatorio)" }),
+  birth: z.string().min(1, { message: "Fecha de nacimiento (obligatorio)" }),
+  gender: z.string().min(1, { message: "Género (obligatorio)" }),
   password: z.string().min(8).refine((val) => /[A-Z]/.test(val) && /[0-9]/.test(val), {
-    message: "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número",
+    message: "Contraseña mínima de 8 caracteres, una mayúscula y un número",
   }),
-  confirmPassword: z.string().min(8, {
-    message: "La confirmación de la contraseña debe tener al menos 8 caracteres",
-  }),
+  confirmPassword: z.string(),
 })
 .refine((data) => {
   if (data.password !== data.confirmPassword) {
