@@ -7,7 +7,7 @@ import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Button from '@/components/elements/Buttons/Button'
 import Title from '@/components/elements/Titles/Title'
 import Container from '@/components/elements/Container/Container'
-import {User} from 'lucide-react';
+import {User,Check} from 'lucide-react';
 
 export default function Login() {
   const router = useRouter()
@@ -34,7 +34,7 @@ export default function Login() {
   }
 
   return (
-    <Container className='flex flex-col justify-center items-center'>
+    <>
       <header className=' absolute top-8 left-0 m-4 bg-background rounded-md z-10'>
 
         <div className='bg-white rounded-md p-1 '>
@@ -48,7 +48,7 @@ export default function Login() {
         </div>
       </header>
       <div
-        className='relative flex flex-col justify-center bg-background min-h-screen'
+        className='relative flex flex-col justify-center bg-background min-h-screen '
         style={{
           backgroundImage: 'url(/login.png)',
           backgroundPosition: 'center 100px',
@@ -66,7 +66,7 @@ export default function Login() {
           <div className='flex flex-row justify-center items-center mb-8'>
             <Title
               text='CREWLAND'
-              className=' text-[35px]'
+              className=' text-[36px]'
             />
             <Image
               className='white top-[0px]'
@@ -78,6 +78,7 @@ export default function Login() {
           </div>
 
           <form onSubmit={handleLoginSubmit} className='flex flex-col mx-4 py-4 gap-6'>
+            
             <div className='flex flex-col'>
             <ReusableInput
             id='email'
@@ -86,34 +87,49 @@ export default function Login() {
             type='email'
             placeholder='Correo Electrónico'
           /> 
-    
-              <span>
-              <User className=' text-customWhite absolute top-[110px] right-4'/>
-              </span>
+          <span>
+            <User className=' text-customWhite absolute top-[80px] right-4'/>
+          </span>
             </div>
             <div className='flex flex-col'>
-            <ReusableInput
-            id='contraseña'
-            label='contraseña'
-            hideLabel={true}
-            type='password'
-            placeholder='Contraseña'
-          />
+              <ReusableInput
+              id='contraseña'
+              label='contraseña'
+              password={true}
+              hideLabel={true}
+              type='password'
+              placeholder='Contraseña'
+            />
             </div>
-            <div className='flex flex-row items-center gap-2'>
-              <input
-                type='checkbox'
-                id='rememberMe'
-                name='rememberMe'
-                checked={rememberMe}
-                onChange={handleCheckboxChange}
-                className={`w-5 h-5 appearance-none border-2 rounded-sm bg-transparent cursor-pointer 
-    ${rememberMe ? 'border-primary checked:bg-primary' : 'border-customWhite'} `}
-              />
-              <label htmlFor='rememberMe' className='text-customWhite'>
-                Recordar contraseña
-              </label>
-            </div>
+            <div className="flex flex-row items-center gap-2 z-10">
+  <div className="relative w-5 h-5">
+    <input
+      type="checkbox"
+      id="rememberMe"
+      name="rememberMe"
+      checked={rememberMe}
+      onChange={handleCheckboxChange}
+      className={`appearance-none w-full h-full border-2 rounded-sm cursor-pointer ${
+        rememberMe
+          ? 'bg-primary border-primary'
+          : 'bg-transparent border-customWhite'
+      }`}
+    />
+    <span
+      className={`absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-xl ${
+        rememberMe ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={{ pointerEvents: 'none' }} 
+    >
+      <Check />
+    </span>
+  </div>
+
+  <label htmlFor="rememberMe" className="text-customWhite cursor-pointer">
+    Recordar contraseña
+  </label>
+</div>
+
             <div className='flex flex-col gap-4'>
               <Button text='Iniciar Sesión' variant='primary' />
               <Button
@@ -131,6 +147,6 @@ export default function Login() {
           </div>
         </section>
       </div>
-    </Container>
+    </>
   )
 }
