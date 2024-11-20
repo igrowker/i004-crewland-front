@@ -7,8 +7,8 @@ export const registerSchema = z.object({
   phoneNumber: z.string().min(1, { message: "Número de teléfono (obligatorio)" }),
   birth: z.string().min(1, { message: "Fecha de nacimiento (obligatorio)" }),
   gender: z.string().min(1, { message: "Género (obligatorio)" }),
-  password: z.string().min(8).refine((val) => /[A-Z]/.test(val) && /[0-9]/.test(val), {
-    message: "Contraseña mínima de 8 caracteres, una mayúscula y un número",
+  password: z.string().min(8).max(30).refine((val) => /[A-Z]/.test(val) && /[0-9]/.test(val), {
+    message: "Contraseña mínima de 8 caracteres y maximo 30, una mayúscula y un número",
   }),
   confirmPassword: z.string(),
 })

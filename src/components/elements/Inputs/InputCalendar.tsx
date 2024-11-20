@@ -10,12 +10,6 @@ interface InputCalendarProps {
 }
 export default function InputCalendar({ label, isRequired, placeholder, onChange, error }: InputCalendarProps) {
 
-
-  const modalCalendar = () => {
-    const inputElement = document.getElementById("nacimiento") as HTMLInputElement;
-    if (inputElement) inputElement.showPicker?.();
-    inputElement.focus();
-  }
   return (
     <>
       <div className="flex flex-col gap-2 relative">
@@ -33,7 +27,6 @@ export default function InputCalendar({ label, isRequired, placeholder, onChange
         <CalendarDays
           color={`#${error ? "fa8080" : "f2f2f2"}`}
           className="cursor-pointer text-customWhite absolute bottom-2 right-0"
-          onClick={modalCalendar}
         />
       </div>
     </>
