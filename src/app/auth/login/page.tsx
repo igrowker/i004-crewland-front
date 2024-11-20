@@ -1,36 +1,36 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react';
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Button from '@/components/elements/Buttons/Button'
 import Title from '@/components/elements/Titles/Title'
 import Container from '@/components/elements/Container/Container'
-import {User,Check} from 'lucide-react';
+import { User, Check } from 'lucide-react'
+import useLogin from '@/hooks/useLogin'
 
 export default function Login() {
   const router = useRouter()
 
-  const [rememberMe, setRememberMe] = useState(false)
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRememberMe(event.target.checked)
-  }
-  const handleLoginSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const {
+    login,
+    errors,
+    handleChange,
+    validateLogin
+  } = useLogin();
 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email') as string
-    const password = formData.get('contraseña') as string
+  const handleLogin = () => {
+    const isValidForm = validateLogin()
 
-    if (email && password) {
-      if (rememberMe) {
-        //localStorage.setItem('rememberMe', 'true');
-      }
-      router.push('/home');
-    } else {
-      console.error('Fields are required')
+    if (isValidForm) {
+      router.push('/home')
     }
+  }
+  const [rememberMe, setRememberMe] = useState(false)
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked)
   }
 
   return (
@@ -77,67 +77,71 @@ export default function Login() {
             />
           </div>
 
-          <form onSubmit={handleLoginSubmit} className='flex flex-col mx-4 py-4 gap-6'>
-            
+          <form className='flex flex-col mx-4 py-4 gap-6'>
+
             <div className='flex flex-col'>
-            <ReusableInput
-            id='email'
-            label='email'
-            hideLabel={true}
-            type='email'
-            placeholder='Correo Electrónico'
-          /> 
-          <span>
-            <User className=' text-customWhite absolute top-[80px] right-4'/>
-          </span>
+              <ReusableInput
+                id='email'
+                label='email'
+                hideLabel={true}
+                type='email'
+                placeholder='Correo Electrónico'
+                onChange={(e) => handleChange(e)}
+                error={errors.email}
+
+              />
+              <span>
+                <User className=' text-customWhite absolute top-[80px] right-4' />
+              </span>
             </div>
             <div className='flex flex-col'>
               <ReusableInput
-              id='contraseña'
-              label='contraseña'
-              password={true}
-              hideLabel={true}
-              type='password'
-              placeholder='Contraseña'
-            />
+                id='password'
+                label='password'
+                password={true}
+                hideLabel={true}
+                type='password'
+                placeholder='Contraseña'
+                onChange={(e) => handleChange(e)}
+                error={errors.password}
+              />
             </div>
             <div className="flex flex-row items-center gap-2 z-10">
-  <div className="relative w-5 h-5">
-    <input
-      type="checkbox"
-      id="rememberMe"
-      name="rememberMe"
-      checked={rememberMe}
-      onChange={handleCheckboxChange}
-      className={`appearance-none w-full h-full border-2 rounded-sm cursor-pointer ${
-        rememberMe
-          ? 'bg-primary border-primary'
-          : 'bg-transparent border-customWhite'
-      }`}
-    />
-    <span
-      className={`absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-xl ${
-        rememberMe ? 'opacity-100' : 'opacity-0'
-      }`}
-      style={{ pointerEvents: 'none' }} 
-    >
-      <Check />
-    </span>
-  </div>
+              <div className="relative w-5 h-5">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={rememberMe}
+                  onChange={handleCheckboxChange}
+                  className={`appearance-none w-full h-full border-2 rounded-sm cursor-pointer ${rememberMe
+                    ? 'bg-primary border-primary'
+                    : 'bg-transparent border-customWhite'
+                    }`}
+                />
+                <span
+                  className={`absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-xl ${rememberMe ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  style={{ pointerEvents: 'none' }}
+                >
+                  <Check />
+                </span>
+              </div>
 
-  <label htmlFor="rememberMe" className="text-customWhite cursor-pointer">
-    Recordar contraseña
-  </label>
-</div>
-
-            <div className='flex flex-col gap-4'>
-              <Button text='Iniciar Sesión' variant='primary' />
-              <Button
-                text='Registrarse'
-                variant='ghost'
-                onClick={() => router.push('/auth/register')} />
+              <label htmlFor="rememberMe" className="text-customWhite cursor-pointer">
+                Recordar contraseña
+              </label>
             </div>
+
           </form>
+          <div className='flex flex-col gap-4'>
+            <Button text='Iniciar Sesión' variant='primary' onClick={handleLogin} />
+            <Button
+              text='Registrarse'
+              variant='ghost'
+              onClick={() => router.push('/auth/register')}
+            />
+          </div>
           <div className='flex flex-col items-center'>
             <Link
               href='/auth/recovery'
