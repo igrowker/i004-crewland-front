@@ -11,12 +11,13 @@ import InputSelect from '@/components/elements/Inputs/InputSelect';
 
 export default function Register() {
   // const router = useRouter()
-  const { errors, register, ValidateRegister, handleChange, setConfirmPassword } = useRegister();
+  const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
 
   // Navegar a la siguiente pagina despues de validar todos los campos
   const nextPage = () => {
 
     const isValidForm = ValidateRegister();
+    console.log(register)
     console.log(isValidForm)
     if (isValidForm) {
       // router.push("/")
@@ -63,18 +64,18 @@ export default function Register() {
             isRequired
           />
           <ReusableInput
-            id="phoneNumber"
+            id="tel"
             label="Numero de Telefono"
             placeholder="+54 9"
             onChange={(e) => handleChange(e)}
-            error={errors.phoneNumber}
+            error={errors.tel}
             isRequired
           />
           <InputCalendar
             label="Nacimiento"
             placeholder="dd/mm/aa"
-            onChange={(e) => handleChange(e)}
-            error={errors.birth}
+            onChange={(val) => setRegister(prev => ({ ...prev, age : val }))}
+            error={errors.age}
             isRequired
           />
           <InputSelect 

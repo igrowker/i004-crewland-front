@@ -8,8 +8,8 @@ export default function useRegister() {
     name: "",
     username: "",
     email: "",
-    phoneNumber: "",
-    birth: "",
+    tel: "",
+    age: "",
     gender: "",
     password: "",
   });
@@ -40,5 +40,5 @@ export default function useRegister() {
   }
 
 
-  return { errors, register, ValidateRegister , handleChange, setConfirmPassword };
+  return { errors, register, ValidateRegister , handleChange, setConfirmPassword, setRegister };
 }

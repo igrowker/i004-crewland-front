@@ -2,8 +2,8 @@ export interface AuthRegisterInterface {
   name: string;
   username: string;
   email: string;
-  phoneNumber: string;
-  birth: string;
+  tel: string;
+  age: string;
   gender: string;
   password: string;
 }

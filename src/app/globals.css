@@ -5,3 +5,26 @@
 body {
   @apply font-sans;
 }
+
+/* Esto se debe agregar en tu archivo CSS global */
+.scrollbar-custom {
+  scrollbar-width: thin; /* Controla el grosor del scrollbar */
+  scrollbar-color: #4A90E2 #F5F5F5; /* Color del thumb y el track (parte de fondo) */
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 1px; /* Ancho del scrollbar */
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background-color: #F5F5F5; /* Fondo del track */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #4A90E2; /* Color del thumb */
+  border-radius: 0px; /* Redondear los bordes del thumb */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background-color: #3B7CBB; /* Color al hacer hover en el thumb */
+}
