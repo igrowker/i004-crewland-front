@@ -18,7 +18,7 @@ export default function RecoveryPage() {
 
   return (
     <Container className='flex flex-col justify-center items-center'>
-      <section className='bg-background min-h-screen px-16'>
+      <section className='bg-background min-h-screen px-1'>
         <div className='flex flex-col items-start gap-5 mb-8'>
           <div className='flex items-center'>
             <Link href='/auth/login'>
