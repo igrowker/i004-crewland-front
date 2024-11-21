@@ -1,12 +1,12 @@
 "use client"
 import { useRouter } from 'next/navigation'
-import ReusableInput from "@/components/elements/Inputs/ReusableInput";
+import { AuthRegisterContext } from "@/context/AuthContext";
+import { useContext } from "react";
 import { X } from 'lucide-react';
+import ReusableInput from "@/components/elements/Inputs/ReusableInput";
 import Title from "@/components/elements/Titles/Title";
 import Link from "next/link";
 import useRegister from "@/hooks/useRegister";
-import { AuthRegisterContext } from "@/context/AuthContext";
-import { useContext } from "react";
 import Button from '@/components/elements/Buttons/Button';
 
 export default function Register() {
