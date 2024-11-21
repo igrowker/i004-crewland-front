@@ -34,9 +34,8 @@ export default function Login() {
   }
 
   return (
-    <>
-      <header className=' absolute top-8 left-0 m-4 bg-background rounded-md z-10'>
-
+    <Container className='p-0'>
+      <header className='absolute top-8 left-0 m-4  rounded-md z-10'>
         <div className='bg-white rounded-md p-1 '>
           <div className='bg-black invert w-[50px] h-[50px] rounded-md'>
             <Image
@@ -48,7 +47,7 @@ export default function Login() {
         </div>
       </header>
       <div
-        className='relative flex flex-col justify-center bg-background min-h-screen '
+        className='relative flex flex-col justify-center  w-full h-screen'
         style={{
           backgroundImage: 'url(/login.png)',
           backgroundPosition: 'center 100px',
@@ -77,7 +76,7 @@ export default function Login() {
             />
           </div>
 
-          <form className='flex flex-col mx-4 py-4 gap-6'>
+          <form className='flex flex-col gap-6 pt-10 p-4 md:p-6 lg:p-8'>
 
             <div className='flex flex-col'>
               <ReusableInput
@@ -91,7 +90,7 @@ export default function Login() {
 
               />
               <span>
-                <User className=' text-customWhite absolute top-[80px] right-4' />
+                <User className='absolute text-customWhite top-[100px] right-4' />
               </span>
             </div>
             <div className='flex flex-col'>
@@ -134,7 +133,7 @@ export default function Login() {
             </div>
 
           </form>
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 p-4 md:p-6 lg:p-8'>
             <Button text='Iniciar Sesión' variant='primary' onClick={handleLogin} />
             <Button
               text='Registrarse'
@@ -151,6 +150,6 @@ export default function Login() {
           </div>
         </section>
       </div>
-    </>
+    </Container>
   )
 }
