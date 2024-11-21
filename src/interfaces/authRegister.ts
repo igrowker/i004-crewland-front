@@ -2,7 +2,9 @@ export interface AuthRegisterInterface {
   name: string;
   username: string;
   email: string;
-  phoneNumber: string;
+  tel: string;
+  age: string;
+  gender: string;
   password: string;
 }
 
