@@ -1,6 +1,7 @@
 interface ContainerProps {
-    children: React.ReactNode;
-    className?: string;
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties
 }
 
 export default function Container({ children, className }: ContainerProps) {
@@ -10,7 +11,7 @@ export default function Container({ children, className }: ContainerProps) {
 `;
   return (
     <div className={`${baseStyles} ${className}`}>
-        {children}
+      {children}
     </div>
   )
 }
