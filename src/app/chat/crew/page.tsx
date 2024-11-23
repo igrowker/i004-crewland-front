@@ -8,22 +8,80 @@ export default function ChatCrew() {
         {
             title: "Mis grupos Crew",
             chatGroups: [
-                { name: "Taylor lovers", time: "12:30", avatar: "#" },
-                { name: "Swifties United", time: "14:00", avatar: "#" },
-                { name: "Music Crew", time: "15:45", avatar: "#" },
-                { name: "Fan Zone", time: "17:20", avatar: "#" },
+                {
+                    name: "Taylor lovers",
+                    time: "12:30",
+                    participants: [
+                        { name: "Alice", avatar: "/users/01.png" },
+                        { name: "Bob", avatar: "/users/02.png" },
+                        { name: "Charlie", avatar: "/users/03.png" }
+                    ]
+                },
+                {
+                    name: "Swifties United",
+                    time: "14:00",
+                    participants: [
+                        { name: "Diana", avatar: "/users/04.png" },
+                        { name: "Eve", avatar: "/users/05.png" }
+                    ]
+                },
+                {
+                    name: "Cosquin Rock 2025",
+                    time: "15:45",
+                    participants: [
+                        { name: "Frank", avatar: "/users/06.png" },
+                        { name: "Grace", avatar: "/users/07.png" }
+                    ]
+                },
+                {
+                    name: "Tomorrowland",
+                    time: "17:20",
+                    participants: [
+                        { name: "Hannah", avatar: "/users/08.png" },
+                        { name: "Ivan", avatar: "/users/09.png" }
+                    ]
+                }
             ]
         },
         {
             title: "Explorar grupos",
             chatGroups: [
-                { name: "Taylor lovers", time: "12:30", avatar: "#" },
-                { name: "Swifties United", time: "14:00", avatar: "#" },
-                { name: "Music Crew", time: "15:45", avatar: "#" },
-                { name: "Fan Zone", time: "17:20", avatar: "#" },
+                {
+                    name: "BBF Crew",
+                    time: "12:30",
+                    participants: [
+                        { name: "Jack", avatar: "/users/10.png" },
+                        { name: "Karen", avatar: "/users/01.png" }
+                    ]
+                },
+                {
+                    name: "Tomorrowland",
+                    time: "14:00",
+                    participants: [
+                        { name: "Leo", avatar: "/users/02.png" },
+                        { name: "Mona", avatar: "/users/03.png" }
+                    ]
+                },
+                {
+                    name: "Lollapalooza",
+                    time: "15:45",
+                    participants: [
+                        { name: "Nina", avatar: "/users/04.png" },
+                        { name: "Oscar", avatar: "/users/05.png" }
+                    ]
+                },
+                {
+                    name: "Brunch Electronic",
+                    time: "17:20",
+                    participants: [
+                        { name: "Paul", avatar: "/users/06.png" },
+                        { name: "Quincy", avatar: "/users/07.png" }
+                    ]
+                }
             ]
         }
-    ]
+    ];
+
 
     return (
         <Container>
@@ -36,7 +94,7 @@ export default function ChatCrew() {
                         height={12}
                     />
                     <Title text="Grupos Crew" size="medium" className="flex flex-row justify-start font-medium " />
-                    
+
                 </header>
                 <main className='flex flex-col w-full align-top gap-8'>
                     {chats.map((chat, index) => (
@@ -49,7 +107,15 @@ export default function ChatCrew() {
                                             <div className="flex flex-col gap-5">
                                                 <p className=" flex flex-row justify-start text-black">{group.name}</p>
                                                 <div className="flex flex-row justify-between items-center">
-                                                    <img src={group.avatar} alt="avatar" className="w-5 h-5 rounded-full" />
+                                                    <div className="flex flex-row justify-start -space-x-2">
+                                                        {group.participants.map((user, index) => (
+                                                            <img
+                                                                key={index}
+                                                                src={user.avatar}
+                                                                alt="avatar"
+                                                                className="w-6 h-6 rounded-full" />
+                                                        ))}
+                                                    </div>
                                                     <p className="text-black text-xs">{group.time}</p>
                                                 </div>
                                             </div>
