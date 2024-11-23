@@ -25,7 +25,7 @@ export default function ModalPostCard({ post, setModal }: ModalPostCardProps) {
         <X
           size={20}
           className='absolute right-3 cursor-pointer'
-          onClick={()=>setModal}
+          onClick={()=>setModal(false)}
         />
         <header className="flex items-center justify-between mt-6">
           <div className="flex items-center gap-2">

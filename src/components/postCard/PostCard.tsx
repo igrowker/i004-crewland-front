@@ -37,7 +37,7 @@ export default function PostCard( post : postCardInterface) {
       {modal && 
         <ModalPostCard 
           post={post}
-          setModal={()=>setModal(false)}
+          setModal={setModal}
         />
       }
     </>
