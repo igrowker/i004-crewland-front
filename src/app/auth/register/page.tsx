@@ -1,7 +1,7 @@
 "use client"
 // import { useRouter } from 'next/navigation'
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
-import { X } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Title from "@/components/elements/Titles/Title";
 import Link from "next/link";
 import useRegister from "@/hooks/useRegister";
@@ -30,14 +30,17 @@ export default function Register() {
       <section>
         <div className="flex justify-center items-center pb-4 gap-1">
           <Link href={'/auth/login'}>
-            <X className="text-customWhite cursor-pointer" />
+            <ArrowLeft className="text-customWhite cursor-pointer" />
           </Link>
           <Title
             text="Crear un nuevo Usuario"
             className="w-full font-normal text-lg"
           />
         </div>
-        <form className="flex flex-col py-4 gap-6">
+        <p className="py-2 font-roboto max-w-[368px]">
+          ¡Bienvenido/a! Regístrate para empezar Queremos conocerte un poco más. Completa los campos obligatorios (*) para unirte a nuestra comunidad.
+        </p>
+        <form className="flex flex-col py-4 gap-6 max-w-[368px]">
           <ReusableInput
             id="name"
             label="Nombre completo"
@@ -104,7 +107,11 @@ export default function Register() {
             error={errors.confirmPassword}
             isRequired
           />
-          <button type='button' onClick={nextPage} className='bg-primary text-background rounded-lg w-full py-3 mt-5 hover:bg-primaryHover transition font-medium'>
+          <button 
+            type='button' 
+            onClick={nextPage} 
+            className='hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium'
+          >
             Siguiente
           </button>
         </form>
