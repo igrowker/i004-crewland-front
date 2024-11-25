@@ -1,85 +1,30 @@
 'use client'
 import Container from '@/components/elements/Container/Container'
 import Image from 'next/image'
-import { ArrowUpRight, Menu, Asterisk } from 'lucide-react'
+import { ArrowUpRight, Asterisk } from 'lucide-react'
 import Title from '@/components/elements/Titles/Title'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Header from '@/components/Header_festivals/header'
+import { user, festivals, images } from '@/json/festivals'
 
-export default function Home() {
-  const user = {
-    name: 'Alex'
-  }
-
-  const festivals = [
-    {
-      id: '1',
-      name: 'Lollapalooza',
-      description:
-        'Un festival icónico que combina música, arte y cultura. Con presentaciones de artistas de renombre mundial.',
-      date: '15-17 marzo',
-      hour: '14:00',
-      image: '/landing3.svg'
-    },
-    {
-      id: '2',
-      name: 'Tomorrowland',
-      description:
-        'El festival de música electrónica más grande del mundo, famoso por su increíble producción y line-ups llenos de estrellas.',
-      date: '20-23 marzo',
-      hour: '12:00',
-      image: '/landing2.svg'
-    },
-    {
-      id: '3',
-      name: 'Coachella',
-      description:
-        'Un festival que define la cultura pop, ofreciendo una mezcla de música, arte y experiencias únicas en el desierto.',
-      date: '14-17 octubre',
-      hour: '13:00',
-      image: '/landing1.svg'
-    }
-  ]
-
-  const images = [
-    { src: '/home1.png', alt: 'Imagen 1' },
-    { src: '/home2.png', alt: 'Imagen 2' },
-    { src: '/home3.png', alt: 'Imagen 3' },
-    { src: '/home4.png', alt: 'Imagen 4' }
-  ]
-
+export default function FestivalsPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const imagesLength = images.length
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesLength)
     }, 4000)
+
     return () => clearInterval(interval)
-  }, [images.length])
+  }, [imagesLength])
 
   return (
     <Container>
-      <header className='absolute top-0 left-0 w-full flex items-center justify-between p-4 bg-gradient-to-b from-black/70 to-transparent z-10'>
-        <button aria-label='Abrir menú' className='p-2'>
-          <Menu className='text-white w-8 h-8' />
-        </button>
-
-        <div className='flex items-center'>
-          <Title
-            text='CREWLAND'
-            className='text-white text-[24px] sm:text-[35px] font-bold'
-          />
-          <Image
-            src='/crewland_logo.svg'
-            alt='Crewland logo'
-            width={40}
-            height={50}
-          />
-        </div>
-
-        <div className='w-10 h-10 bg-gray-300 rounded-full shadow-md'></div>
-      </header>
-
-      <main className='pt-[30px] sm:pt-[50px] lg:pt-[60px] px-4'>
+      <Header />
+      <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-4'>
         <div className='shadow-md rounded-lg p-6 mb-6'>
           <Title text={`Bienvenido, ${user.name}`} size='medium' align='left' />
           <p className='leading-relaxed pt-4'>
@@ -145,17 +90,17 @@ export default function Home() {
                     {festival.name}
                   </h3>
 
-                  <a
-                    href={`#festival-${festival.id}`}
-                    className='absolute top-2 right-2 bg-[#9747FF] rounded-full p-2 shadow-md hover:shadow-lg transition-all'
+                  <Link
+                    href={`/festivals/${festival.id}`}
+                    className='absolute top-2 right-2 bg-[#CE9DF9] rounded-full p-2 shadow-md hover:shadow-lg transition-all'
                     aria-label={`Más detalles sobre ${festival.name}`}
                   >
                     <ArrowUpRight className='text-black w-5 h-5' />
-                  </a>
+                  </Link>
                 </div>
 
                 <div
-                  className='p-4 flex flex-col justify-between relative'
+                  className='p-4 flex flex-col justify-between relative rounded-md'
                   style={{
                     backgroundImage: `url('/bg-home.png')`,
                     backgroundSize: 'cover',
