@@ -7,6 +7,7 @@ import Container from '@/components/elements/Container/Container'
 import Title from '@/components/elements/Titles/Title'
 import { festivals } from '@/json/festivals'
 import Header from '@/components/Header_festivals/header'
+import Button from '@/components/elements/Buttons/Button'
 
 export default function FestivalPage({
   params
@@ -58,18 +59,23 @@ export default function FestivalPage({
     '/user01.png',
     '/user02.png',
     '/user03.png',
-    '/user01.png'
+    '/user01.png',
+    '/share.png'
   ]
+
+  const handleShareClick = () => {
+    console.log('Compartir')
+  }
 
   return (
     <Container>
       <Header />
-      <main className='flex flex-col pt-[0px] sm:pt-[70px] lg:pt-[80px] px-4'>
+      <main className='flex flex-col pt-[40px] sm:pt-[70px] lg:pt-[80px] px-4'>
         <Title
           text={festival.name}
           size='medium'
           align='left'
-          className='mb-4'
+          className='mb-2'
         />
         <p className='text-sm leading-snug font-normal max-w-md mb-5'>
           {festival.description}
@@ -93,27 +99,46 @@ export default function FestivalPage({
           </div>
         </div>
 
-        <Title text='Espectadores' size='medium' align='left' weight='bold' />
+        <Title
+          text='Espectadores'
+          size='medium'
+          align='left'
+          className='font-normal'
+        />
 
-        <div className='relative flex justify-start gap-20'>
+        <div className='relative flex items-center w-full justify-start pt-1'>
           {icons.map((icon, index) => (
             <div
               key={index}
-              className='absolute'
+              className='relative'
               style={{
-                left: `${index * 30}px`,
-                zIndex: `${icons.length - index}`
+                marginLeft: index === 0 ? 0 : '-10px',
+                zIndex: index === icons.length - 1 ? 10 : index
               }}
             >
               <Image
                 src={icon}
                 alt={`Icono ${index + 1}`}
-                width={40}
-                height={40}
-                className='object-cover rounded-full'
+                width={48}
+                height={48}
+                className={`object-cover rounded-full ${
+                  icon === '/share.png' ? 'bg-[#CE9DF9] p-3 cursor-pointer' : ''
+                }`}
+                onClick={icon === '/share.png' ? handleShareClick : undefined}
               />
             </div>
           ))}
+        </div>
+        <div className='flex mt-5 gap-2'>
+          <Button
+            variant='primary'
+            text='Comprar entradas'
+            className='text-[16px] '
+          />
+          <Button
+            text='Crea tu experiencia'
+            className='!bg-[#B771F5] text-[16px] '
+          />
         </div>
       </main>
     </Container>
