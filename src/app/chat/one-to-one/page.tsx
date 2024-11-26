@@ -5,12 +5,18 @@ import { useState } from 'react'
 import Container from '@/components/elements/Container/Container'
 import Image from 'next/image'
 import { Heart, EllipsisVertical, CheckCheck, Smile, SendHorizontal } from 'lucide-react'
+import { set } from 'zod'
 
 export default function OneToOne() {
     const [isLiked, setIsLiked] = useState(user.like);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleToggleLike = () => {
         setIsLiked(!isLiked);
+    }
+
+    const handleToggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen)
     }
     return (
         <Container>
@@ -43,7 +49,38 @@ export default function OneToOne() {
                         <button onClick={handleToggleLike}>
                             <Heart className={`text-white w-[20px] ${isLiked ? 'fill-white' : ''}`} />
                         </button>
-                        <EllipsisVertical className='text-white' />
+                        <button onClick={handleToggleMenu}>
+                            <EllipsisVertical className='text-white' />
+                        </button>
+                        {isMenuOpen && (
+                            <div className='absolute top-12 right-4 flex flex-col bg-background rounded-lg border border-white'>
+                                <span
+                                    className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
+                                    tabIndex={0}
+                                >
+                                    Bloquear
+                                </span>
+                                <span
+                                    className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
+                                    tabIndex={0}
+                                >
+                                    Reportar
+                                </span>
+                                <span
+                                    className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
+                                    tabIndex={0}
+                                >
+                                    Restringir
+                                </span>
+                                <span
+                                    className='text-[14px] p-4 w-full border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
+                                    tabIndex={0}
+                                >
+                                    Desactivar notificaciones
+                                </span>
+                            </div>
+                        )}
+
                     </div>
                 </header>
 
@@ -51,11 +88,9 @@ export default function OneToOne() {
                     {messages.map((message) => (
                         <div
                             key={message.id}
-                            className={`flex flex-col ${
-                                message.sentByCurrentUser ? 'items-end' : 'items-start'
-                            } w-full`}>
-                            <div className={`text-[14px] rounded-3xl ${
-                                    message.sentByCurrentUser ? 'rounded-br-none bg-primary text-black' : 'rounded-bl-none bg-customWhite text-black'
+                            className={`flex flex-col ${message.sentByCurrentUser ? 'items-end' : 'items-start'
+                                } w-full`}>
+                            <div className={`text-[14px] rounded-3xl ${message.sentByCurrentUser ? 'rounded-br-none bg-primary text-black' : 'rounded-bl-none bg-customWhite text-black'
                                 } p-4`}>
                                 <p>{message.text}</p>
                             </div>
