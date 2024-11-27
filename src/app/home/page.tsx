@@ -1,6 +1,7 @@
 "use client";
 
-import Header from "../../components/Header_landingPage/header";
+import Header from "@/components/elements/Header_landingPage/header";
+import Image from "next/image";
 import { useState } from "react";
 
 const pages = [
@@ -73,10 +74,12 @@ export default function LandingPage() {
       <div className="flex flex-col items-center justify-center h-full text-center text-white">
         <h1 className="text-4xl font-bold z-10">{pages[activePage].title}</h1>
         {pages[activePage].img && (
-          <img
+          <Image
             className="z-10 mt-4 px-4"
             src={pages[activePage].img}
             alt="Imagen adicional"
+            width={200}
+            height={200}
           />
         )}
         <p className="mt-4 text-xl z-10 text-center">

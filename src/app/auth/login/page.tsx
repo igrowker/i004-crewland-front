@@ -1,6 +1,6 @@
 'use client'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { redirect } from 'next/navigation'
+import { useActionState, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
@@ -8,33 +8,36 @@ import Button from '@/components/elements/Buttons/Button'
 import Title from '@/components/elements/Titles/Title'
 import Container from '@/components/elements/Container/Container'
 import { User, Check } from 'lucide-react'
-import useLogin from '@/hooks/useLogin'
+import { FormState, login } from '@/lib'
 
-export default function Login() {
-  const router = useRouter()
+export default function LoginPage() {
+  const [errors, setErrors] = useState<{type: string, message: string}>({type: '', message: ''})
+  const [formState, formAction] = useActionState(login, {
+    success: false,
+    data: {token: '', msg: ''},
+  } as FormState)
 
-  const {
-    login,
-    errors,
-    handleChange,
-    validateLogin
-  } = useLogin();
-
-  const handleLogin = () => {
-    const isValidForm = validateLogin()
-
-    if (isValidForm) {
-      router.push('/home')
+  useEffect(() => {
+    if (formState.success) redirect('/home')
+    if (!formState.success) {
+      setErrors(
+        formState.data.msg.includes('Email')
+          ? { type: 'email', message: formState.data.msg }
+          : { type: 'password', message: formState.data.msg }
+      )
     }
-  }
+  }, [formState])
+  
   const [rememberMe, setRememberMe] = useState(false)
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRememberMe(e.target.checked)
   }
 
+  const errorEmail = errors.type === 'email' ? errors.message : '';
+  const errorPassword = errors.type === 'password' ? errors.message : '';
   return (
-    <Container className='p-0'>
+    <Container>
       <header className='absolute top-8 left-0 m-4  rounded-md z-10'>
         <div className='bg-white rounded-md p-1 '>
           <div className='bg-black invert w-[50px] h-[50px] rounded-md'>
@@ -47,19 +50,16 @@ export default function Login() {
         </div>
       </header>
       <div
-        className='relative flex flex-col justify-center  w-full h-screen'
+        className='relative flex flex-col justify-center w-full h-screen'
         style={{
           backgroundImage: 'url(/login.png)',
-          backgroundPosition: 'center 100px',
+          backgroundPosition: 'center 15vh',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat'
         }}
       >
         <div
-          className='absolute top-0 left-0 w-full h-full bg-background'
-          style={{
-            opacity: 0.5,
-          }}
+          className='absolute top-0 left-0 w-full h-full bg-background opacity-50'
         ></div>
         <section className='relative z-10 mt-32'>
           <div className='flex flex-row justify-center items-center mb-8'>
@@ -76,34 +76,37 @@ export default function Login() {
             />
           </div>
 
-          <form className='flex flex-col gap-6 pt-10 p-4 md:p-6 lg:p-8'>
+          <form action={formAction} className='flex flex-col gap-6 pt-10 p-4 md:p-6 lg:p-8'>
 
             <div className='flex flex-col'>
               <ReusableInput
                 id='email'
+                name='email'
                 label='email'
                 hideLabel={true}
                 type='email'
                 placeholder='Correo Electrónico'
-                onChange={(e) => handleChange(e)}
-                error={errors.email}
+                error={errorEmail}
 
               />
               <span>
                 <User className='absolute text-customWhite top-[100px] right-4' />
               </span>
+              {errorEmail && <span className='text-customRed'>{errorEmail}</span>}
             </div>
             <div className='flex flex-col'>
               <ReusableInput
                 id='password'
+                name='password'
                 label='password'
                 password={true}
                 hideLabel={true}
                 type='password'
                 placeholder='Contraseña'
-                onChange={(e) => handleChange(e)}
-                error={errors.password}
+                error={errorPassword}
               />
+              {errorPassword && <span className='text-customRed'>{errorPassword}</span>}
+
             </div>
             <div className="flex flex-row items-center gap-2 z-10">
               <div className="relative w-5 h-5">
@@ -116,7 +119,7 @@ export default function Login() {
                   className={`appearance-none w-full h-full border-2 rounded-sm cursor-pointer ${rememberMe
                     ? 'bg-primary border-primary'
                     : 'bg-transparent border-customWhite'
-                    }`}
+                    }` }
                 />
                 <span
                   className={`absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-xl ${rememberMe ? 'opacity-100' : 'opacity-0'
@@ -131,14 +134,13 @@ export default function Login() {
                 Recordar contraseña
               </label>
             </div>
-
           </form>
           <div className='flex flex-col gap-4 p-4 md:p-6 lg:p-8'>
-            <Button text='Iniciar Sesión' variant='primary' onClick={handleLogin} />
+            <Button submit text='Iniciar Sesión' variant='primary' />
             <Button
               text='Registrarse'
               variant='ghost'
-              onClick={() => router.push('/auth/register')}
+              onClick={() => redirect('/auth/register')}
             />
           </div>
           <div className='flex flex-col items-center'>

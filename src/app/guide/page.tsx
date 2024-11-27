@@ -41,7 +41,7 @@ export default function Home() {
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Button text="Register" variant="primary" className="min-w-96 min-h-16"/>
+          <Button text="Register" variant="primary" className=""/>
           <Button text="Register" variant="ghost"/>
         </div>
         <TagsList tags={tags} />
