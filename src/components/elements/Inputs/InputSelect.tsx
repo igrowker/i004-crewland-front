@@ -1,3 +1,4 @@
+"use client"
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
@@ -6,13 +7,15 @@ interface inputSelectProps {
   isRequired?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  options?: string[];
+  placeholder?: string;
+  topModal?: string; // Esta propiedad es para calibrar la distancia entre el input y modal
 }
 
-export default function InputSelect({ label, isRequired, onChange, error }: inputSelectProps) {
+export default function InputSelect({ label, isRequired, onChange, error, placeholder, options, topModal }: inputSelectProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [option, setOption] = useState<string>("");
   const Icon = openModal ? ChevronUp : ChevronDown;
-  const options = ["Hombre", "Mujer", "Prefiero no especificar", "Otro"]
 
   const selectedOption = (option: string) => {
     setOpenModal(false)
@@ -32,14 +35,21 @@ export default function InputSelect({ label, isRequired, onChange, error }: inpu
   const handleModal = () => setOpenModal(!openModal);
 
   return (
-    <div className="flex flex-col gap-2 relative">
-      <label htmlFor="gender" className={`${error ? "text-customRed": "text-customWhite"} ${isRequired ? 'after:content-["*"] after:text-customRed' : ''} `}>
-      {error ? `Ops! ${error}` : label}
+    <section className="flex flex-col gap-2 relative">
+      <label 
+        htmlFor="gender"
+        className={`
+          ${error ? "text-customRed": "text-customWhite"}
+          ${isRequired ? 'after:content-["*"] after:text-customRed' : ''} 
+        `}
+      >
+        {error ? `Ops! ${error}` : label}
       </label>
       <input
         id="gender"
         onClick={handleModal}
         name="gender"
+        placeholder={placeholder}
         value={option}
         className="placeholder:text-customWhite outline-none bg-transparent border-b pb-1 text-customWhite select-none cursor-pointer"
         readOnly
@@ -50,10 +60,8 @@ export default function InputSelect({ label, isRequired, onChange, error }: inpu
         className="cursor-pointer text-customWhite absolute bottom-2 right-0"
       />
       {openModal && (
-        <div
-          className="absolute flex flex-col bg-background rounded-lg w-full outline outline-1 outline-[#B7B7B8] z-50 top-[70px]"
-        >
-          {options.map((option) => (
+        <div className={`absolute flex flex-col bg-background rounded-lg w-full outline outline-1 outline-[#B7B7B8] z-50 ${topModal}`}>
+          {options && options.map((option) => (
             <span
               key={option}
               className="border-t border-[#B7B7B8] first:border-none py-[10px] pl-3 cursor-pointer"
@@ -64,6 +72,6 @@ export default function InputSelect({ label, isRequired, onChange, error }: inpu
           ))}
         </div>
       )}
-    </div>
+    </section>
   )
 }

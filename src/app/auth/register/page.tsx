@@ -1,13 +1,13 @@
 "use client"
 // import { useRouter } from 'next/navigation'
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
-import { ArrowLeft } from 'lucide-react';
 import Title from "@/components/elements/Titles/Title";
-import Link from "next/link";
 import useRegister from "@/hooks/useRegister";
 import Container from '@/components/elements/Container/Container';
 import InputCalendar from '@/components/elements/Inputs/InputCalendar';
 import InputSelect from '@/components/elements/Inputs/InputSelect';
+import ButtonLink from "@/components/elements/Buttons/ButtonLink";
+import Image from "next/image";
 
 export default function Register() {
   // const router = useRouter()
@@ -27,16 +27,18 @@ export default function Register() {
 
   return (
     <Container className="bg-background">
-      <section>
-        <div className="flex justify-center items-center pb-4 gap-1">
-          <Link href={'/auth/login'}>
-            <ArrowLeft className="text-customWhite cursor-pointer" />
-          </Link>
+      <article>
+        <section className="flex justify-center items-center pb-4 gap-1">
+          <ButtonLink
+            href={'/auth/login'}
+            text={<Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />}
+            details="Volver a interface Login"
+          />
           <Title
             text="Crear un nuevo Usuario"
             className="w-full font-normal text-lg"
           />
-        </div>
+        </section>
         <p className="py-2 font-roboto max-w-[368px]">
           ¡Bienvenido/a! Regístrate para empezar Queremos conocerte un poco más. Completa los campos obligatorios (*) para unirte a nuestra comunidad.
         </p>
@@ -77,14 +79,16 @@ export default function Register() {
           <InputCalendar
             label="Nacimiento"
             placeholder="dd/mm/aa"
-            onChange={(val) => setRegister(prev => ({ ...prev, age : val }))}
+            onChange={(val) => setRegister(prev => ({ ...prev, age: val }))}
             error={errors.age}
             isRequired
           />
-          <InputSelect 
+          <InputSelect
             label="Género"
             onChange={(e) => handleChange(e)}
             error={errors.gender}
+            topModal="top-[70px]"
+            options={["Hombre", "Mujer", "Prefiero no especificar", "Otro"]}
             isRequired
           />
           <ReusableInput
@@ -107,15 +111,15 @@ export default function Register() {
             error={errors.confirmPassword}
             isRequired
           />
-          <button 
-            type='button' 
-            onClick={nextPage} 
-            className='hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium'
-          >
-            Siguiente
-          </button>
+          <ButtonLink
+            type="button"
+            details="Registar nuevo usuario"
+            onClick={nextPage}
+            className="hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium"
+            text="Registrarse"
+          />
         </form>
-      </section>
+      </article>
     </Container>
   )
 }
