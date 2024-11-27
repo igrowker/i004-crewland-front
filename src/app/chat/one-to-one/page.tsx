@@ -2,7 +2,7 @@
 import { messages } from '@/json/onteToOneChat'
 import Container from '@/components/elements/Container/Container'
 import { CheckCheck } from 'lucide-react'
-import HeaderChatOneToOne from '@/components/Header_chatOneToOne/page'
+import HeaderChatOneToOne from '@/components/headers/Header_chatOneToOne/page'
 import InputChat from '@/components/elements/Inputs/InputChat'
 
 export default function OneToOne() {

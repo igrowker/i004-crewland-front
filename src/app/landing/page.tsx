@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "../../components/Header_landingPage/header";
+import Header from "../../components/headers/Header_landingPage/header";
 import { useState } from "react";
 
 const pages = [

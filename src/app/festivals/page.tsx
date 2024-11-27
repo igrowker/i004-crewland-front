@@ -5,7 +5,7 @@ import { ArrowUpRight, Asterisk } from 'lucide-react'
 import Title from '@/components/elements/Titles/Title'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Header from '@/components/Header_festivals/header'
+import Header from '@/components/headers/Header_festivals/header'
 import { user, festivals, images } from '@/json/festivals'
 
 export default function FestivalsPage() {
@@ -59,9 +59,8 @@ export default function FestivalsPage() {
             {images.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full border border-black ${
-                  currentIndex === index ? 'bg-[#9747FF]' : 'bg-white'
-                }`}
+                className={`w-3 h-3 rounded-full border border-black ${currentIndex === index ? 'bg-[#9747FF]' : 'bg-white'
+                  }`}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Ir a la imagen ${index + 1}`}
               ></button>
