@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Menu } from 'lucide-react'
 import Title from '@/components/elements/Titles/Title'
 
-export default function Header() {
+export default function FestivalsHeader() {
   return (
     <header className='absolute top-0 left-0 w-full flex items-center justify-between p-4 bg-gradient-to-b from-black/70 to-transparent z-10'>
       <button aria-label='Abrir menú' className='p-2'>
