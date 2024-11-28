@@ -2,20 +2,11 @@
 import Image from 'next/image'
 import { Menu } from 'lucide-react'
 import Title from '@/components/elements/Titles/Title'
-import {useBurguerButton} from '@/hooks/useBurgerBotton'
 
-export default function Header() {
-  const [globalState, setGlobalState] = useBurguerButton()
-
-  const handleClick = () => {
-    setGlobalState({ isToggled: !globalState.isToggled });
-  }
-
+export default function FestivalsHeader() {
   return (
-    <header 
-      className='absolute top-0 left-0 w-full flex items-center justify-between p-4 bg-gradient-to-b from-black/70 to-transparent z-10'
-    >
-      <button aria-label='Abrir menú' className='p-2' onClick={handleClick}>
+    <header className='absolute top-0 left-0 w-full flex items-center justify-between p-4 bg-gradient-to-b from-black/70 to-transparent z-10'>
+      <button aria-label='Abrir menú' className='p-2'>
         <Menu className='text-white w-8 h-8' />
       </button>
 
