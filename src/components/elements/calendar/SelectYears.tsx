@@ -16,7 +16,7 @@ export default function SelectYears({monthName, selectedYear}: SelectYearsProps)
   };
 
   return (
-    <div className="scrollbar-custom bg-background max-h-72  overflow-hidden overflow-y-auto border rounded-md shadow-lg absolute top-8 text-sm">
+    <div className="scrollbar-custom bg-background max-h-72 w-36 overflow-hidden overflow-y-auto border rounded-md shadow-lg absolute top-8 text-sm">
       <ul>
         {generateYears().map((yearOption) => (
           <li

@@ -2,7 +2,7 @@ import { postCardInterface } from '@/interfaces/postCard'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-// import BoxIcons from './BoxIcons'
+import BoxIcons from './BoxIcons'
 
 interface ModalPostCardProps {
   post: postCardInterface
@@ -39,7 +39,7 @@ export default function ModalPostCard({ post, setModal }: ModalPostCardProps) {
           className="flex justify-center my-3 p-1 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]">
           Chatear con {post.user.name}
         </Link>
-        {/* <BoxIcons /> */}
+        <BoxIcons />
       </div>
     </section>
   )
