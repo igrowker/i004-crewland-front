@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "../../components/headers/Header_landingPage/header";
+import LandingHeader from "../../components/headers/LandingHeader";
 import { useState } from "react";
 
 const pages = [
@@ -33,11 +33,11 @@ export default function LandingPage() {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX = e.changedTouches[0].screenX;
   };
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   };
@@ -67,7 +67,7 @@ export default function LandingPage() {
       {/* Fondo oscuro */}
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       {/* Logo */}
-      <Header />
+      <LandingHeader />
 
       {/* Contenido principal */}
       <div className="flex flex-col items-center justify-center h-full text-center text-white">

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Heart, EllipsisVertical } from 'lucide-react'
 import { user } from '@/json/onteToOneChat'
 
-export default function HeaderChatOneToOne() {
+export default function ChatHeader() {
     const [isLiked, setIsLiked] = useState(user.like);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 

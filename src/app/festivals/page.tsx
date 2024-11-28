@@ -5,8 +5,8 @@ import { ArrowUpRight, Asterisk } from 'lucide-react'
 import Title from '@/components/elements/Titles/Title'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Header from '@/components/headers/Header_festivals/header'
 import { user, festivals, images } from '@/json/festivals'
+import FestivalsHeader from '@/components/headers/FestivalsHeader'
 
 export default function FestivalsPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -23,7 +23,7 @@ export default function FestivalsPage() {
 
   return (
     <Container>
-      <Header />
+      <FestivalsHeader />
       <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-4'>
         <div className='shadow-md rounded-lg p-6 mb-6'>
           <Title text={`Bienvenido, ${user.name}`} size='medium' align='left' />

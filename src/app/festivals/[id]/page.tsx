@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Container from '@/components/elements/Container/Container'
 import Title from '@/components/elements/Titles/Title'
 import { festivals } from '@/json/festivals'
-import Header from '@/components/headers/Header_festivals/header'
+import Header from '@/components/headers/FestivalsHeader'
 
 export default function FestivalPage({
   params

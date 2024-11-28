@@ -2,7 +2,7 @@
 import { messages } from '@/json/onteToOneChat'
 import Container from '@/components/elements/Container/Container'
 import { CheckCheck } from 'lucide-react'
-import HeaderChatOneToOne from '@/components/headers/Header_chatOneToOne/page'
+import ChatHeader from '@/components/headers/ChatHeader'
 import InputChat from '@/components/elements/Inputs/InputChat'
 
 export default function OneToOne() {
@@ -11,7 +11,7 @@ export default function OneToOne() {
         <Container>
             <section className='flex flex-col w-full h-screen'>
 
-                <HeaderChatOneToOne />
+                <ChatHeader />
                 <main className='flex flex-col w-full h-full justify-start items-center mt-28 gap-2 px-4'>
                     {messages.map((message) => (
                         <div
