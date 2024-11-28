@@ -2,7 +2,7 @@ import Container from '@/components/elements/Container/Container'
 import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
 import { chats } from '@/json/chatCrew'
-import CrewChatCard from '@/components/CrewChatCard/page'
+import CrewChatCard from '@/components/elements/Chat/crew/CrewChatCard/page'
 
 export default function ChatCrew() {
     return (

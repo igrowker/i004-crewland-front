@@ -7,7 +7,7 @@ import InputCalendar from '@/components/elements/Inputs/InputCalendar';
 import InputSelect from '@/components/elements/Inputs/InputSelect';
 import Image from "next/image";
 import { useState } from "react";
-import ModalPost from "@/components/search/ModalPost";
+import ModalPost from "@/components/elements/search/ModalPost";
 import Link from "next/link";
 
 export default function Register() {

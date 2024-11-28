@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { AuthProvider } from "@/context/AuthContext";
 import {Unbounded, Roboto} from "next/font/google";
 import "./globals.css";
+import { NavFooter } from '../components/elements/Footer/NavFooter';
+import { SideBar } from "@/components/elements/SideBar/SideBar";
 
 const unbounded = Unbounded(
   {
@@ -31,7 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${unbounded.variable} ${roboto.variable}`}>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <SideBar />
+            {children}
+          <NavFooter />  
+        </AuthProvider>
       </body>
     </html>
   );

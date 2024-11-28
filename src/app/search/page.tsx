@@ -1,5 +1,4 @@
-"use server"
-import PostCard from "@/components/search/PostCard";
+import PostCard from "@/components/elements/postCard/PostCard";
 import Container from "@/components/elements/Container/Container";
 import Title from "@/components/elements/Titles/Title";
 import { dataPost } from "@/json/post";
