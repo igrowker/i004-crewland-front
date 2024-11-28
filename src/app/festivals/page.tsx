@@ -24,10 +24,15 @@ export default function FestivalsPage() {
   return (
     <Container>
       <FestivalsHeader />
-      <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-0'>
-        <div className='shadow-md rounded-lg py-6 px-5 mb-6'>
-          <Title text={`Bienvenido, ${user.name}`} size='medium' align='left' />
-          <p className='leading-relaxed pt-4'>
+      <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-3 '>
+        <div className='shadow-md rounded-lg py-6 px-4 mb-6'>
+          <Title
+            text={`Bienvenido, ${user.name}`}
+            size='medium'
+            align='left'
+            className='mt-4'
+          />
+          <p className='leading-relaxed pt-2'>
             Estamos súper contentos de tenerte con nosotros. Aquí podrás
             encontrar compañeros para compartir transporte, alojamiento y hacer
             que tu próxima experiencia sea aún más divertida. ¡Comencemos a
