@@ -1,26 +1,26 @@
 "use client"
-// import { useRouter } from 'next/navigation'
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
 import Title from "@/components/elements/Titles/Title";
 import useRegister from "@/hooks/useRegister";
 import Container from '@/components/elements/Container/Container';
 import InputCalendar from '@/components/elements/Inputs/InputCalendar';
 import InputSelect from '@/components/elements/Inputs/InputSelect';
-import ButtonLink from "@/components/elements/Buttons/ButtonLink";
 import Image from "next/image";
+import { useState } from "react";
+import ModalPost from "@/components/search/ModalPost";
+import Link from "next/link";
 
 export default function Register() {
-  // const router = useRouter()
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
 
-  // Navegar a la siguiente pagina despues de validar todos los campos
-  const nextPage = () => {
+  const [stateModal, setStateModal] = useState<boolean>(false);
 
+  const handleRegistro = () => {
     const isValidForm = ValidateRegister();
-    console.log(register)
-    console.log(isValidForm)
+    //Si todo los campos son validos mostramos todos los campos para enviar al servidor
     if (isValidForm) {
-      // router.push("/")
+      setStateModal(true)
+      // Este estado "register" contiene {age, email, gender, name, password, tel, username}
       console.log(register)
     }
   };
@@ -29,20 +29,18 @@ export default function Register() {
     <Container className="bg-background">
       <article>
         <section className="flex justify-center items-center pb-4 gap-1">
-          <ButtonLink
-            href={'/auth/login'}
-            text={<Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />}
-            details="Volver a interface Login"
-          />
+          <Link href="/auth/login" aria-label="Volver a interface Login">
+          <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
+          </Link>
           <Title
             text="Crear un nuevo Usuario"
             className="w-full font-normal text-lg"
           />
         </section>
-        <p className="py-2 font-roboto max-w-[368px]">
+        <p className="py-2 font-roboto">
           ¡Bienvenido/a! Regístrate para empezar Queremos conocerte un poco más. Completa los campos obligatorios (*) para unirte a nuestra comunidad.
         </p>
-        <form className="flex flex-col py-4 gap-6 max-w-[368px]">
+        <form className="flex flex-col py-4 gap-6">
           <ReusableInput
             id="name"
             label="Nombre completo"
@@ -111,14 +109,23 @@ export default function Register() {
             error={errors.confirmPassword}
             isRequired
           />
-          <ButtonLink
+          <button
             type="button"
-            details="Registar nuevo usuario"
-            onClick={nextPage}
             className="hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium"
-            text="Registrarse"
-          />
+            onClick={handleRegistro}
+            aria-label="Registar nuevo usuario"
+          >
+            Registrarse
+          </button>
         </form>
+        {stateModal &&
+          <ModalPost
+            title="🎉 ¡Registro exitoso! 🎉"
+            content="¡Gracias por unirte a nuestra comunidad! Estamos emocionados de tenerte con nosotros."
+            details="registro exitoso"
+            closeModal={() => setStateModal(false)}
+          />
+        }
       </article>
     </Container>
   )

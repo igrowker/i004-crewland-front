@@ -4,19 +4,17 @@ import Container from "@/components/elements/Container/Container";
 import Title from "@/components/elements/Titles/Title";
 import { dataPost } from "@/json/post";
 import { ListFilter, Plus } from "lucide-react";
-import ButtonLink from "@/components/elements/Buttons/ButtonLink";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Search() {
   return (
     <Container>
-      <article className="flex flex-col w-full max-w-[328px]">
+      <article className="flex flex-col w-full">
         <section className="flex justify-start items-center pb-4 gap-5">
-          <ButtonLink
-            href={'/auth/login'}
-            text={<Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />}
-            details="Volver a interface Login"
-          />
+          <Link href="/festivals" aria-label="Volver a la interface de festivales">
+            <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
+          </Link>
           <Title
             size="small"
             text="Crea tu experiencia"
@@ -30,12 +28,13 @@ export default async function Search() {
           <PostCard key={post.id} {...post} />
         ))}
       </article>
-      <ButtonLink
-        href={'/search/new-post'}
-        details="Crear una nueva publicacion"
+      <Link
+        href='/search/new-post'
         className="bg-primaryHover fixed bottom-20 right-4 rounded-full p-3"
-        text={<Plus size={30} color="#ffffff" strokeWidth={2} />}
-      />
+        aria-label="Crear una nueva publicacion"
+      >
+        <Plus size={30} color="#ffffff" strokeWidth={2} />
+      </Link>
     </Container>
   )
 }

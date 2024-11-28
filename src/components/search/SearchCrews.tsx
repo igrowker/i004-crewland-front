@@ -9,20 +9,32 @@ export default function SearchCrews() {
   const Icon = openModal ? ChevronUp : ChevronDown;
 
   // Arreglo con las rutas de las imágenes
-  const images = ['/users/01.png', '/users/02.png', '/users/03.png'];
+  const images = [
+  {
+    img: "/users/01.png",
+    style: "left-0"
+   }, {
+    img: "/users/02.png",
+    style: "left-8"
+   },
+  {
+     img: "/users/03.png",
+    style: "left-16"
+  }
+];
 
   return (
     <article className="flex flex-col gap-2 relative">
       <label htmlFor="crews">Etiquetar Personas</label>
       <div className="border-b border-customWhite flex relative pb-12 pt-2 rea">
-        {images.map((src, index) => (
+        {images.map((img, index) => (
           <Image
             key={index}
-            src={src}
+            src={img.img}
             alt={`persona${index + 1}`}
             width={40}
             height={40}
-            className={`absolute left-${index * 8}`}
+            className={`absolute ${img.style}`}
           />
         ))}
       </div>

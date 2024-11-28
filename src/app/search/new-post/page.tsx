@@ -1,25 +1,29 @@
 "use client"
-import ButtonLink from '@/components/elements/Buttons/ButtonLink'
 import Container from '@/components/elements/Container/Container'
 import InputSelect from '@/components/elements/Inputs/InputSelect'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import "@/components/elements/calendar/Calendar.css"
 import SearchCrews from '@/components/search/SearchCrews'
+import ModalPost from '@/components/search/ModalPost'
+import Link from 'next/link'
 
 
-export default function page() {
+export default function NewPost() {
+  const [stateModal, setStateModal] = useState({
+    cancelPost: false,
+    createPost: false
+  });
+
   return (
     <Container>
       <article className="flex flex-col w-full min-h-screen bg-background">
         <section className="flex justify-start items-center pb-4 gap-5 bg-background">
-          <ButtonLink
-            href={'/auth/login'}
-            text={<Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />}
-            details="Volver a interface Login"
-          />
+          <Link href="/search" aria-label="Volver a la interface de search">
+            <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
+          </Link>
           <Title
             size="small"
             text="Creá tu post"
@@ -55,21 +59,44 @@ export default function page() {
             />
           </div>
           <div className='flex gap-2'>
-            <ButtonLink
-              details='Cancelar el post'
-              href='/search'
-              text='Cancelar'
-              className='bg-primary text-background w-full text-center py-3 rounded-lg'
-            />
-            <ButtonLink
-              type='submit'
-              details='Crear el post'
-              onClick={() => console.log("Creando Post")}
-              text='Publicar'
-              className='bg-primaryHover text-background w-full text-center py-3 rounded-lg'
-            />
+            <button 
+              type="button"
+              className="bg-primary text-background w-full text-center py-3 rounded-lg"
+              onClick={() => setStateModal(prev => ({ ...prev, cancelPost: true }))}
+              aria-label="Cancelar el post"
+            >
+              Cancelar
+            </button>
+            <button 
+              type="button"
+              className="bg-primaryHover text-background w-full text-center py-3 rounded-lg"
+              onClick={() => setStateModal(prev => ({ ...prev, createPost: true }))}
+              aria-label="Crear el post"
+            >
+              Publicar
+            </button>
           </div>
         </form>
+        {stateModal.cancelPost &&
+          <ModalPost
+            link='/search'
+            title='¿Estás seguro de cancelar?'
+            content='Perderás los cambios realizados en tu publicación'
+            details='cancelar un post'
+            closeModal={() => setStateModal(prev => ({ ...prev, cancelPost: false }))}
+            textButton="Sí, cancelar"
+          />
+        }
+        {stateModal.createPost &&
+          <ModalPost
+            link='/search'
+            title='🎉 ¡Publicación Exitosa! 🎉'
+            content='Tu publicación ahora está disponible en el feed. ¡Conéctate con tu crew ahora'
+            details='crear un post'
+            closeModal={() => setStateModal(prev => ({ ...prev, createPost: false }))}
+            textButton="Ir a publicación"
+          />
+        }
       </article>
     </Container>
   )
