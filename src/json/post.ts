@@ -3,21 +3,21 @@ export const dataPost = [
     id: 0,
     user: {
       id: 0,
-      imgUser: "/user01.png",
+      imgUser: "/users/08.png",
       name: "Cande Gómez",
     },
     festivalId: 0,
     type: "transporte",
     title: "Busco transporte",
     details:
-      "¿Alguien viaja desde Córdoba a Buenos Aires para el recital? 🎶 Estoy buscando compartir transporte para hacer el viaje más divertido. Es una gran oportunidad para ahorrar entre todos y además disfrutar de buena compañía en el camino.",
+      "¿Alguien viaja desde Córdoba a Buenos Aires para el recital? Estoy buscando compartir transporte para hacer el viaje más divertido. Es una gran oportunidad para ahorrar entre todos y además disfrutar de buena compañía en el camino.",
     dateCreate: "2hrs ago",
   },
   {
     id: 1,
     user: {
       id: 1,
-      imgUser: "/user02.png",
+      imgUser: "/users/01.png",
       name: "Gastón Paz",
     },
     festivalId: 1,
@@ -31,7 +31,7 @@ export const dataPost = [
     id: 2,
     user: {
       id: 2,
-      imgUser: "/user03.png",
+      imgUser: "/users/06.png",
       name: "Azul Richiardi",
     },
     festivalId: 2,
@@ -45,7 +45,7 @@ export const dataPost = [
     id: 3,
     user: {
       id: 3,
-      imgUser: "/user01.png",
+      imgUser: "/users/05.png",
       name: "Rosa Altamirano",
     },
     festivalId: 3,
@@ -56,3 +56,46 @@ export const dataPost = [
     dateCreate: "7hrs ago",
   },
 ];
+
+export const typesWithIcons: { icon: string; type: string }[] = [
+  {
+    icon: "/departament.png",
+    type: "Alojamiento",
+  },
+  {
+    icon: "/car.png",
+    type: "Transporte",
+  },
+  {
+    icon: "/groups.png",
+    type: "Compañero",
+  },
+  {
+    icon: "",
+    type: "Otro",
+  },
+];
+
+export const crews = [
+  {
+    id: 1,
+    img: "/users/01.png",
+    name: "Renata Gimenez"
+  },
+  {
+    id: 2,
+    img: "/users/02.png",
+    name: "Renata Gimenez"
+  },
+  {
+    id: 3,
+    img: "/users/03.png",
+    name: "Renata Gimenez"
+  },
+  {
+    id: 4,
+    img: "/users/04.png",
+    name: "Renata Gimenez"
+  },
+  
+]
