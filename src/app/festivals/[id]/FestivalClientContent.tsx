@@ -5,11 +5,11 @@ import React from 'react'
 import Container from '@/components/elements/Container/Container'
 import Title from '@/components/elements/Titles/Title'
 import { festivals } from '@/json/festivals'
-import Header from '@/components/Header_festivals/header'
 import Button from '@/components/elements/Buttons/Button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useFestival } from '@/hooks/useFestival'
+import FestivalsHeader from '@/components/elements/headers/FestivalsHeader'
 
 export default function FestivalClientContent({
   params
@@ -47,12 +47,13 @@ export default function FestivalClientContent({
   }
 
   const icons = [
-    '/user01.png',
-    '/user02.png',
-    '/user03.png',
-    '/user01.png',
-    '/user02.png',
-    '/user03.png',
+    '/users/01.png',
+    '/users/02.png',
+    '/users/03.png',
+    '/users/04.png',
+    '/users/05.png',
+    '/users/06.png',
+    '/users/07.png',
     '/share.png'
   ]
 
@@ -62,8 +63,8 @@ export default function FestivalClientContent({
 
   return (
     <Container>
-      <Header />
-      <main className='flex flex-col pt-[40px] sm:pt-[70px] lg:pt-[80px] px-4'>
+      <FestivalsHeader />
+      <main className='flex flex-col pt-[40px] sm:pt-[70px] lg:pt-[80px] px-6'>
         <Title
           text={festival.name}
           size='medium'
@@ -78,9 +79,10 @@ export default function FestivalClientContent({
           <Image
             src={festival.image}
             alt={festival.name}
-            layout='fill'
-            objectFit='cover'
-            className='rounded-md'
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px'
+            className='rounded-md object-cover'
+            priority
           />
           <div className='absolute top-2 left-2 flex gap-2'>
             <button className='bg-transparent border border-white text-white rounded-full px-4 py-2 text-xs'>

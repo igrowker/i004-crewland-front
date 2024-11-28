@@ -24,10 +24,15 @@ export default function FestivalsPage() {
   return (
     <Container>
       <FestivalsHeader />
-      <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-4'>
-        <div className='shadow-md rounded-lg p-6 mb-6'>
-          <Title text={`Bienvenido, ${user.name}`} size='medium' align='left' />
-          <p className='leading-relaxed pt-4'>
+      <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-3 '>
+        <div className='shadow-md rounded-lg py-6 px-4 mb-6'>
+          <Title
+            text={`Bienvenido, ${user.name}`}
+            size='medium'
+            align='left'
+            className='mt-4'
+          />
+          <p className='leading-relaxed pt-2'>
             Estamos súper contentos de tenerte con nosotros. Aquí podrás
             encontrar compañeros para compartir transporte, alojamiento y hacer
             que tu próxima experiencia sea aún más divertida. ¡Comencemos a
@@ -45,8 +50,8 @@ export default function FestivalsPage() {
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={0}
-                  height={0}
+                  width={800}
+                  height={600}
                   sizes='100vw'
                   className='w-full h-auto'
                   priority={index === 0}
@@ -59,8 +64,9 @@ export default function FestivalsPage() {
             {images.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full border border-black ${currentIndex === index ? 'bg-[#9747FF]' : 'bg-white'
-                  }`}
+                className={`w-3 h-3 rounded-full border border-black ${
+                  currentIndex === index ? 'bg-[#9747FF]' : 'bg-white'
+                }`}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Ir a la imagen ${index + 1}`}
               ></button>
@@ -85,10 +91,6 @@ export default function FestivalsPage() {
                     className='w-full h-32 object-cover brightness-75'
                   />
 
-                  <h3 className='absolute bottom-2 left-2 text-white text-lg font-bold'>
-                    {festival.name}
-                  </h3>
-
                   <Link
                     href={`/festivals/${festival.id}`}
                     className='absolute top-2 right-2 bg-[#CE9DF9] rounded-full p-2 shadow-md hover:shadow-lg transition-all'
@@ -111,7 +113,11 @@ export default function FestivalsPage() {
                     aria-label='Campo obligatorio'
                   />
 
-                  <p className='text-sm my-4 text-black font-[500]'>
+                  <h3 className=' bottom-2 left-2 text-lg font-bold pt-4'>
+                    {festival.name}
+                  </h3>
+
+                  <p className='text-sm my-4 text-black font-[450]'>
                     {festival.description}
                   </p>
 
