@@ -6,7 +6,7 @@ import Title from '@/components/elements/Titles/Title'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { user, festivals, images } from '@/json/festivals'
-import FestivalsHeader from '@/components/headers/FestivalsHeader'
+import FestivalsHeader from '@/components/elements/headers/FestivalsHeader'
 
 export default function FestivalsPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -25,7 +25,7 @@ export default function FestivalsPage() {
     <Container>
       <FestivalsHeader />
       <main className='pt-[50px] sm:pt-[70px] lg:pt-[80px] px-0'>
-        <div className='shadow-md rounded-lg py-6 px-1 mb-6'>
+        <div className='shadow-md rounded-lg py-6 px-5 mb-6'>
           <Title text={`Bienvenido, ${user.name}`} size='medium' align='left' />
           <p className='leading-relaxed pt-4'>
             Estamos súper contentos de tenerte con nosotros. Aquí podrás

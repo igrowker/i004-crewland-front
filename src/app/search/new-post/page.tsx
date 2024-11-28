@@ -6,8 +6,8 @@ import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import "@/components/elements/calendar/Calendar.css"
-import SearchCrews from '@/components/search/SearchCrews'
-import ModalPost from '@/components/search/ModalPost'
+import SearchCrews from '@/components/elements/search/SearchCrews'
+import ModalPost from '@/components/elements/search/ModalPost'
 import Link from 'next/link'
 
 

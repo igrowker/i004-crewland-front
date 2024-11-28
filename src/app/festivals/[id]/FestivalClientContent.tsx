@@ -9,7 +9,7 @@ import Button from '@/components/elements/Buttons/Button'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useFestival } from '@/hooks/useFestival'
-import FestivalsHeader from '@/components/headers/FestivalsHeader'
+import FestivalsHeader from '@/components/elements/headers/FestivalsHeader'
 
 export default function FestivalClientContent({
   params
@@ -64,7 +64,7 @@ export default function FestivalClientContent({
   return (
     <Container>
       <FestivalsHeader />
-      <main className='flex flex-col pt-[40px] sm:pt-[70px] lg:pt-[80px] px-4'>
+      <main className='flex flex-col pt-[40px] sm:pt-[70px] lg:pt-[80px] px-6'>
         <Title
           text={festival.name}
           size='medium'
