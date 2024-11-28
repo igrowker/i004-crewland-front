@@ -6,10 +6,10 @@ interface InputChatProps {
     onSendMessage: (message: string) => void;
 }
 
-const InputChat: React.FC<InputChatProps> = ({ onSendMessage }) => {
+export default function InputChat({ onSendMessage }: InputChatProps) {
     const [message, setMessage] = useState<string>('')
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.target.value);
     }
 
@@ -21,8 +21,8 @@ const InputChat: React.FC<InputChatProps> = ({ onSendMessage }) => {
         }
     }
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
             handleSend()
         }
@@ -31,9 +31,8 @@ const InputChat: React.FC<InputChatProps> = ({ onSendMessage }) => {
         <footer className='fixed bottom-0 flex flex-row items-center left-0 w-full px-4 py-3'>
             <div className='relative w-full flex items-center rounded-lg border-[1px] bg-transparent'>
                 <Smile className='absolute left-3' />
-                <input
-                    className='w-full p-3 pl-10 bg-transparent text-customWhite outline-none'
-                    type='text'
+                <textarea
+                    className='w-full pt-5 pb-0 px-12 bg-transparent text-customWhite outline-none'
                     placeholder='Escribir mensaje...'
                     value={message}
                     onChange={handleChange}
@@ -51,4 +50,3 @@ const InputChat: React.FC<InputChatProps> = ({ onSendMessage }) => {
     )
 }
 
-export default InputChat
