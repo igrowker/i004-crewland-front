@@ -15,20 +15,15 @@ export default function FestivalsHeader() {
           text='CREWLAND'
           className='text-white text-[24px] sm:text-[35px] font-bold'
         />
-        <Image
-          src='/crewland_logo.svg'
-          alt='Crewland logo'
-          width={40}
-          height={50}
-        />
       </div>
       <div className='w-10 h-10 rounded-full shadow-md overflow-hidden'>
         <Image
-          src='/user01.png'
+          src='/users/01.png'
           alt='Usuario'
           width={40}
           height={40}
           className='object-cover'
+          priority
         />
       </div>
     </header>
