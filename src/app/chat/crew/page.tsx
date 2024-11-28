@@ -24,11 +24,6 @@ export default function ChatCrew() {
                     ))}
                 </main>
             </section>
-            <footer className="fixed flex flex-row justify-around bottom-0 gap-3 w-full h-16 bg-background">
-                <p>Search</p>
-                <p>Home</p>
-                <p>Crew</p>
-            </footer>
         </Container>
     )
 }
