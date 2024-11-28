@@ -168,7 +168,7 @@ export async function updateSession(req: NextRequest) {
 
         if (!session?.token && !publicPaths.includes(pathname)) {
             existedCookies.delete('session');
-            return NextResponse.redirect(new URL('/', url));
+            // return NextResponse.redirect(new URL('/', url));
         }
     }
 

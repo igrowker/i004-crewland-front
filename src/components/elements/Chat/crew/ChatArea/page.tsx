@@ -1,7 +1,7 @@
 'use client'
 import { messages } from '@/json/onteToOneChat'
 import InputChat from '@/components/elements/Inputs/InputChat'
-import ChatMessage from '@/components/ChatMessage/page'
+import ChatMessage from '@/components/elements/Chat/crew/ChatMessage/page'
 export default function ChatArea() {
     const handleSendMessage = (message: string) => {
         console.log(message)

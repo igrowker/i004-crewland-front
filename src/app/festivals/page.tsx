@@ -6,7 +6,7 @@ import Title from '@/components/elements/Titles/Title'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { user, festivals, images } from '@/json/festivals'
-import FestivalsHeader from '@/components/headers/FestivalsHeader'
+import FestivalsHeader from '@/components/elements/headers/FestivalsHeader'
 
 export default function FestivalsPage() {
   const [currentIndex, setCurrentIndex] = useState(0)

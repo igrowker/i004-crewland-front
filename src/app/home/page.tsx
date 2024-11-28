@@ -1,6 +1,7 @@
 "use client";
 
-import LandingHeader from "../../components/headers/LandingHeader";
+import LandingPageHeader from "@/components/elements/headers/LandingHeader";
+import Image from "next/image";
 import { useState } from "react";
 
 const pages = [
@@ -67,7 +68,7 @@ export default function LandingPage() {
       {/* Fondo oscuro */}
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       {/* Logo */}
-      <LandingHeader />
+      <LandingPageHeader />
 
       {/* Contenido principal */}
       <div className="flex flex-col items-center justify-center h-full text-center text-white">
