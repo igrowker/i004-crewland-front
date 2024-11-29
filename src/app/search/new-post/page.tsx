@@ -19,7 +19,7 @@ export default function NewPost() {
 
   return (
     <Container>
-      <article className="flex flex-col w-full min-h-screen bg-background">
+      <article className="flex flex-col w-full min-h-screen bg-background m-4">
         <section className="flex justify-start items-center pb-4 gap-5 bg-background">
           <Link href="/search" aria-label="Volver a la interface de search">
             <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
