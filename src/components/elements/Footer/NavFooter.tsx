@@ -19,7 +19,7 @@ export function NavFooter() {
 
     return (
       <nav 
-        className="fixed h-20 bottom-4 left-0 right-0 bg-gray-900/60 backdrop-blur-sm text-white flex justify-around items-center rounded-full mx-5"
+        className="fixed h-20 bottom-0 left-0 right-0 bg-gray-900/60 backdrop-blur-sm text-white flex justify-around items-center"
         style={{ transform: `translateY(${state.isToggled ? '150%' : '0'})`, transition: `transform 0.3s ${state.isToggled ? '' : '.5s'}` }}  
       >
         {
