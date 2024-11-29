@@ -2,8 +2,8 @@ import CrewContainer from "@/components/elements/Chat/CrewContainer";
 import Container from "@/components/elements/Container/Container";
 import InputSearch from "@/components/elements/Inputs/InputSearch";
 import { User } from "@/interfaces/postCard";
-// import BackArrow from "../elements/icons/BackArrow";
 import ChatsContainer from "../elements/Chat/Container/ChatsContainer";
+import NavTitle from "../elements/headers/NavTitle";
 export default function ChatPage() {
     const users:User[] = [
         {
@@ -34,8 +34,7 @@ export default function ChatPage() {
     ]
     return (
         <Container className="flex flex-col px-4 gap-6">
-            {/* <BackArrow /> */}
-            <h1>Sala de chat</h1>
+            <NavTitle link="festivals" title="Sala de chat"/>
             <InputSearch />
             <CrewContainer users={users}/>
             <ChatsContainer />
