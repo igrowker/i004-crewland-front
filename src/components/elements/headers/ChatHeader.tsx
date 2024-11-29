@@ -1,8 +1,12 @@
 'use client'
 import React, { useState } from 'react'
+import Link from "next/link";
+
 import Image from 'next/image'
 import { Heart, EllipsisVertical } from 'lucide-react'
 import { user } from '@/json/onteToOneChat'
+import BackArrow from "../icons/BackArrow";
+
 
 export default function ChatHeader() {
     const [isLiked, setIsLiked] = useState(user.like);
@@ -18,12 +22,10 @@ export default function ChatHeader() {
     return (
         <header className='fixed flex flex-row justify-between items-center border-b-2 left-0 w-full px-4 py-3'>
             <div className='flex flex-row items-center gap-4'>
-                <Image
-                    src='/arrowLeft.svg'
-                    alt='Back'
-                    width={24}
-                    height={12}
-                />
+                <Link href='/chat' aria-label="Volver a la interface de chat">
+                    <BackArrow />
+                </Link>
+
                 <div className='flex flex-row items-center gap-2'>
                     <Image
                         src='/user01.png'
