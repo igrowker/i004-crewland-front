@@ -1,44 +1,31 @@
 import PostCard from "@/components/elements/postCard/PostCard";
 import Container from "@/components/elements/Container/Container";
-import Title from "@/components/elements/Titles/Title";
-import { dataPost } from "@/json/post";
+import { dataPost, festivals } from "@/json/post";
 import { Plus } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import NavTitle from "@/components/elements/headers/NavTitle";
 import InputSearch from "@/components/elements/Inputs/InputSearch";
 
 export default async function Search() {
   return (
-    <Container>
-      <article className="flex flex-col w-full m-4">
-        <section className="flex justify-start items-center pb-4 gap-5">
-          <Link href="/festivals" aria-label="Volver a la interface de festivales">
-            <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
-          </Link>
-          <Title
-            size="small"
-            text="Crea tu experiencia"
-            className="font-medium text-xl font-title"
-          />
-        </section>
-        <section className="flex flex-col items-start justify-center gap-4">
-          <InputSearch />
-          <div className="flex gap-3 flex-wrap">
-            <span className="px-2 py-1 outline outline-1 outline-white rounded-full">
-              Lolapalloza2025
+    <Container className="p-4">
+      <article className="flex flex-col w-full">
+        <NavTitle link="festivals" title="Crea tu experiencia" />
+        <InputSearch />
+        <div className="flex gap-2 flex-wrap mt-4">
+          {festivals.map(fest => (
+            <span key={fest} className="outline outline-1 px-2 py-1 rounded-full cursor-pointer">
+              {fest}
             </span>
-            <span className="px-2 py-1 outline outline-1 outline-white rounded-full">
-              + 100 Bandas
-            </span>
-          </div>
-        </section>
+          ))}
+        </div>
         {dataPost.map((post) => (
           <PostCard key={post.id} {...post} />
         ))}
       </article>
       <Link
         href='/search/new-post'
-        className="bg-primaryHover fixed bottom-28 right-4 rounded-full p-3"
+        className="bg-primaryHover fixed bottom-24 right-4 rounded-full p-3 shadow-xl"
         aria-label="Crear una nueva publicacion"
       >
         <Plus size={30} color="#ffffff" strokeWidth={2} />

@@ -2,13 +2,11 @@
 import Container from '@/components/elements/Container/Container'
 import InputSelect from '@/components/elements/Inputs/InputSelect'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
-import Title from '@/components/elements/Titles/Title'
-import Image from 'next/image'
 import React, { useState } from 'react'
 import "@/components/elements/calendar/Calendar.css"
 import SearchCrews from '@/components/elements/search/SearchCrews'
 import ModalPost from '@/components/elements/search/ModalPost'
-import Link from 'next/link'
+import NavTitle from '@/components/elements/headers/NavTitle'
 
 
 export default function NewPost() {
@@ -19,17 +17,8 @@ export default function NewPost() {
 
   return (
     <Container>
-      <article className="flex flex-col w-full min-h-screen bg-background m-4">
-        <section className="flex justify-start items-center pb-4 gap-5 bg-background">
-          <Link href="/search" aria-label="Volver a la interface de search">
-            <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
-          </Link>
-          <Title
-            size="small"
-            text="Creá tu post"
-            className="font-medium text-xl font-title"
-          />
-        </section>
+      <article className="flex flex-col w-full min-h-screen bg-background">
+        <NavTitle link="search" title="Creá tu post" />
         <p>Encontrá alojamiento, transporte o compañeros para tu próximo evento</p>
         <form className="flex flex-col py-4 gap-6">
           <InputSelect
