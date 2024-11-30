@@ -96,6 +96,7 @@ export const crews = [
     id: 4,
     img: "/users/04.png",
     name: "Renata Gimenez"
-  },
-  
+  } 
 ]
+
+export const festivals = ["Lolapalloza2025", "+100 bandas"]
