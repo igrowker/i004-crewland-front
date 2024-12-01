@@ -31,7 +31,7 @@ const groups = [
     status: "online"
   }
 ]
-const CHATS = [
+const chats = [
   {
     avatar: "/users/01.png",
     username: "Pepito Grillo",
@@ -84,77 +84,99 @@ const CHATS = [
   }
 ]
 
-export default function CurrentCrews() {
 
+export default function CurrentCrews() {
+  const [openMenus, setOpenMenus] = useState<Record<number, boolean>>({});
+
+  const handleToggleMenu = (index: number) => {
+    setOpenMenus((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],  
+    }));
+  };
 
   return (
     <Container className="flex flex-col px-4 gap-6">
       <article className="flex flex-col w-full min-h-screen bg-background">
         <NavTitle link="profile" title="Crews Actuales" />
-        <div className='flex flex-col justify-center  mt-3 gap-6'>
+        <div className='flex flex-col justify-center mt-3 gap-6'>
           {groups.map((group, index) => (
-            <section className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4 '>
-              <div className='flex flex-row  justify-between  items-center'>
-                <h3 key={index} className='text-2xl leading-none'>{group.name}</h3>
+            <section key={index} className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
+              <div className='flex flex-row justify-between items-center'>
+                <h3 className='text-2xl leading-none'>{group.name}</h3>
                 <div className='flex flex-row gap-4 items-center'>
                   <span
-                    className={`rounded-full w-2 h-2 inline-block ${group.status === 'online' ? 'bg-[#26874A]' : 'bg-[#FA8080]'}`}>
+                    className={`rounded-full w-3 h-3 inline-block ${group.status === 'online' ? 'bg-[#26874A]' : 'bg-[#FA8080]'}`}>
                   </span>
-                  <p className='text-[16px]  text-customWhite'>{group.status === 'online' ? 'Activo' : 'Inactivo'}</p>
+                  <p className='text-[16px] text-customWhite'>{group.status === 'online' ? 'Activo' : 'Inactivo'}</p>
                 </div>
               </div>
-              <div className='flex flex-row justify-between  mt-2'>
+              <div className='flex flex-row justify-between mt-2'>
                 <span className='flex flex-row gap-1'>
-                  <button className='border border-white rounded-md px-4 py-1 text-sm'>Date
-                  </button>
-                  <button className='border border-white rounded-md px-4 py-1 text-sm '>Place
-                  </button>
+                  <button className='border border-white rounded-md px-4 py-1 text-sm'>Date</button>
+                  <button className='border border-white rounded-md px-4 py-1 text-sm'>Place</button>
                 </span>
-                <Car
-                  className='mr-1'
-                  size={25}
-                  strokeWidth={1.5}
-
-                />
+                <Car className='mr-1' size={25} strokeWidth={1.5} />
               </div>
               <div className='flex flex-row justify-between items-center'>
-                <p className='text-lg  tracking-wide mt-2'>Miembros Actuales </p>
+                <p className='text-lg tracking-wide mt-2'>Miembros Actuales </p>
                 <span>
                   <CirclePlus
                     className='fill-primaryHover text-black'
                     strokeWidth={1.5}
                     size={35}
-
                   />
                 </span>
               </div>
 
               <div className="flex flex-col w-full">
-                {CHATS.map((chat, index) => (
-                  <div key={index} className="flex justify-between items-center gap-4 w-full pl-0 p-1 ">
-                    <Avatar src={chat.avatar} alt="Image avatar" width={40} height={40} className="flex-shrink-0" />
+                {chats.map((chat, chatIndex) => (
+                  <div key={chatIndex} className="flex justify-between items-center gap-4 w-full pl-0 p-1">
+                    <Avatar
+                      src={chat.avatar}
+                      alt="Image avatar"
+                      width={40}
+                      height={40}
+                      className="flex-shrink-0"
+                    />
                     <div className="flex flex-col flex-grow overflow-hidden">
                       <p>{chat.username}</p>
                     </div>
-                    <div className="flex flex-col justify-center items-center">
-                      <Pencil size={20} />
+                    <div className="relative flex flex-col justify-center items-center">
+                      <button onClick={() => handleToggleMenu(chatIndex)}>
+                        <Pencil size={20} />
+                      </button>
+                      {openMenus[chatIndex] && (
+                        <>
+                          <div
+                            className="fixed inset-0 z-5"
+                            onClick={() => handleToggleMenu(chatIndex)} 
+                          ></div>
+                          <div className='absolute right-8 z-10 flex flex-col bg-red rounded-lg border border-white bg-background'>
+                            <span
+                              className='relative text-[14px] p-2  rounded-lg  border-gray-400 flex items-center focus:outline-none focus:text-primary'
+                              tabIndex={0}
+                            >
+                              Eliminar
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
               <div className='flex flex-row gap-1'>
-                <button
-                  className="w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]">
+                <button className="w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]">
                   Ir al Chat
                 </button>
               </div>
             </section>
           ))}
-
         </div>
-
       </article>
     </Container>
-  )
+  );
 }
+
 
