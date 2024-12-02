@@ -10,7 +10,7 @@ export default function UncompletedProfile() {
         experiencia más personalizada y aprovechar al máximo todo lo que tenemos
         para ti.
       </p>
-      <div className='py-4 my-3 flex justify-center'>
+      <div className='py-4 my-3 grid grid-cols-1'>
         <Button
           variant='primary'
           text='Completa tu biografía'
