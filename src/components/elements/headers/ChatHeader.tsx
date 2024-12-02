@@ -55,25 +55,21 @@ export default function ChatHeader() {
                     <div className='absolute top-12 right-4 flex flex-col bg-background rounded-lg border border-white'>
                         <span
                             className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
-                            tabIndex={0}
                         >
                             Bloquear
                         </span>
                         <span
                             className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
-                            tabIndex={0}
                         >
                             Reportar
                         </span>
                         <span
                             className='text-[14px] p-4 w-full border-b-2 border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
-                            tabIndex={0}
                         >
                             Restringir
                         </span>
                         <span
                             className='text-[14px] p-4 w-full border-gray-400 min-h-[40px] flex items-center focus:outline-none focus:text-primary'
-                            tabIndex={0}
                         >
                             Desactivar notificaciones
                         </span>

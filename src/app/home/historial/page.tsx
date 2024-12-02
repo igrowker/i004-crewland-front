@@ -2,7 +2,8 @@
 import Container from '@/components/elements/Container/Container'
 import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
-import UserChatItem from '@/components/elements/Chat/UserChatCard/UserChatItem'
+import GroupSection from '@/components/elements/Chat/GroupSection'
+
 const groups = [
     {
         id: '1',
@@ -86,41 +87,13 @@ export default function Historial() {
                 <NavTitle link='profile' title='Historial' />
                 <div className='flex flex-col justify-center mt-3 gap-6'>
                     {groups.map((group) => (
-                        <section key={group.id} className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
-                            <div className='flex flex-row justify-between items-center'>
-                                <h3 className='text-2xl leading-none'>{group.name}</h3>
-                                <div className='flex flex-row gap-4 items-center'>
-                                    <span
-                                        className={`rounded-full w-3 h-3 inline-block ${group.status === 'online' ? 'bg-[#26874A]' : 'bg-[#FA8080]'}`}>
-                                    </span>
-                                    <p className='text-[16px] text-customWhite'>{group.status === 'online' ? 'Asistido' : 'No Asistido'}</p>
-                                </div>
-                            </div>
-                            <div className='flex flex-row justify-between mt-2'>
-                                <span className='flex flex-row gap-1'>
-                                    <button className='border border-white rounded-md px-4 py-1 text-sm'>Date</button>
-                                    <button className='border border-white rounded-md px-4 py-1 text-sm'>Place</button>
-                                </span>
-                            </div>
-                            <div className='flex flex-row justify-between items-center'>
-                                <p className='text-lg tracking-wide mt-2'>Acompañantes </p>
-                                <span className='flex flex-row gap-2 justify-center items-center bg-primaryHover rounded-lg w-7 h-7 text-black text-lg'>
-                                    <p>{chats.length}</p>
-                                </span>
-                            </div>
-
-                            <div className='flex flex-col w-full'>
-                                {chats.map((chat, chatIndex) => (
-                                    <UserChatItem
-                                        key={chatIndex}
-                                        avatar={chat.avatar}
-                                        username={chat.username}
-
-                                    />
-                                ))}
-                            </div>
-
-                        </section>
+                        <GroupSection
+                        key={group.id}
+                        groupName={group.name}
+                        status={group.status}
+                        chats={chats}
+                        chatsLength={chats.length}
+                      />
                     ))}
                 </div>
             </article>

@@ -2,9 +2,7 @@
 import Container from '@/components/elements/Container/Container'
 import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
-import {  Car, CirclePlus } from 'lucide-react'
-import UserChatItem from '@/components/elements/Chat/UserChatCard/UserChatItem'
-
+import GroupSection from '@/components/elements/Chat/GroupSection'
 
 const groups = [
   {
@@ -93,51 +91,14 @@ export default function CurrentCrews() {
         <NavTitle link='profile' title='Crews Actuales' />
         <div className='flex flex-col justify-center mt-3 gap-6'>
           {groups.map((group) => (
-            <section key={group.id} className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
-              <div className='flex flex-row justify-between items-center'>
-                <h3 className='text-2xl leading-none'>{group.name}</h3>
-                <div className='flex flex-row gap-4 items-center'>
-                  <span
-                    className={`rounded-full w-3 h-3 inline-block ${group.status === 'online' ? 'bg-[#26874A]' : 'bg-[#FA8080]'}`}>
-                  </span>
-                  <p className='text-[16px] text-customWhite'>{group.status === 'online' ? 'Activo' : 'Inactivo'}</p>
-                </div>
-              </div>
-              <div className='flex flex-row justify-between mt-2'>
-                <span className='flex flex-row gap-1'>
-                  <button className='border border-white rounded-md px-4 py-1 text-sm'>Date</button>
-                  <button className='border border-white rounded-md px-4 py-1 text-sm'>Place</button>
-                </span>
-                <Car className='mr-1' size={25} strokeWidth={1.5} />
-              </div>
-              <div className='flex flex-row justify-between items-center'>
-                <p className='text-lg tracking-wide mt-2'>Miembros Actuales </p>
-                <span>
-                  <CirclePlus
-                    className='fill-primaryHover text-black'
-                    strokeWidth={1.5}
-                    size={35}
-                  />
-                </span>
-              </div>
-
-              <div className='flex flex-col w-full'>
-                {chats.map((chat, chatIndex) => (
-                  <UserChatItem
-                  key={chatIndex}
-                  avatar={chat.avatar}
-                  username={chat.username}
-                  onDelete = {() => handleDelete(chatIndex)}
-              />
-
-                ))}
-              </div>
-              <div className='flex flex-row gap-1'>
-                <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
-                  Ir al Chat
-                </button>
-              </div>
-            </section>
+            <GroupSection
+              key={group.id}
+              groupName={group.name}
+              status={group.status}
+              chats={chats}
+              showAddButton={true}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       </article>
