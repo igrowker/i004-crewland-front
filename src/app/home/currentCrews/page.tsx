@@ -1,107 +1,99 @@
-"use client"
+'use client'
 import Container from '@/components/elements/Container/Container'
-import React, { useState } from 'react'
-import "@/components/elements/calendar/Calendar.css"
+import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
-import Image from 'next/image'
-import { User } from "@/interfaces/postCard";
-import Avatar from '@/components/elements/Avatar/UniqueAvatar/Avatar'
-import { Pencil, Car, CirclePlus } from 'lucide-react';
+import {  Car, CirclePlus } from 'lucide-react'
+import UserChatItem from '@/components/elements/Chat/UserChatCard/UserChatItem'
 
 
 const groups = [
   {
-    id: "1",
-    name: "Lola Crew 2024",
-    status: "online"
+    id: '1',
+    name: 'Lola Crew 2024',
+    status: 'online'
   },
   {
-    id: "2",
-    name: "Lola Crew 2023",
-    status: "online"
+    id: '2',
+    name: 'Lola Crew 2023',
+    status: 'online'
   },
   {
-    id: "3",
-    name: "Lola Crew 2022",
-    status: "online"
+    id: '3',
+    name: 'Lola Crew 2022',
+    status: 'online'
   },
   {
-    id: "4",
-    name: "Lola Crew 2021",
-    status: "online"
+    id: '4',
+    name: 'Lola Crew 2021',
+    status: 'online'
   }
 ]
 const chats = [
   {
-    avatar: "/users/01.png",
-    username: "Pepito Grillo",
-    message: "Hola, como va, yo estaré por Palermo. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt delectus earum, nihil sit totam, magnam maiores debitis molestiae aspernatur, iste et vel quo consequuntur repudiandae laudantium necessitatibus dignissimos labore consectetur.",
+    avatar: '/users/01.png',
+    username: 'Pepito Grillo',
+    message: 'Hola, como va, yo estaré por Palermo. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt delectus earum, nihil sit totam, magnam maiores debitis molestiae aspernatur, iste et vel quo consequuntur repudiandae laudantium necessitatibus dignissimos labore consectetur.',
   },
   {
-    avatar: "/users/02.png",
-    username: "Juanita Pérez",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/02.png',
+    username: 'Juanita Pérez',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/03.png",
-    username: "María Rodríguez",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/03.png',
+    username: 'María Rodríguez',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/04.png",
-    username: "José López",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/04.png',
+    username: 'José López',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/05.png",
-    username: "Ana García",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/05.png',
+    username: 'Ana García',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/06.png",
-    username: "Pedro Martínez",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/06.png',
+    username: 'Pedro Martínez',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/07.png",
-    username: "Sofía Pérez",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/07.png',
+    username: 'Sofía Pérez',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/08.png",
-    username: "Carlos García",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/08.png',
+    username: 'Carlos García',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/09.png",
-    username: "Lucía Martínez",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/09.png',
+    username: 'Lucía Martínez',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   },
   {
-    avatar: "/users/10.png",
-    username: "Juanita López",
-    message: "¡Hola! Bien, gracias. ¿Y tú?",
+    avatar: '/users/10.png',
+    username: 'Juanita López',
+    message: '¡Hola! Bien, gracias. ¿Y tú?',
   }
 ]
 
 
 export default function CurrentCrews() {
-  const [openMenus, setOpenMenus] = useState<Record<number, boolean>>({});
-
-  const handleToggleMenu = (index: number) => {
-    setOpenMenus((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],  
-    }));
-  };
+  const handleDelete = (chatIndex: number) => {
+    console.log(`Eliminar chat en índice: ${chatIndex}`)
+  }
 
   return (
-    <Container className="flex flex-col px-4 gap-6">
-      <article className="flex flex-col w-full min-h-screen bg-background">
-        <NavTitle link="profile" title="Crews Actuales" />
+    <Container className='flex flex-col px-4 gap-6'>
+      <article className='flex flex-col w-full min-h-screen bg-background'>
+        <NavTitle link='profile' title='Crews Actuales' />
         <div className='flex flex-col justify-center mt-3 gap-6'>
-          {groups.map((group, index) => (
-            <section key={index} className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
+          {groups.map((group) => (
+            <section key={group.id} className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
               <div className='flex flex-row justify-between items-center'>
                 <h3 className='text-2xl leading-none'>{group.name}</h3>
                 <div className='flex flex-row gap-4 items-center'>
@@ -129,45 +121,19 @@ export default function CurrentCrews() {
                 </span>
               </div>
 
-              <div className="flex flex-col w-full">
+              <div className='flex flex-col w-full'>
                 {chats.map((chat, chatIndex) => (
-                  <div key={chatIndex} className="flex justify-between items-center gap-4 w-full pl-0 p-1">
-                    <Avatar
-                      src={chat.avatar}
-                      alt="Image avatar"
-                      width={40}
-                      height={40}
-                      className="flex-shrink-0"
-                    />
-                    <div className="flex flex-col flex-grow overflow-hidden">
-                      <p>{chat.username}</p>
-                    </div>
-                    <div className="relative flex flex-col justify-center items-center">
-                      <button onClick={() => handleToggleMenu(chatIndex)}>
-                        <Pencil size={20} />
-                      </button>
-                      {openMenus[chatIndex] && (
-                        <>
-                          <div
-                            className="fixed inset-0 z-5"
-                            onClick={() => handleToggleMenu(chatIndex)} 
-                          ></div>
-                          <div className='absolute right-8 z-10 flex flex-col bg-red rounded-lg border border-white bg-background'>
-                            <span
-                              className='relative text-[14px] p-2  rounded-lg  border-gray-400 flex items-center focus:outline-none focus:text-primary'
-                              tabIndex={0}
-                            >
-                              Eliminar
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
+                  <UserChatItem
+                  key={chatIndex}
+                  avatar={chat.avatar}
+                  username={chat.username}
+                  onDelete = {() => handleDelete(chatIndex)}
+              />
+
                 ))}
               </div>
               <div className='flex flex-row gap-1'>
-                <button className="w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]">
+                <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
                   Ir al Chat
                 </button>
               </div>
@@ -176,7 +142,7 @@ export default function CurrentCrews() {
         </div>
       </article>
     </Container>
-  );
+  )
 }
 
 
