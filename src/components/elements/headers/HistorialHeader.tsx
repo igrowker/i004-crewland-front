@@ -1,5 +1,8 @@
+'use client'
+import React, { useState } from 'react'
 import { Car, CirclePlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import AddUserModal from '../Chat/AddUserModal'
 export interface HeaderProps {
     groupName: string
     status: string
@@ -12,8 +15,18 @@ export interface HeaderProps {
 
 const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength, showAddButton }) => {
     const pathname = usePathname()
+    const headerText = pathname === '/home/historial' ? 'Miembros Actuales' : 'Acompañantes'
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const headerText= pathname === '/home/historial' ? 'Miembros Actuales' : 'Acompañantes'
+    const handleToggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen)
+    }
+
+    const handleAddUser = (email: string) => {
+        console.log(`Usuario añadido: ${email}`);
+    }
+
+
     return (
         <>
             {/* Titulo  */}
@@ -42,11 +55,23 @@ const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength
                 <p className='text-lg tracking-wide mt-2'>{headerText} </p>
                 <span >
                     {showAddButton ? (
-                        <CirclePlus
-                            className='fill-primaryHover text-black'
-                            strokeWidth={1.5}
-                            size={35}
-                        />
+                        <>
+                            <button onClick={handleToggleMenu}>
+                                <CirclePlus
+                                    className='fill-primaryHover text-black'
+                                    strokeWidth={1.5}
+                                    size={35}
+                                />
+                            </button>
+                            {isMenuOpen && (
+                                <AddUserModal
+                                    title='Agregar miembro'
+                                    onAddUser={handleAddUser}
+                                    closeModal={handleToggleMenu}
+
+                                />
+                            )}
+                        </>
                     ) : (
                         <p className='flex flex-row gap-2 justify-center items-center bg-primaryHover rounded-lg w-7 h-7 text-black text-lg'>{chatsLength}</p>
                     )}
