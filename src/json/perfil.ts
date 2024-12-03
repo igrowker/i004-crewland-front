@@ -1,14 +1,15 @@
+import { ShieldAlert, FileText, SquareArrowOutUpRight } from "lucide-react";
 export const configPerfil = [
   {
-    src: 'quiz',
-    text: 'FAQ'
+    src: SquareArrowOutUpRight,
+    text: "FAQ",
   },
   {
-    src: 'article_shortcut',
-    text: 'Términos y condiciones'
+    src: FileText,
+    text: "Términos y condiciones",
   },
   {
-    src: 'gpp_maybe',
-    text: 'Política de privacidad.'
-  }
-]
+    src: ShieldAlert,
+    text: "Política de privacidad.",
+  },
+];

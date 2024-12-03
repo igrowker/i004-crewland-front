@@ -1,8 +1,7 @@
 import Container from '@/components/elements/Container/Container'
 import NavTitle from '@/components/elements/headers/NavTitle'
 import { configPerfil } from '@/json/perfil'
-import { ChevronDown, Moon, Trash2 } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronDown, Moon, Trash2, Languages } from 'lucide-react'
 import React from 'react'
 
 export default function Config() {
@@ -15,8 +14,8 @@ export default function Config() {
         </p>
         <section className='flex flex-col gap-6 mt-5'>
           {configPerfil.map(option => (
-            <div key={option.src} className="flex gap-2 items-center cursor-pointer">
-              <Image src={`/${option.src}.png`} alt={option.src} height={25} width={25} />
+            <div key={option.text} className="flex gap-2 items-center cursor-pointer">
+              <option.src />
               <p>{option.text}</p>
             </div>
           ))}
@@ -26,12 +25,7 @@ export default function Config() {
         </p>
         <div className="cursor-pointer flex items-center justify-between">
           <div className="flex gap-2 justify-center">
-            <Image
-              alt="btn languaje"
-              src={'/languages.png'}
-              height={25}
-              width={25}
-            />
+            <Languages />
             <p>Opciones de Idioma</p>
           </div>
           <ChevronDown />
