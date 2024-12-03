@@ -1,14 +1,12 @@
 "use client"
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
-import Title from "@/components/elements/Titles/Title";
 import useRegister from "@/hooks/useRegister";
 import Container from '@/components/elements/Container/Container';
 import InputCalendar from '@/components/elements/Inputs/InputCalendar';
 import InputSelect from '@/components/elements/Inputs/InputSelect';
-import Image from "next/image";
 import { useState } from "react";
 import ModalPost from "@/components/elements/search/ModalPost";
-import Link from "next/link";
+import NavTitle from "@/components/elements/headers/NavTitle";
 
 export default function Register() {
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
@@ -27,16 +25,8 @@ export default function Register() {
 
   return (
     <Container className="bg-background">
-      <article>
-        <section className="flex justify-center items-center pb-4 gap-1">
-          <Link href="/auth/login" aria-label="Volver a interface Login">
-          <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
-          </Link>
-          <Title
-            text="Crear un nuevo Usuario"
-            className="w-full font-normal text-lg"
-          />
-        </section>
+      <article className="mx-2 my-4">
+        <NavTitle link="auth/login" title="Crear un nuevo Usuario" />
         <p className="py-2 font-roboto">
           ¡Bienvenido/a! Regístrate para empezar Queremos conocerte un poco más. Completa los campos obligatorios (*) para unirte a nuestra comunidad.
         </p>
@@ -111,7 +101,7 @@ export default function Register() {
           />
           <button
             type="button"
-            className="hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium"
+            className="bg-primary text-background rounded-lg w-full py-3 my-5 font-medium"
             onClick={handleRegistro}
             aria-label="Registar nuevo usuario"
           >
