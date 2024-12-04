@@ -1,31 +1,31 @@
 'use client'
 import React, { useState } from 'react'
-import { Car, CirclePlus } from 'lucide-react'
+import { Car, Building, Users, CirclePlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import AddUserModal from '../Chat/AddUserModal'
 export interface HeaderProps {
     groupName: string
     status: string
+    service?: 'alojamiento' | 'transporte' | 'compañero' | 'otro'
     chatsLength?: number
     showAddButton?: boolean
 }
 
-//TODO icono de Car eliminarlo si es /historial? meter mas iconos en el array de grupo habitacion, acompañante transporte otros
-//TODO logica de añadir miembros
-
-const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength, showAddButton }) => {
+const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, service, chatsLength, showAddButton }) => {
     const pathname = usePathname()
     const headerText = pathname === '/home/historial' ? 'Miembros Actuales' : 'Acompañantes'
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const handleToggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen)
-    }
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const handleAddUser = (email: string) => {
         console.log(`Usuario añadido: ${email}`);
     }
 
+    const serviceIcons = {
+        transporte: <Car className='mr-1' size={25} strokeWidth={1.5} />,
+        alojamiento: <Building className='mr-1' size={25} strokeWidth={1.5} />,
+        compañero: <Users className='mr-1' size={25} strokeWidth={1.5} />,
+        otro: <p></p>
+    }
 
     return (
         <>
@@ -47,8 +47,8 @@ const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength
                     <button className='border border-white rounded-md px-4 py-1 text-sm'>Place</button>
                 </span>
 
+                {service && serviceIcons[service]}
 
-                <Car className='mr-1' size={25} strokeWidth={1.5} />
             </div>
             {/* Subtitul */}
             <div className='flex flex-row justify-between items-center'>
@@ -56,8 +56,8 @@ const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength
                 <span >
                     {showAddButton ? (
                         <>
-                            <button onClick={handleToggleMenu}>
-                                <CirclePlus
+                            <button onClick={() => setIsMenuOpen(true)}>
+                            <CirclePlus
                                     className='fill-primaryHover text-black'
                                     strokeWidth={1.5}
                                     size={35}
@@ -67,8 +67,7 @@ const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, chatsLength
                                 <AddUserModal
                                     title='Agregar miembro'
                                     onAddUser={handleAddUser}
-                                    closeModal={handleToggleMenu}
-
+                                    closeModal={() => setIsMenuOpen(false)}
                                 />
                             )}
                         </>
