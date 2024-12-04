@@ -2,8 +2,8 @@
 import Container from '@/components/elements/Container/Container'
 import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
-import GroupSection from '@/components/elements/Chat/GroupSection'
-import {groups, chats} from '@/json/historial'
+import GroupSection from '@/components/elements/Profile/GroupSection'
+import { groups, chats } from '@/json/historial'
 
 export default function CurrentCrews() {
   const handleDelete = (chatIndex: number) => {

@@ -1,5 +1,5 @@
 import HistorialHeader from "../headers/HistorialHeader"
-import UserChatItem from "./UserChatCard/UserChatItem"
+import UserChatItem from "../Chat/UserChatCard/UserChatItem"
 import { usePathname } from 'next/navigation'
 
 interface GroupSectionProps {
@@ -38,7 +38,7 @@ const GroupSection: React.FC<GroupSectionProps> = ({ groupName, status, service,
                 ))}
             </div>
 
-            {pathname === '/home/currentCrews' && (
+            {pathname === '/profile/currentCrews' && (
                 <div className='flex flex-row gap-1'>
                     <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
                         Ir al Chat

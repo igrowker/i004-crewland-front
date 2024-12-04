@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Car, Building, Users, CirclePlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import AddUserModal from '../Chat/AddUserModal'
+import AddUserModal from '../Profile/AddUserModal'
 export interface HeaderProps {
     groupName: string
     status: string
@@ -13,7 +13,7 @@ export interface HeaderProps {
 
 const HistorialHeader: React.FC<HeaderProps> = ({ groupName, status, service, chatsLength, showAddButton }) => {
     const pathname = usePathname()
-    const headerText = pathname === '/home/historial' ? 'Miembros Actuales' : 'Acompañantes'
+    const headerText = pathname === '/profile/historial' ? 'Miembros Actuales' : 'Acompañantes'
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const handleAddUser = (email: string) => {
