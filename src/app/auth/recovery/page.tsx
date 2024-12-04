@@ -2,7 +2,6 @@
 import Container from '@/components/elements/Container/Container'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
-import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -20,13 +19,14 @@ export default function RecoveryPage() {
     <Container className='flex flex-col justify-center items-center'>
       <section className='bg-background min-h-screen px-1'>
         <div className='flex flex-col items-start gap-5 mb-8'>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-center gap-2 pt-1'>
             <Link href='/auth/login'>
-              <ArrowLeft className='text-white' size={40} />
+              <Image src='/arrowLeft.svg' alt='Back' width={24} height={12} />
             </Link>
             <Title
               text='Recuperar contraseña'
-              size='large'
+              size='medium'
+              align='center'
               weight='extrabold'
               className='text-white'
             />
