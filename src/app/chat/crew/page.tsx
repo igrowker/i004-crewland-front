@@ -6,16 +6,14 @@ import InputSearch from '@/components/elements/Inputs/InputSearch'
 
 export default function ChatCrew() {
     return (
-        <Container>
-            <section className='flex flex-col w-full h-screen gap-20'>
+        <Container className="flex flex-col px-4 gap-6 ">
                 <NavTitle link="chat" title="Grupos Crew"/>
                 <InputSearch/>
-                <main className='flex flex-col w-full align-top gap-8'>
+                <main className='flex flex-col w-full align-top gap-8 pb-4'>
                     {chats.map(chat => (
                         <CrewChatCard key={chat.id} chat={chat} />
                     ))}
                 </main>
-            </section>
         </Container>
     )
 }
