@@ -1,8 +1,8 @@
 'use client'
 import Container from '@/components/elements/Container/Container'
+import BackArrow from '@/components/elements/icons/BackArrow'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
-import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -36,16 +36,13 @@ export default function SuccessPage() {
     <Container className='flex flex-col justify-center items-center'>
       <section className='bg-background min-h-screen px-1'>
         <div className='flex flex-col items-start gap-5 mb-8'>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-center gap-2 pt-1'>
             <Link href='/auth/recovery'>
-              <ArrowLeft
-                className='text-customWhite cursor-pointer'
-                size={30}
-              />
+              <BackArrow />
             </Link>
             <Title
               text='Recuperar contraseña'
-              size='large'
+              size='medium'
               weight='extrabold'
               className='text-white'
             />
