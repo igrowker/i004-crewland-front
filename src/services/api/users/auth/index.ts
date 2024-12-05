@@ -1,6 +1,6 @@
 import { login } from "./login";
-import { register } from "./register";
+import { userRegister } from "./register";
 
-const auth = {login, register}
+const auth = {login, userRegister}
 
 export default auth;
