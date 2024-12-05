@@ -1,5 +1,6 @@
 'use client'
 import Container from '@/components/elements/Container/Container'
+import BackArrow from '@/components/elements/icons/BackArrow'
 import ReusableInput from '@/components/elements/Inputs/ReusableInput'
 import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
@@ -37,7 +38,7 @@ export default function SuccessPage() {
         <div className='flex flex-col items-start gap-5 mb-8'>
           <div className='flex items-center justify-center gap-2 pt-1'>
             <Link href='/auth/recovery'>
-              <Image src='/arrowLeft.svg' alt='Back' width={24} height={12} />
+              <BackArrow />
             </Link>
             <Title
               text='Recuperar contraseña'

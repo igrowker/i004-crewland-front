@@ -6,7 +6,7 @@ import Title from '@/components/elements/Titles/Title'
 import Link from 'next/link'
 import Button from '@/components/elements/Buttons/Button'
 import { useState } from 'react'
-import Image from 'next/image'
+import BackArrow from '@/components/elements/icons/BackArrow'
 
 export default function NewPasswordPage() {
   const router = useRouter()
@@ -46,7 +46,7 @@ export default function NewPasswordPage() {
         <div className='flex flex-col items-start gap-5 mb-8'>
           <div className='flex items-center justify-center gap-2 pt-1'>
             <Link href='/auth/recovery'>
-              <Image src='/arrowLeft.svg' alt='Back' width={24} height={12} />
+              <BackArrow />
             </Link>
             <Title
               text='Recuperar contraseña'
