@@ -23,6 +23,10 @@ jobs:
       - name: Deploy on EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} << EOF
+            # Informacion
+            echo "----------------->  docker system df"
+            sudo docker system df
+
             # Detenemos los contenedores
             echo "-----------------> Deteniendo contenedores..."
             
@@ -30,13 +34,24 @@ jobs:
             cd /home/ubuntu/crewland/i004-devops/crewland
 
             echo "sudo docker-compose -f docker-compose-front-deploy-ec2.yml down"
-            sudo docker-compose -f docker-compose-front-deploy-ec2.yml down
+            sudo docker-compose -f docker-compose-front-deploy-ec2.yml down -v
 
-            # Actualizamos la imagen del frontend a su ultima version.
-            echo "-----------------> Actualizamos la imagen del frontend a su ultima version."
+            # Eliminando volumenes e imagenes huerfanos
+            echo "-----------------> Eliminando volumenes e imagenes huerfanos"
+
+            echo "docker volume prune -f"
+            sudo docker volume prune -f
             
-            echo "docker pull igrowker/i004-crewland-front-dev-image:latest"
-            docker pull igrowker/i004-crewland-front-dev-image:latest
+            echo "docker image prune -f"
+            sudo docker image prune -f
+
+            Eliminar imágenes no utilizadas
+            echo "docker image prune -a -f"
+            sudo docker image prune -a -f
+
+            # Informacion
+            echo "----------------->  docker system df"
+            sudo docker system df
 
             # Ir al directorio del proyecto
             echo "-----------------> Actualizar el contenido del repositorio"
@@ -56,8 +71,8 @@ jobs:
             echo "git pull origin main"
             git pull origin main  
 
-            # Iniciando contenedor del backend
-            echo "-----------------> Iniciando backend..."
+            # Iniciando contenedor del frontend
+            echo "-----------------> Iniciando frontend..."
             
             echo "cd /home/ubuntu/crewland/i004-devops/crewland"
             cd /home/ubuntu/crewland/i004-devops/crewland
