@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crewland FrontEnd
 
-## Getting Started
+Crewland es una aplicación web desarrollada con Next.js que permite a los usuarios conectarse y coordinar para eventos y festivales. Los usuarios pueden buscar compañeros para transporte, alojamiento o simplemente para asistir juntos a eventos.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Autenticación de usuarios
+- Chat en tiempo real
+- Sistema de posts para buscar compañeros
+- Gestión de festivales y eventos
+- Interfaz responsive
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El sistema de chat incluye:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Chat uno a uno
+- Chats grupales
+- Lista de conversaciones
+- Mensajes con estado de lectura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La gestión de festivales incluye:
 
-## Learn More
+- Listado de festivales próximos
+- Detalles del festival (fecha, ubicación, lineup)
+- Sistema de búsqueda y filtros
+- Creación de grupos para el festival
+- Coordinación de transporte y alojamiento
 
-To learn more about Next.js, take a look at the following resources:
+El sistema de posts permite:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Crear publicaciones buscando compañeros
+- Filtrar por tipo de necesidad (transporte/alojamiento)
+- Comentar en posts de otros usuarios
+- Notificaciones de interacciones
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+La interfaz está diseñada con:
 
-## Deploy on Vercel
+- Diseño responsive para móvil y escritorio
+- Tema oscuro/claro
+- Componentes reutilizables
+- Animaciones fluidas
+- Iconografía consistente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Color Reference
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Color             | Hex                                                              |
+| ----------------- | ---------------------------------------------------------------- |
+| primary           | ![#CE9DF9](https://via.placeholder.com/10/CE9DF9?text=+) #CE9DF9 |
+| primaryHover      | ![#B771F5](https://via.placeholder.com/10/B771F5?text=+) #B771F5 |
+| customWhite       | ![#F2F2F2](https://via.placeholder.com/10/F2F2F2?text=+) #F2F2F2 |
+| customYellow      | ![#FFED61](https://via.placeholder.com/10/FFED61?text=+) #FFED61 |
+| customYellowHover | ![#FCE427](https://via.placeholder.com/10/FCE427?text=+) #FCE427 |
+| background        | ![#03071E](https://via.placeholder.com/10/03071E?text=+) #03071E |
+| customGray        | ![#B7B7B8](https://via.placeholder.com/10/B7B7B8?text=+) #B7B7B8 |
+| customRed         | ![#FA8080](https://via.placeholder.com/10/FA8080?text=+) #FA8080 |
+| customGreen       | ![#26874A](https://via.placeholder.com/10/26874A?text=+) #26874A |
+| customBlue        | ![#62C0FA](https://via.placeholder.com/10/62C0FA?text=+) #62C0FA |
+
+## Authors
+
+- [Alicia Gálvez](https://www.github.com/alicia4079)
+- [Débora García](https://www.github.com/debi312)
+- [Fran Salvatierra](https://www.github.com/Ridie-Kings)
+- [Juan Ramirez](https://www.github.com/juanRcoder)
+
+## Tech Stack
+
+NextJs 15, React 19, TailwindCSS & Axios.
