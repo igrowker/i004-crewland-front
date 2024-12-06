@@ -7,19 +7,22 @@ import InputSelect from '@/components/elements/Inputs/InputSelect';
 import { useState } from "react";
 import ModalPost from "@/components/elements/search/ModalPost";
 import NavTitle from "@/components/elements/headers/NavTitle";
+import {register2} from '@/services/api/users/auth/register';
 
 export default function Register() {
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
 
   const [stateModal, setStateModal] = useState<boolean>(false);
 
-  const handleRegistro = () => {
+  const handleRegistro = async() => {
     const isValidForm = ValidateRegister();
     //Si todo los campos son validos mostramos todos los campos para enviar al servidor
     if (isValidForm) {
       setStateModal(true)
       // Este estado "register" contiene {age, email, gender, name, password, tel, username}
       console.log(register)
+      const response = await register2(register.email,register.password,register.name, register.username, register.age, register.tel, register.gender);
+      console.log(response);
     }
   };
 

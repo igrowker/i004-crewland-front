@@ -1,8 +1,9 @@
 import server from "@/server.config"
 import axios from "axios"
 
-export const register = async (email: string, password: string, name: string, username: string, age: string, tel: string, gender: string, userAgent: string) => {
+export const register2 = async (email: string, password: string, name: string, username: string, age: string, tel: string, gender: string, userAgent?: string) => {
     try {
+        console.log(`${server}/users/register`);
         const response = await axios.post(`${server}/users/register`, {
             email,
             password,
@@ -10,7 +11,7 @@ export const register = async (email: string, password: string, name: string, us
             username,
             age,
             tel,
-            gender
+            gender: "hombre"
         }, {
             headers: {
                 'user-agent': userAgent,
