@@ -1,6 +1,6 @@
 import { CalendarDays } from 'lucide-react';
 import React, { useState } from 'react'
-import Calendar from '../Calendar/Calendar';
+import Calendar from '../calendar/Calendar';
 
 interface InputCalendarProps {
   label?: string

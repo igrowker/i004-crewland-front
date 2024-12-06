@@ -11,10 +11,10 @@ import { User, Check } from 'lucide-react'
 import { FormState, login } from '@/lib'
 
 export default function LoginPage() {
-  const [errors, setErrors] = useState<{type: string, message: string}>({type: '', message: ''})
+  const [errors, setErrors] = useState<{ type: string, message: string }>({ type: '', message: '' })
   const [formState, formAction] = useActionState(login, {
     success: false,
-    data: {token: '', msg: ''},
+    data: { token: '', msg: '' },
   } as FormState)
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function LoginPage() {
       )
     }
   }, [formState])
-  
+
   const [rememberMe, setRememberMe] = useState(false)
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +119,7 @@ export default function LoginPage() {
                   className={`appearance-none w-full h-full border-2 rounded-sm cursor-pointer ${rememberMe
                     ? 'bg-primary border-primary'
                     : 'bg-transparent border-customWhite'
-                    }` }
+                    }`}
                 />
                 <span
                   className={`absolute top-0 left-0 w-full h-full flex justify-center items-center text-white text-xl ${rememberMe ? 'opacity-100' : 'opacity-0'
@@ -134,15 +134,15 @@ export default function LoginPage() {
                 Recordar contraseña
               </label>
             </div>
+            <div className='flex flex-col gap-4 '>
+              <Button submit text='Iniciar Sesión' variant='primary' />
+              <Button
+                text='Registrarse'
+                variant='ghost'
+                onClick={() => redirect('/auth/register')}
+              />
+            </div>
           </form>
-          <div className='flex flex-col gap-4 p-4 md:p-6 lg:p-8'>
-            <Button submit text='Iniciar Sesión' variant='primary' />
-            <Button
-              text='Registrarse'
-              variant='ghost'
-              onClick={() => redirect('/auth/register')}
-            />
-          </div>
           <div className='flex flex-col items-center'>
             <Link
               href='/auth/recovery'
