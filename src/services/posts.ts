@@ -1,7 +1,7 @@
-"use server";
-import axios from "axios";
-import { token } from "@/server.config";
-import { publicationInterface } from "@/interfaces/publication";
+'use server'
+import axios from 'axios'
+import { token } from '@/server.config'
+import { publicationInterface } from '@/interfaces/publication'
 
 export const getPosts = async () => {
   try {
@@ -10,16 +10,16 @@ export const getPosts = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`, // Agrega el token al encabezado
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}
 
 export const getPublicationsByFestival = async (id: string) => {
   try {
@@ -28,16 +28,16 @@ export const getPublicationsByFestival = async (id: string) => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}
 
 export const getUsersForPublications = async () => {
   try {
@@ -46,29 +46,34 @@ export const getUsersForPublications = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
 }
 
-export const postPublication = async ( festivalId: string, createPost: publicationInterface ) => {
+export const postPublication = async (
+  festivalId: string,
+  createPost: publicationInterface
+) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/publications/${festivalId}`, createPost,
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER}/publications/${festivalId}`,
+      createPost,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
-    return response.data;
+    )
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}

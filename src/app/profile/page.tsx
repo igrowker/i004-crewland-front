@@ -7,6 +7,8 @@ import CompletedProfile from '@/components/elements/Profile/CompletedProfile'
 import UncompletedProfile from '@/components/elements/Profile/UncompletedProfile'
 import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
+import Button from '@/components/elements/Buttons/Button'
+import { User, History, Settings } from 'lucide-react'
 
 export default function ProfilePage() {
   const router = useRouter()
@@ -60,6 +62,36 @@ export default function ProfilePage() {
           />
         </div>
         {isCompleted ? <CompletedProfile /> : <UncompletedProfile />}
+        <div className='grid grid-cols-2 gap-4 text-sm px-4'>
+          <Button
+            variant='primary'
+            text='Información de Contacto'
+            icon={<User className='w-5 h-5' />}
+            className='w-full h-16 text-start'
+            onClick={() => router.push('/informacion-contacto')}
+          />
+          <Button
+            variant='primary'
+            text='Crews actuales'
+            icon={<User className='w-5 h-5' />}
+            className='w-full h-16 text-left'
+            onClick={() => router.push('/chat/crew')}
+          />
+          <Button
+            variant='primary'
+            text='Historial'
+            icon={<History className='w-5 h-5' />}
+            className='w-full h-16 text-start'
+            onClick={() => router.push('/profile/historial')}
+          />
+          <Button
+            variant='primary'
+            text='Configuración de la cuenta'
+            icon={<Settings className='w-5 h-5' />}
+            className='w-full h-16 text-start'
+            onClick={() => router.push('/configuracion-cuenta')}
+          />
+        </div>
       </Container>
     </div>
   )
