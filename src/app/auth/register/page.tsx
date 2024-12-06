@@ -56,7 +56,7 @@ export default function Register() {
         <form className="flex flex-col py-4 gap-6">
           <ReusableInput
             id="name"
-            label="Nombre completo"
+            label="Nombre Completo"
             placeholder="Juan Perez"
             onChange={(e) => handleChange(e)}
             error={errors.name}
@@ -65,8 +65,8 @@ export default function Register() {
           <ReusableInput
             id="username"
             type="text"
-            label="Nombre de usuario"
-            placeholder="Juan-Perez24"
+            label="Nombre de Usuario"
+            placeholder="JuanPerez123"
             onChange={(e) => handleChange(e)}
             error={errors.username}
             isRequired
@@ -74,7 +74,7 @@ export default function Register() {
           <ReusableInput
             id="email"
             type="email"
-            label="Correo Electronico"
+            label="Correo Electrónico"
             placeholder="juanperez@gmail.com"
             onChange={(e) => handleChange(e)}
             error={errors.email}
@@ -82,8 +82,8 @@ export default function Register() {
           />
           <ReusableInput
             id="tel"
-            label="Numero de Telefono"
-            placeholder="+54 9"
+            label="Número de Teléfono"
+            placeholder="+54 123"
             onChange={(e) => handleChange(e)}
             error={errors.tel}
             isRequired
@@ -110,7 +110,7 @@ export default function Register() {
             type="password"
             label="Contraseña"
             password
-            placeholder="password"
+            placeholder="Contraseña"
             onChange={(e) => handleChange(e)}
             error={errors.password}
             isRequired
@@ -120,7 +120,7 @@ export default function Register() {
             type="password"
             label="Repite tu Contraseña"
             password
-            placeholder="confirmedPassword"
+            placeholder="Confirmar contraseña"
             onChange={(e) => setConfirmPassword(e.target.value)}
             error={errors.confirmPassword}
             isRequired
