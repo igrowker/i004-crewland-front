@@ -1,7 +1,7 @@
 import CrewContainer from "@/components/elements/Chat/CrewContainer";
 import Container from "@/components/elements/Container/Container";
 import InputSearch from "@/components/elements/Inputs/InputSearch";
-import { User } from "@/interfaces/postCard";
+import { User } from "@/interfaces/publication";
 import ChatsContainer from "../elements/Chat/Container/ChatsContainer";
 import NavTitle from "../elements/headers/NavTitle";
 export default function ChatPage() {
