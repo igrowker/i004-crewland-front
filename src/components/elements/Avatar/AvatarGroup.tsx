@@ -1,4 +1,4 @@
-import { User } from "@/interfaces/postCard";
+import { User } from "@/interfaces/publication";
 import Avatar from "./UniqueAvatar/Avatar";
 
 
