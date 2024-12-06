@@ -1,27 +1,44 @@
 "use client"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { crews } from "@/json/post";
+import { images } from "@/json/post";
+import { getUsersForPublications } from "@/services/posts";
+import { UserInterface } from "@/interfaces/publication";
+import "../Calendar/Calendar.css";
 
-export default function SearchCrews() {
+type searchCrewsType = {
+  participants: (participant: string[]) => void
+}
+
+export default function SearchCrews({ participants }: searchCrewsType) {
+  const [dataUsers, setDataUsers] = useState<UserInterface[]>([])
+  const [users, setUsers] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const Icon = openModal ? ChevronUp : ChevronDown;
 
-  // Arreglo con las rutas de las imágenes
-  const images = [
-  {
-    img: "/users/01.png",
-    style: "left-0"
-   }, {
-    img: "/users/02.png",
-    style: "left-8"
-   },
-  {
-     img: "/users/03.png",
-    style: "left-16"
-  }
-];
+  const handleChangeUsers = (e: React.ChangeEvent<HTMLInputElement>, userName: string) => {
+    if (e.target.checked) {
+      // Agregar usuario si se selecciona
+      setUsers((prevUsers) => [...prevUsers, userName]);
+    } else {
+      // Eliminar usuario si se desmarca
+      setUsers((prevUsers) => prevUsers.filter((user) => user !== userName));
+    }
+  };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await getUsersForPublications();
+        setDataUsers(response.data.data)
+      } catch(e) {
+        console.error(e)
+      }
+    }
+    getUsers();
+    participants(users);
+  }, [users, participants]);
 
   return (
     <article className="flex flex-col gap-2 relative">
@@ -48,21 +65,25 @@ export default function SearchCrews() {
             placeholder="@nombredeusuario"
             className="bg-transparent outline outline-1 outline-customWhite border-none rounded-full p-1 pl-3 py-2 text-sm"
           />
-          <div className="grid gap-3">
-            {crews.map(crew => (
+          <div className="grid gap-3 max-h-64 overflow-hidden overflow-y-auto scrollbar-custom">
+            {dataUsers.map(crew => (
               <section key={crew.id} className="first:border-none border-t flex items-center justify-between py-2 pt-4">
                 <div className="flex items-center gap-3">
                   <Image
-                    src={crew.img}
-                    alt={`persona${crew.id}`}
+                    src={crew.image || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
+                    alt={`user-${crew.id}`}
                     width={40}
                     height={40}
                   />
                   <p>{crew.name}</p>
                 </div>
                 <label htmlFor={`checkCrew${crew.id}`}>
-                  <input type="checkbox" id={`checkCrew${crew.id}`}
+                  <input
+                    type="checkbox"
+                    id={`checkCrew${crew.id}`}
                     className="peer hidden"
+                    checked={users.includes(crew.name)} 
+                    onChange={(e)=> handleChangeUsers(e, crew.name)}
                   />
                   <span
                     className="cursor-pointer h-5 w-5 flex rounded-full border border-slate-600 dark:bg-transparent peer-checked:bg-primary peer-checked:border-2 transition"

@@ -1,0 +1,96 @@
+name: Deploy on EC2
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Push Docker Image (Dev)
+    types:
+      - completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Configurar SSH
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      # Paso 2: Implementar en el servidor EC2
+      - name: Deploy on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} << EOF
+            # Informacion
+            echo "----------------->  docker system df"
+            sudo docker system df
+
+            # Detenemos los contenedores
+            echo "-----------------> Deteniendo contenedores..."
+            
+            echo "cd /home/ubuntu/crewland/i004-devops/crewland"
+            cd /home/ubuntu/crewland/i004-devops/crewland
+
+            echo "sudo docker-compose -f docker-compose-front-deploy-ec2.yml down"
+            sudo docker-compose -f docker-compose-front-deploy-ec2.yml down -v
+
+            # Eliminando volumenes e imagenes huerfanos
+            echo "-----------------> Eliminando volumenes e imagenes huerfanos"
+
+            echo "docker volume prune -f"
+            sudo docker volume prune -f
+            
+            echo "docker image prune -f"
+            sudo docker image prune -f
+
+            Eliminar imágenes no utilizadas
+            echo "docker image prune -a -f"
+            sudo docker image prune -a -f
+
+            # Informacion
+            echo "----------------->  docker system df"
+            sudo docker system df
+
+            # Ir al directorio del proyecto
+            echo "-----------------> Actualizar el contenido del repositorio"
+            
+            echo "cd /home/ubuntu/crewland/i004-devops"
+            cd /home/ubuntu/crewland/i004-devops
+            
+            # Eliminar cambios locales no deseados
+            echo "-----------------> Eliminar cambios locales no deseados"
+           
+            echo "git reset --hard"
+            git reset --hard  
+            
+            # Actualiza desde la rama main
+            echo "-----------------> Actualiza desde la rama main" 
+            
+            echo "git pull origin main"
+            git pull origin main  
+
+            # Iniciando contenedor del frontend
+            echo "-----------------> Iniciando frontend..."
+            
+            echo "cd /home/ubuntu/crewland/i004-devops/crewland"
+            cd /home/ubuntu/crewland/i004-devops/crewland
+            
+            echo "sudo docker-compose -f docker-compose-front-deploy-ec2.yml up --build -d"   
+            sudo docker-compose -f docker-compose-front-deploy-ec2.yml up --build -d
+            
+            # Eliminando volumenes e imagenes huerfanos
+            echo "-----------------> Eliminando volumenes e imagenes huerfanos"
+
+            echo "docker volume prune -f"
+            sudo docker volume prune -f
+            
+            echo "docker image prune -f"
+            sudo docker image prune -f
+
+            Eliminar imágenes no utilizadas
+            echo "docker image prune -a -f"
+            sudo docker image prune -a -f
+
+          EOF

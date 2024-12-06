@@ -1,42 +1,46 @@
 "use client"
 import ReusableInput from "@/components/elements/Inputs/ReusableInput";
-import Title from "@/components/elements/Titles/Title";
 import useRegister from "@/hooks/useRegister";
 import Container from '@/components/elements/Container/Container';
 import InputCalendar from '@/components/elements/Inputs/InputCalendar';
 import InputSelect from '@/components/elements/Inputs/InputSelect';
-import Image from "next/image";
 import { useState } from "react";
 import ModalPost from "@/components/elements/search/ModalPost";
-import Link from "next/link";
+import NavTitle from "@/components/elements/headers/NavTitle";
+import { useRouter } from 'next/navigation'
+import { userRegister } from "@/services/api/users/auth/register";
 
 export default function Register() {
+  const router = useRouter()
+
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
 
   const [stateModal, setStateModal] = useState<boolean>(false);
 
-  const handleRegistro = () => {
-    const isValidForm = ValidateRegister();
-    //Si todo los campos son validos mostramos todos los campos para enviar al servidor
-    if (isValidForm) {
-      setStateModal(true)
-      // Este estado "register" contiene {age, email, gender, name, password, tel, username}
-      console.log(register)
+
+  const handleRegistro = async () => {
+    try {
+      // Funcion que valida todos los campos del registro y devuelve booleano
+      const isValidForm = ValidateRegister();
+      if (isValidForm) {
+        setStateModal(true)
+        // Envio de datos al back
+        const response = await userRegister(register.email, register.password, register.name, register.username, register.age, register.tel, register.gender);
+        if (!response.success) {
+          throw new Error("Error al enviar la solicitud de registro")
+        }
+        router.push('/auth/login')
+      }
+    }
+    catch (e) {
+      console.error("Respuesta fallida del front: " + e)
     }
   };
 
   return (
     <Container className="bg-background">
-      <article>
-        <section className="flex justify-center items-center pb-4 gap-1">
-          <Link href="/auth/login" aria-label="Volver a interface Login">
-          <Image src="/arrowLeft.svg" alt="Descripción de la imagen" width={25} height={25} />
-          </Link>
-          <Title
-            text="Crear un nuevo Usuario"
-            className="w-full font-normal text-lg"
-          />
-        </section>
+      <article className="mx-2 my-4">
+        <NavTitle link="auth/login" title="Crear un nuevo Usuario" />
         <p className="py-2 font-roboto">
           ¡Bienvenido/a! Regístrate para empezar Queremos conocerte un poco más. Completa los campos obligatorios (*) para unirte a nuestra comunidad.
         </p>
@@ -82,11 +86,12 @@ export default function Register() {
             isRequired
           />
           <InputSelect
+            id="gender"
             label="Género"
             onChange={(e) => handleChange(e)}
             error={errors.gender}
             topModal="top-[70px]"
-            options={["Hombre", "Mujer", "Prefiero no especificar", "Otro"]}
+            options={["hombre", "mujer", "prefiero no especificar", "otro"]}
             isRequired
           />
           <ReusableInput
@@ -111,7 +116,7 @@ export default function Register() {
           />
           <button
             type="button"
-            className="hover:scale-105 transform duration-300 ease-in-out bg-primary text-background rounded-lg w-full py-3 my-5 transition font-medium"
+            className="bg-primary text-background rounded-lg w-full py-3 my-5 font-medium"
             onClick={handleRegistro}
             aria-label="Registar nuevo usuario"
           >

@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import CrewCard from "./Card/CrewCard";
-import { User } from "@/interfaces/postCard";
+import { User } from "@/interfaces/publication";
 
 export default function CrewContainer({ users } : { users: User[] }) {
   return (

@@ -28,6 +28,7 @@ export default function ReusableInput({
   isRequired = false,
   hideLabel = false,
 }: ReusableInputProps) {
+
   const [toggleType, setToggleType] = useState<boolean>(false)
   const Icon = toggleType ? Eye : EyeOff;
 
@@ -65,6 +66,7 @@ export default function ReusableInput({
             className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-customRed' : 'border-customGray'}`}
             placeholder={placeholder}
             onChange={onChange}
+            value={value}
             required={isRequired}
           />
           {error &&

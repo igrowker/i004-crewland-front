@@ -1,5 +1,5 @@
 import AvatarGroup from "../../Avatar/AvatarGroup";
-import { User } from "@/interfaces/postCard";
+import { User } from "@/interfaces/publication";
 
 export default function CrewCard({ users } : { users: User[] }) {  
   return (
