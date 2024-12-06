@@ -7,22 +7,33 @@ import InputSelect from '@/components/elements/Inputs/InputSelect';
 import { useState } from "react";
 import ModalPost from "@/components/elements/search/ModalPost";
 import NavTitle from "@/components/elements/headers/NavTitle";
-import {register2} from '@/services/api/users/auth/register';
+import { useRouter } from 'next/navigation'
+import { userRegister } from "@/services/api/users/auth/register";
 
 export default function Register() {
+  const router = useRouter()
+
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
 
   const [stateModal, setStateModal] = useState<boolean>(false);
 
-  const handleRegistro = async() => {
-    const isValidForm = ValidateRegister();
-    //Si todo los campos son validos mostramos todos los campos para enviar al servidor
-    if (isValidForm) {
-      setStateModal(true)
-      // Este estado "register" contiene {age, email, gender, name, password, tel, username}
-      console.log(register)
-      const response = await register2(register.email,register.password,register.name, register.username, register.age, register.tel, register.gender);
-      console.log(response);
+
+  const handleRegistro = async () => {
+    try {
+      // Funcion que valida todos los campos del registro y devuelve booleano
+      const isValidForm = ValidateRegister();
+      if (isValidForm) {
+        setStateModal(true)
+        // Envio de datos al back
+        const response = await userRegister(register.email, register.password, register.name, register.username, register.age, register.tel, register.gender);
+        if (!response.success) {
+          throw new Error("Error al enviar la solicitud de registro")
+        }
+        router.push('/home')
+      }
+    }
+    catch (e) {
+      console.error("Respuesta fallida del front: " + e)
     }
   };
 
@@ -79,7 +90,7 @@ export default function Register() {
             onChange={(e) => handleChange(e)}
             error={errors.gender}
             topModal="top-[70px]"
-            options={["Hombre", "Mujer", "Prefiero no especificar", "Otro"]}
+            options={["hombre", "mujer", "prefiero no especificar", "otro"]}
             isRequired
           />
           <ReusableInput

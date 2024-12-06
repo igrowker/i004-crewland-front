@@ -29,10 +29,10 @@ export default function InputChat({ onSendMessage }: InputChatProps) {
     }
     return (
         <footer className='fixed bottom-0 flex flex-row items-center left-0 w-full px-4 py-3'>
-            <div className='relative w-full flex items-center rounded-lg border-[1px] bg-transparent'>
+            <div className='relative w-full flex  items-center rounded-lg border-[1.5px] bg-transparent'>
                 <Smile className='absolute left-3' />
                 <textarea
-                    className='w-full pt-5 pb-0 px-12 bg-transparent text-customWhite outline-none'
+                    className='w-full h-[58px] pt-4 pb-0 px-12 bg-transparent text-customWhite outline-none placeholder:text-left placeholder:p-0'
                     placeholder='Escribir mensaje...'
                     value={message}
                     onChange={handleChange}
