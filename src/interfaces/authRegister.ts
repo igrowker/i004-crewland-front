@@ -7,8 +7,3 @@ export interface AuthRegisterInterface {
   gender: string;
   password: string;
 }
-
-export interface interfaceGlobalState {
-  authRegister: AuthRegisterInterface
-  setAuthRegister: (state: AuthRegisterInterface) => void
-}

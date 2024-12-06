@@ -10,7 +10,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
-  }
+  },
+  images: {
+    domains: [
+      "res.cloudinary.com", // Dominio para imágenes en Cloudinary
+    ],
+  },
 };
 
 export default nextConfig;
