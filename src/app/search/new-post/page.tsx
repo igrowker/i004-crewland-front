@@ -24,10 +24,11 @@ export default function NewPost() {
 
   // Si no se ha escogido un festival no puede acceder a esta pantalla
   useEffect(() => {
+    // console.log(`FESTIVAL ID EN CREATE POST: ${contexto?.festivalData.festivalId}`)
     if (!contexto?.festivalData.festivalId) {
       setIsFestivalId(true);
     }
-  }, [contexto?.festivalData.festivalId]);
+  }, [contexto]);
 
   // envio de datos al back para crear un nuevo post
   const handleCreatePublication = async () => {

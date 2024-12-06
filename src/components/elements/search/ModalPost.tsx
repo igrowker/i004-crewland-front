@@ -9,14 +9,15 @@ interface ModalPostProps {
   details: string
   link?: string;
   textButton?: string;
+  arrErros?: string[] | string;
   closeModal: () => void
 }
 
-export default function ModalPost({ title, content, details, link, closeModal, textButton }: ModalPostProps) {
+export default function ModalPost({ title, content, details, link, closeModal, textButton, arrErros }: ModalPostProps) {
   return (
     <>
-      <section className=' bg-black/75 grid place-items-center min-h-screen fixed top-0 left-0 w-full'>
-        <div className='overflow-hidden relative bg-background py-5 pt-16 flex flex-col items-center gap-1 rounded-2xl px-4'>
+      <section className='bg-black/75 grid place-items-center min-h-screen fixed top-0 left-0 w-full'>
+        <div className='max-w-[344px] overflow-hidden relative bg-background py-5 pt-16 flex flex-col items-center gap-1 rounded-2xl px-4'>
           <Image
             alt='flower'
             src={'/flower.svg'}
@@ -30,7 +31,15 @@ export default function ModalPost({ title, content, details, link, closeModal, t
             onClick={closeModal}
           />
           <h1 className='text-2xl leading-[28.8px] pb-2'>{title}</h1>
-          <p className='text-center leading-[20px]'>{content}</p>
+          <p className="text-center leading-[20px]">{content}</p>
+          {Array.isArray(arrErros) ? (
+            arrErros.map(err => (
+              <p key={err} className="text-sm">{err}</p>
+            ))
+          ) : (
+            <p className="text-center leading-[20px]">{arrErros}</p>
+          )
+          }
           {textButton && (
             <Link
               href={link || ""}

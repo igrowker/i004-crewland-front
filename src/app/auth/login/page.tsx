@@ -11,6 +11,7 @@ import { User, Check } from 'lucide-react'
 import { FormState, login } from '@/lib'
 
 export default function LoginPage() {
+  
   const [errors, setErrors] = useState<{ type: string, message: string }>({ type: '', message: '' })
   const [formState, formAction] = useActionState(login, {
     success: false,
