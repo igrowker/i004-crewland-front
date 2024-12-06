@@ -15,11 +15,15 @@ interface PostFiltererInterface {
 
 export default function PostFilterers({ publications, festivals }: PostFiltererInterface) {
   const contexto = useContext(festivalIdContext);
- 
+
+  // useEffect(()=>{
+  //   console.log(`ID DEL FESTIVAL EN SEARCH: ${contexto?.festivalData.festivalId}`)
+  // },[contexto])
+
   const filteredPosts = useMemo(() => {
     return publications.filter(post => post.festivalId === contexto?.festivalData.festivalId);
   }, [publications, contexto?.festivalData.festivalId]);
-  
+
   const [posts, setPosts] = useState<publicationInterface[]>(filteredPosts)
   const [toggle, setToggle] = useState({
     festivals: false,
@@ -28,7 +32,7 @@ export default function PostFilterers({ publications, festivals }: PostFiltererI
 
   // Busca la publicacion mediante el titulo
   const handleSearchPublication = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPosts(filteredPosts.filter(post => 
+    setPosts(filteredPosts.filter(post =>
       post.title?.toLowerCase().includes(e.target.value.toLowerCase())
     ));
   };
