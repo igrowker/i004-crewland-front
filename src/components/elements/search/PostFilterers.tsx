@@ -1,7 +1,7 @@
 "use client"
 import { publicationInterface, UserInterface } from '@/interfaces/publication'
 import { festivalsInterface } from '@/interfaces/festivals'
-import { ListFilter, Search } from 'lucide-react'
+import { ListFilter, Search, X } from 'lucide-react'
 import React, { useContext, useMemo, useState } from 'react'
 import PostCard from './PostCard'
 import { options } from '@/json/post'
@@ -15,23 +15,35 @@ interface PostFiltererInterface {
 
 export default function PostFilterers({ publications, festivals }: PostFiltererInterface) {
   const contexto = useContext(festivalIdContext);
- 
+  const [resetInput, setResetInput] = useState<string>("")
+
   const filteredPosts = useMemo(() => {
-    return publications.filter(post => post.festivalId === contexto?.festivalData.festivalId);
-  }, [publications, contexto?.festivalData.festivalId]);
-  
+    if (contexto?.festivalData.festivalId !== "") {
+      return publications.filter(post => post.festivalId === contexto?.festivalData.festivalId);
+    }
+    return publications;
+    }, [publications, contexto]);
+
   const [posts, setPosts] = useState<publicationInterface[]>(filteredPosts)
   const [toggle, setToggle] = useState({
     festivals: false,
     typePost: false
   });
 
-  // Busca la publicacion mediante el titulo
+  // Maneja la búsqueda de publicaciones
   const handleSearchPublication = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPosts(filteredPosts.filter(post => 
-      post.title?.toLowerCase().includes(e.target.value.toLowerCase())
+    const searchValue = e.target.value;
+    setResetInput(searchValue);
+    setPosts(filteredPosts.filter(post =>
+      post.title?.toLowerCase().includes(searchValue.toLowerCase())
     ));
   };
+  // Restaura el input al hacer clic en el ícono "X"
+  const handleResetInput = () => {
+    setResetInput("");  // Borra el texto en el input
+    setPosts(filteredPosts); // Restaura las publicaciones filtradas
+  };
+
 
   // Aplicando los filtros por tipo de publicacion
   const selectPostType = (postType: string) => {
@@ -55,9 +67,16 @@ export default function PostFilterers({ publications, festivals }: PostFiltererI
             onClick={() => setToggle({ festivals: !toggle.festivals, typePost: false })}
             onChange={handleSearchPublication}
             type="text"
+            value={resetInput}
             placeholder="Buscar publicacion.."
             className="bg-transparent border border-customGray rounded-full pl-9 py-2 w-full"
           />
+          {resetInput && (
+            <X
+              onClick={handleResetInput}
+              className="absolute right-3 size-4 cursor-pointer"
+            />
+          )}
         </div>
         <ListFilter
           size={30}

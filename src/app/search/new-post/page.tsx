@@ -11,15 +11,19 @@ import usePost from '@/hooks/usePost'
 import { festivalIdContext } from '@/context/FestivalIdContext'
 import Link from 'next/link'
 import { postPublication } from '@/services/posts'
+import { useRouter } from 'next/navigation'
 
 
 export default function NewPost() {
+  const router = useRouter()
   const contexto = useContext(festivalIdContext)
   const [isFestivalId, setIsFestivalId] = useState<boolean>(false);
+  const [errosBack, setErrosBack] = useState<string[] | string>()
   const { createdPost, handleChange, setCreatedPost } = usePost();
   const [stateModal, setStateModal] = useState({
     cancelPost: false,
-    createPost: false
+    createPost: false,
+    errorPost: false
   });
 
   // Si no se ha escogido un festival no puede acceder a esta pantalla
@@ -27,15 +31,22 @@ export default function NewPost() {
     if (!contexto?.festivalData.festivalId) {
       setIsFestivalId(true);
     }
-  }, [contexto?.festivalData.festivalId]);
+  }, [contexto]);
 
   // envio de datos al back para crear un nuevo post
   const handleCreatePublication = async () => {
     try {
-      setStateModal(prev => ({ ...prev, createPost: true }))
-      const dataCreatePost = {...createdPost, festivalId: contexto?.festivalData.festivalId}
+      // setStateModal(prev => ({ ...prev, createPost: true }))
+      const dataCreatePost = { ...createdPost, festivalId: contexto?.festivalData.festivalId }
       const response = await postPublication(contexto?.festivalData.festivalId || "", dataCreatePost)
-      console.log(response.data.creationDate)
+      console.log(response)
+      if (response?.response.status !== 201) {
+        setStateModal(prev => ({ ...prev, errorPost: true }))
+        setErrosBack(response?.response.data)
+      } else {
+        setStateModal(prev => ({ ...prev, createPost: true }))
+        router.push('/search')
+      }
       // Reinicio de campos
       setCreatedPost({
         title: "",
@@ -167,12 +178,19 @@ export default function NewPost() {
                 }
                 {stateModal.createPost &&
                   <ModalPost
-                    link='/search'
                     title='🎉 ¡Publicación Exitosa! 🎉'
-                    content='Tu publicación ahora está disponible en el feed. ¡Conéctate con tu crew ahora'
+                    content='Tu publicación ahora está disponible en el feed. ¡Conéctate con tu crew ahora!'
                     details='crear un post'
                     closeModal={() => setStateModal(prev => ({ ...prev, createPost: false }))}
-                    textButton="Ir a publicaciones"
+                  />
+                }
+                {stateModal.errorPost &&
+                  <ModalPost
+                    title=" 🚫 ¡Registro Fallido! 🚫"
+                    content=""
+                    details="registro fallido"
+                    closeModal={() => setStateModal(prev => ({ ...prev, errorPost: false }))}
+                    arrErros={errosBack}
                   />
                 }
               </article>

@@ -35,7 +35,7 @@ export default function Button({
     );
 
     return href ? (
-        <Link href={href}>
+        <Link href={href} className={className}>
             {content}
         </Link>
     ) : (

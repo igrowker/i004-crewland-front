@@ -72,8 +72,28 @@ export const postPublication = async (
         }
       }
     )
-    return response.data
+    if (response.statusText === 'success' || response.status == 201) {
+      return {
+        response: {
+          status: response.status,
+          statusText: response.statusText,
+          data: response.data
+        },
+        request: response.request.status
+      }
+    }
   } catch (e) {
     console.error(e)
+    if (axios.isAxiosError(e)) {
+      const statusCode = e.response?.status
+      return {
+        response: {
+          status: statusCode,
+          statusText: e.response?.statusText,
+          data: e.response?.data.message.message
+        },
+        request: e.request.status
+      }
+    }
   }
 }

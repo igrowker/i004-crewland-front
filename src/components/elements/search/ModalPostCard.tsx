@@ -18,7 +18,7 @@ export default function ModalPostCard({ post, setModal }: ModalPostCardProps) {
   const contexto = useContext(festivalIdContext)
 
   const handleChat = (id: string) => {
-    router.push('/search');
+    router.push('/chat');
     contexto?.updateUserId(id)
     console.log(id)
   };
