@@ -6,7 +6,7 @@ interface ContainerProps {
 
 export default function Container({ children, className }: ContainerProps) {
   const baseStyles = `
-  min-w-screen min-h-screen mx-auto bg-background text-customWhite flex justify-center items-center
+  min-w-screen min-h-screen mx-auto bg-background text-customWhite flex justify-center
 `;
   return (
     <div className={`${baseStyles} ${className}`}>
