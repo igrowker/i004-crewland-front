@@ -1,6 +1,6 @@
-'use client'
-import { useState } from 'react'
-import { Eye, EyeOff, CircleAlert } from 'lucide-react';
+"use client";
+import { useState } from "react";
+import { Eye, EyeOff, CircleAlert } from "lucide-react";
 
 interface ReusableInputProps {
   label: string;
@@ -14,6 +14,7 @@ interface ReusableInputProps {
   value?: string;
   isRequired?: boolean;
   hideLabel?: boolean;
+  icon?: React.ReactNode;
 }
 
 export default function ReusableInput({
@@ -27,17 +28,25 @@ export default function ReusableInput({
   value,
   isRequired = false,
   hideLabel = false,
+  icon,
 }: ReusableInputProps) {
-
-  const [toggleType, setToggleType] = useState<boolean>(false)
+  const [toggleType, setToggleType] = useState<boolean>(false);
   const Icon = toggleType ? Eye : EyeOff;
 
   return (
     <div className="flex flex-col gap-2 relative">
       {!hideLabel && (
-        <label htmlFor={id} className={`${error ? "text-customRed" : "text-customWhite"} ${isRequired ? 'after:content-["*"] after:text-customRed' : ''}`}>
+        <label
+          htmlFor={id}
+          className={`${error ? "text-customRed" : "text-customWhite"} ${
+            isRequired ? 'after:content-["*"] after:text-customRed' : ""
+          }`}
+        >
           {error ? `Ops! ${error}` : label}
         </label>
+      )}
+      {icon && !password && (
+        <div className="absolute right-1 bottom-3">{icon}</div>
       )}
       {password ? (
         <>
@@ -45,7 +54,9 @@ export default function ReusableInput({
             id={id}
             name={id}
             type={toggleType ? "text" : "password"}
-            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-customRed' : 'border-customGray'}`}
+            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${
+              error ? "border-customRed" : "border-customGray"
+            } pl-2`}
             placeholder={placeholder}
             onChange={onChange}
             value={value}
@@ -53,7 +64,7 @@ export default function ReusableInput({
           />
           <Icon
             color={`#${error ? "fa8080" : "f2f2f2"}`}
-            className="cursor-pointer text-customWhite absolute bottom-3 right-0"
+            className="cursor-pointer text-customWhite absolute bottom-3 right-1"
             onClick={() => setToggleType(!toggleType)}
           />
         </>
@@ -62,20 +73,22 @@ export default function ReusableInput({
           <input
             id={id}
             name={id}
-            type={type || 'text'}
-            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${error ? 'border-customRed' : 'border-customGray'}`}
+            type={type || "text"}
+            className={`outline-none bg-transparent border-b pb-1 text-customWhite ${
+              error ? "border-customRed" : "border-customGray"
+            } pl-2`}
             placeholder={placeholder}
             onChange={onChange}
             value={value}
             required={isRequired}
           />
-          {error &&
+          {error && (
             <CircleAlert
               color={`#${error ? "fa8080" : "f2f2f2"}`}
               className="cursor-pointer text-customWhite absolute bottom-3 right-0"
               onClick={() => setToggleType(!toggleType)}
             />
-          }
+          )}
         </>
       )}
     </div>
