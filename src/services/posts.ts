@@ -1,7 +1,7 @@
-"use server";
-import axios from "axios";
-import { token } from "@/server.config";
-import { publicationInterface } from "@/interfaces/publication";
+'use server'
+import axios from 'axios'
+import { token } from '@/server.config'
+import { publicationInterface } from '@/interfaces/publication'
 
 export const getPosts = async () => {
   try {
@@ -10,16 +10,16 @@ export const getPosts = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`, // Agrega el token al encabezado
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}
 
 export const getPublicationsByFestival = async (id: string) => {
   try {
@@ -28,16 +28,16 @@ export const getPublicationsByFestival = async (id: string) => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}
 
 export const getUsersForPublications = async () => {
   try {
@@ -46,16 +46,16 @@ export const getUsersForPublications = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-};
+}
 
 export const postPublication = async (
   festivalId: string,
@@ -68,32 +68,32 @@ export const postPublication = async (
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+          'Content-Type': 'application/json'
+        }
       }
-    );
-    if (response.statusText === "success" || response.status == 201) {
+    )
+    if (response.statusText === 'success' || response.status == 201) {
       return {
         response: {
           status: response.status,
           statusText: response.statusText,
-          data: response.data,
+          data: response.data
         },
-        request: response.request.status,
-      };
+        request: response.request.status
+      }
     }
   } catch (e) {
-    console.error(e);
+    console.error(e)
     if (axios.isAxiosError(e)) {
-      const statusCode = e.response?.status;
+      const statusCode = e.response?.status
       return {
         response: {
           status: statusCode,
           statusText: e.response?.statusText,
-          data: e.response?.data.message.message,
+          data: e.response?.data.message.message
         },
-        request: e.request.status,
-      };
+        request: e.request.status
+      }
     }
   }
-};
+}
