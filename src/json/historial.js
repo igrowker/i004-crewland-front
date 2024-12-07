@@ -1,27 +1,36 @@
+
 export const groups = [
     {
         id: '1',
         name: 'Lola Crew 2024',
         status: 'online',
-        service: 'transporte'
+        service: 'transporte',
+        date: '15-17 marzo',
+        place: '14:00',
     },
     {
         id: '2',
         name: 'Lola Crew 2023',
         status: 'offline',
-        service: 'alojamiento'
+        service: 'alojamiento',
+        date: '15-17 marzo',
+        place: '14:00',
     },
     {
         id: '3',
         name: 'Lola Crew 2022',
         status: 'offline',
-        service: 'compañero'
+        service: 'compañero',
+        date: '15-17 marzo',
+        place: '14:00',
     },
     {
         id: '4',
         name: 'Lola Crew 2021',
         status: 'online',
-        service: 'otro'
+        service: 'otro',
+        date: '15-17 marzo',
+        place: '14:00',
     }
 ]
 export const chats = [
