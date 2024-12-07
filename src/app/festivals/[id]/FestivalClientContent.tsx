@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Container from '@/components/elements/Container/Container'
 import Title from '@/components/elements/Titles/Title'
@@ -10,13 +10,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useFestival } from '@/hooks/useFestival'
 import FestivalsHeader from '@/components/elements/headers/FestivalsHeader'
+import { festivalIdContext } from '@/context/FestivalIdContext'
 
 export default function FestivalClientContent({
   params
 }: {
   params: Promise<{ id: string }>
 }) {
+
+  const contexto = useContext(festivalIdContext)
+  const [festId, setFestId] = useState<string>("");
   const festivalId = useFestival(params)
+
+  useEffect(() => {
+    // descomentar cuando festival haya sido conectado con back
+    const resolveParams = async () => {
+      const result = await params;
+      console.log(result)
+      setFestId(result.id);
+      if (contexto) {
+        contexto.updateFestId("2eb48296-17b8-4058-9ab6-2f2dd64af42c");
+      }
+    };
+    resolveParams();
+  }, [params, contexto, festId]);
 
   if (!festivalId) {
     return (
@@ -27,9 +44,7 @@ export default function FestivalClientContent({
       </Container>
     )
   }
-
   const festival = festivals.find((festival) => festival.id === festivalId)
-
   if (!festival) {
     return (
       <Container>
@@ -45,6 +60,7 @@ export default function FestivalClientContent({
       </Container>
     )
   }
+
 
   const icons = [
     '/users/01.png',
@@ -116,9 +132,8 @@ export default function FestivalClientContent({
                 alt={`Icono ${index + 1}`}
                 width={48}
                 height={48}
-                className={`object-cover rounded-full ${
-                  icon === '/share.png' ? 'bg-[#CE9DF9] p-3 cursor-pointer' : ''
-                }`}
+                className={`object-cover rounded-full ${icon === '/share.png' ? 'bg-[#CE9DF9] p-3 cursor-pointer' : ''
+                  }`}
                 onClick={icon === '/share.png' ? handleShareClick : undefined}
               />
             </div>
@@ -131,6 +146,7 @@ export default function FestivalClientContent({
             className='text-[16px] '
           />
           <Button
+            href={'/search'}
             text='Crea tu experiencia'
             className='!bg-[#B771F5] text-[16px] '
           />

@@ -29,7 +29,7 @@ export default function Register() {
         if (!response.success) {
           throw new Error("Error al enviar la solicitud de registro")
         }
-        router.push('/home')
+        router.push('/auth/login')
       }
     }
     catch (e) {
@@ -86,6 +86,7 @@ export default function Register() {
             isRequired
           />
           <InputSelect
+            id="gender"
             label="Género"
             onChange={(e) => handleChange(e)}
             error={errors.gender}

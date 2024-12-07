@@ -1,35 +1,27 @@
-import PostCard from "@/components/elements/postCard/PostCard";
+"use server"
 import Container from "@/components/elements/Container/Container";
-import { dataPost, festivals } from "@/json/post";
-import { Plus } from "lucide-react";
-import Link from "next/link";
 import NavTitle from "@/components/elements/headers/NavTitle";
-import InputSearch from "@/components/elements/Inputs/InputSearch";
+import { getPosts, getUsersForPublications } from "@/services/posts";
+import PostFilterers from "@/components/elements/search/PostFilterers";
+import { getFestivals } from "@/services/festivals";
+import CreateNewPost from "@/components/elements/search/CreateNewPost";
 
 export default async function Search() {
+  const dataPublications = await getPosts()
+  const dataFestivals = await getFestivals();
+  const dataUsersForPublications = await getUsersForPublications();
+
   return (
     <Container className="p-4">
       <article className="flex flex-col w-full">
         <NavTitle link="festivals" title="Crea tu experiencia" />
-        <InputSearch />
-        <div className="flex gap-2 flex-wrap mt-4">
-          {festivals.map(fest => (
-            <span key={fest} className="outline outline-1 px-2 py-1 rounded-full cursor-pointer">
-              {fest}
-            </span>
-          ))}
-        </div>
-        {dataPost.map((post) => (
-          <PostCard key={post.id} {...post} />
-        ))}
+        <PostFilterers 
+          publications={dataPublications.data.data}
+          festivals={dataFestivals.data.data}
+          userByPublications={dataUsersForPublications.data}
+        />
       </article>
-      <Link
-        href='/search/new-post'
-        className="bg-primaryHover fixed bottom-24 right-4 rounded-full p-3 shadow-xl"
-        aria-label="Crear una nueva publicacion"
-      >
-        <Plus size={30} color="#ffffff" strokeWidth={2} />
-      </Link>
+      <CreateNewPost />
     </Container>
   )
 }

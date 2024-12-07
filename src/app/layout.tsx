@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AuthProvider } from "@/context/AuthContext";
+import { FestivalProvider } from "@/context/FestivalIdContext";
 import {Unbounded, Roboto} from "next/font/google";
 import "./globals.css";
 import { NavFooter } from '../components/elements/Footer/NavFooter';
@@ -33,11 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${unbounded.variable} ${roboto.variable}`}>
       <body>
-        <AuthProvider>
+        <FestivalProvider>
           <SideBar />
             {children}
           <NavFooter />  
-        </AuthProvider>
+        </FestivalProvider>
       </body>
     </html>
   );

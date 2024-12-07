@@ -1,10 +1,8 @@
-import server from "@/server.config"
 import axios from "axios"
 
 export const userRegister = async (email: string, password: string, name: string, username: string, age: string, tel: string, gender: string, userAgent?: string) => {
     try {
-        console.log(`${server}/users/register`);
-        const response = await axios.post(`${server}/users/register`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/users/register`, {
             email,
             password,
             name,
@@ -21,7 +19,6 @@ export const userRegister = async (email: string, password: string, name: string
         return {
             success: true,
             data: {
-                token: response.data.token,
                 msg: 'Client registered successfully'
             }
         }
@@ -31,7 +28,6 @@ export const userRegister = async (email: string, password: string, name: string
         return {
             success: false,
             data: {
-                token: '',
                 msg: 'Client registration failed'
             }
         }
