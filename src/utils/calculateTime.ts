@@ -33,3 +33,6 @@ export const calculateTime = (creationDate: string): string => {
   }
 };
 
+export const logicTime = (time: string) => {
+  return time.split(":").slice(0, 2).join(":");
+}

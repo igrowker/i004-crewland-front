@@ -29,7 +29,8 @@ export function NavFooter() {
               href={href}
               className="flex flex-col items-center justify-center w-full h-full"
             >
-              <div className={index === 1 ? "flex justify-center items-center text-black rounded-full size-14 p-2 bg-primary " : ''} >
+              <div className={
+                index === 1 ? "flex justify-center items-center text-black rounded-full size-14 p-2 bg-primary " : ''} >
                 <Icon size={26} />
               </div>
                 <span className="text-xs">{label}</span>

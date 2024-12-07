@@ -17,7 +17,7 @@ export default function ModalPost({ title, content, details, link, closeModal, t
   return (
     <>
       <section className='bg-black/75 grid place-items-center min-h-screen fixed top-0 left-0 w-full'>
-        <div className='max-w-[344px] overflow-hidden relative bg-background py-5 pt-16 flex flex-col items-center gap-1 rounded-2xl px-4'>
+        <div className='max-w-[344px] overflow-hidden relative bg-background py-5 pt-16 flex flex-col gap-1 rounded-2xl px-4'>
           <Image
             alt='flower'
             src={'/flower.svg'}
@@ -30,14 +30,14 @@ export default function ModalPost({ title, content, details, link, closeModal, t
             className='cursor-pointer absolute right-3 top-6'
             onClick={closeModal}
           />
-          <h1 className='text-2xl leading-[28.8px] pb-2'>{title}</h1>
-          <p className="text-center leading-[20px]">{content}</p>
+          <h1 className='text-2xl leading-[28.8px] pb-2 text-center'>{title}</h1>
+          <p className="text-left leading-[20px]">{content}</p>
           {Array.isArray(arrErros) ? (
             arrErros.map(err => (
               <p key={err} className="text-sm">{err}</p>
             ))
           ) : (
-            <p className="text-center leading-[20px]">{arrErros}</p>
+            <p className="leading-[20px]">{arrErros}</p>
           )
           }
           {textButton && (
