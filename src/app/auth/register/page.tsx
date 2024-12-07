@@ -14,22 +14,31 @@ export default function Register() {
   const router = useRouter()
 
   const { errors, register, ValidateRegister, handleChange, setConfirmPassword, setRegister } = useRegister();
-
-  const [stateModal, setStateModal] = useState<boolean>(false);
+  const [errosBack, setErrosBack] = useState<string[] | string>()
+  const [toggleModal, setToggleModal] = useState({
+    modalSuccess: false,
+    modalErrors: false
+  });
 
 
   const handleRegistro = async () => {
     try {
       // Funcion que valida todos los campos del registro y devuelve booleano
       const isValidForm = ValidateRegister();
+      console.log(register)
       if (isValidForm) {
-        setStateModal(true)
         // Envio de datos al back
         const response = await userRegister(register.email, register.password, register.name, register.username, register.age, register.tel, register.gender);
-        if (!response.success) {
-          throw new Error("Error al enviar la solicitud de registro")
+
+        if (response?.request !== 201) {
+          setToggleModal(prev => ({ ...prev, modalErrors: true }))
+          setErrosBack(response?.response.data)
+          console.log(response)
+        } else {
+          setToggleModal(prev => ({ ...prev, modalSuccess: true }))
+          console.log(response)
+          router.push('/auth/login')
         }
-        router.push('/auth/login')
       }
     }
     catch (e) {
@@ -47,7 +56,7 @@ export default function Register() {
         <form className="flex flex-col py-4 gap-6">
           <ReusableInput
             id="name"
-            label="Nombre completo"
+            label="Nombre Completo"
             placeholder="Juan Perez"
             onChange={(e) => handleChange(e)}
             error={errors.name}
@@ -55,8 +64,9 @@ export default function Register() {
           />
           <ReusableInput
             id="username"
-            label="Nombre de usuario"
-            placeholder="Juan-Perez24"
+            type="text"
+            label="Nombre de Usuario"
+            placeholder="JuanPerez123"
             onChange={(e) => handleChange(e)}
             error={errors.username}
             isRequired
@@ -64,7 +74,7 @@ export default function Register() {
           <ReusableInput
             id="email"
             type="email"
-            label="Correo Electronico"
+            label="Correo Electrónico"
             placeholder="juanperez@gmail.com"
             onChange={(e) => handleChange(e)}
             error={errors.email}
@@ -72,8 +82,8 @@ export default function Register() {
           />
           <ReusableInput
             id="tel"
-            label="Numero de Telefono"
-            placeholder="+54 9"
+            label="Número de Teléfono"
+            placeholder="+54 123"
             onChange={(e) => handleChange(e)}
             error={errors.tel}
             isRequired
@@ -91,7 +101,8 @@ export default function Register() {
             onChange={(e) => handleChange(e)}
             error={errors.gender}
             topModal="top-[70px]"
-            options={["hombre", "mujer", "prefiero no especificar", "otro"]}
+            options={["hombre", "mujer", "no especifica", "otro"]}
+            value={register.gender}
             isRequired
           />
           <ReusableInput
@@ -99,7 +110,7 @@ export default function Register() {
             type="password"
             label="Contraseña"
             password
-            placeholder="password"
+            placeholder="Contraseña"
             onChange={(e) => handleChange(e)}
             error={errors.password}
             isRequired
@@ -109,7 +120,7 @@ export default function Register() {
             type="password"
             label="Repite tu Contraseña"
             password
-            placeholder="confirmedPassword"
+            placeholder="Confirmar contraseña"
             onChange={(e) => setConfirmPassword(e.target.value)}
             error={errors.confirmPassword}
             isRequired
@@ -123,12 +134,21 @@ export default function Register() {
             Registrarse
           </button>
         </form>
-        {stateModal &&
+        {toggleModal.modalSuccess &&
           <ModalPost
             title="🎉 ¡Registro exitoso! 🎉"
             content="¡Gracias por unirte a nuestra comunidad! Estamos emocionados de tenerte con nosotros."
             details="registro exitoso"
-            closeModal={() => setStateModal(false)}
+            closeModal={() => setToggleModal(prev => ({ ...prev, modalSuccess: false }))}
+          />
+        }
+        {toggleModal.modalErrors &&
+          <ModalPost
+            title=" 🚫 ¡Registro Fallido!  🚫"
+            content=""
+            details="registro exitoso"
+            closeModal={() => setToggleModal(prev => ({ ...prev, modalErrors: false }))}
+            arrErros={errosBack}
           />
         }
       </article>

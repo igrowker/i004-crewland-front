@@ -6,7 +6,7 @@ export const festivalIdContext = createContext<FestDataContext | null>(null);
 
 export const FestivalProvider = ({ children }: { children: ReactNode }) => {
   const [festivalData, setFestivalData] = useState<FestivalData>({
-    festivalId: "2eb48296-17b8-4058-9ab6-2f2dd64af42c",
+    festivalId: "",
     chatUserId: ""
   });
 
@@ -26,12 +26,3 @@ export const FestivalProvider = ({ children }: { children: ReactNode }) => {
     </festivalIdContext.Provider>
   );
 };
-
-// // Custom hook para usar el contexto fácilmente
-// export const useFestivalContext = () => {
-//   const context = useContext(festivalIdContext);
-//   if (!context) {
-//     throw new Error("useFestivalContext debe ser usado dentro de un FestivalProvider");
-//   }
-//   return context;
-// };

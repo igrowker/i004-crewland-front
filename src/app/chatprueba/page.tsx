@@ -6,8 +6,14 @@ import { io } from "socket.io-client";
 
 // IDs de los usuarios (simulados)
 // const USER_1_ID = "790722b9-1a6b-4330-a30d-3e05af00c2a4"; //el primer id obtenerlo cuando el user inicia secion
-const USER_1_ID = "9ed774b0-97cf-48c0-9dc6-08d91da03c8b"; //el primer id obtenerlo cuando el user inicia secion
-const USER_2_ID = "4566ddba-50b9-4985-be70-79199b308a5a"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+const USER_1_ID = "a2f15f5b-f2ef-4207-a92d-49e2005271d1"; //el primer id obtenerlo cuando el user inicia secion
+const USER_2_ID = "b8a40fd4-f1c3-4482-ac73-b4493b095f89"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+
+
+//juan b258f496-421e-445d-878c-ddb5a78d032e
+//ali 702086fc-e46d-4e3c-b34a-b64bb48ae9ae
+// b8a40fd4-f1c3-4482-ac73-b4493b095f89
+
 
 // Componente de chat
 const Chat = () => {
