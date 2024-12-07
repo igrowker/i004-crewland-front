@@ -55,11 +55,16 @@ export const getUsersForPublications = async () => {
   } catch (e) {
     console.error(e);
   }
-}
+};
 
-export const postPublication = async ( festivalId: string, createPost: publicationInterface ) => {
+export const postPublication = async (
+  festivalId: string,
+  createPost: publicationInterface
+) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/publications/${festivalId}`, createPost,
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER}/publications/${festivalId}`,
+      createPost,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,8 +72,28 @@ export const postPublication = async ( festivalId: string, createPost: publicati
         },
       }
     );
-    return response.data;
+    if (response.statusText === "success" || response.status == 201) {
+      return {
+        response: {
+          status: response.status,
+          statusText: response.statusText,
+          data: response.data,
+        },
+        request: response.request.status,
+      };
+    }
   } catch (e) {
     console.error(e);
+    if (axios.isAxiosError(e)) {
+      const statusCode = e.response?.status;
+      return {
+        response: {
+          status: statusCode,
+          statusText: e.response?.statusText,
+          data: e.response?.data.message.message,
+        },
+        request: e.request.status,
+      };
+    }
   }
 };
