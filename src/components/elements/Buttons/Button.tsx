@@ -1,22 +1,20 @@
 import Link from "next/link";
 
 type ButtonProps = {
+    submit?: boolean;
     text: string;
     variant?: 'primary' | 'ghost';
     icon?: React.ReactNode;
-    width?: string;
-    height?: string;
     onClick?: () => void;
     href?: string;
     className?: string;
 };
 
 export default function Button({
+    submit = false,
     text,
     variant = 'primary',
     icon,
-    width = 'auto',
-    height = 'auto',
     onClick,
     href,
     className = '',
@@ -29,7 +27,6 @@ export default function Button({
 
     const content = (
         <span
-            style={{ width, height,}}
             className={`rounded-lg px-4 py-2 flex items-center justify-center ${buttonStyles[variant]} ${className}`}
         >
             {icon && <span className="mr-2">{icon}</span>}
@@ -39,9 +36,9 @@ export default function Button({
 
     return href ? (
         <Link href={href}>
-            <a onClick={onClick} className="inline-block">{content}</a>
+            {content}
         </Link>
     ) : (
-        <button onClick={onClick} className="inline-block">{content}</button>
+        <button onClick={onClick} type={submit ? 'submit' : 'button'} className="inline-block">{content}</button>
     );
 }

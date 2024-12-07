@@ -1,0 +1,7 @@
+/* Eliminar flechas del scrollbar */
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff transparent;
+}
+
+
