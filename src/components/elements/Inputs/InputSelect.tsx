@@ -58,7 +58,7 @@ export default function InputSelect({
         onClick={handleModal}
         name={id}
         placeholder={placeholder}
-        value={value} // Usamos el value directamente
+        value={value}
         className="placeholder:text-customWhite outline-none bg-transparent border-b pb-1 text-customWhite select-none cursor-pointer"
         readOnly
       />
