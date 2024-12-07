@@ -1,5 +1,4 @@
 'use client'
-import { userProfile } from '@/json/profile'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Container from '@/components/elements/Container/Container'
@@ -9,20 +8,41 @@ import Title from '@/components/elements/Titles/Title'
 import Image from 'next/image'
 import Button from '@/components/elements/Buttons/Button'
 import { User, History, Settings } from 'lucide-react'
+import { getUserById } from '@/services/api/profile'
+import { UserInterface } from '@/interfaces/user'
 
 export default function ProfilePage() {
-  const router = useRouter()
+  const [userProfile, setUserProfile] = useState<UserInterface | null>(null)
   const [isCompleted, setIsCompleted] = useState(false)
+  const userId = '55268970-068d-468a-8523-6314034a53e2'
+  const router = useRouter()
+
   const userPhoto = '/users/profile.png'
   const defaultPhoto = '/profile-img.png'
   const editIcon = '/edit-profile.png'
 
   useEffect(() => {
-    const isProfileComplete = Object.values(userProfile).every((value) =>
-      Array.isArray(value) ? value.length > 0 : value.trim() !== ''
-    )
-    setIsCompleted(isProfileComplete)
-  }, [])
+    const fetchUserProfile = async () => {
+      try {
+        const dataUser = await getUserById(userId)
+        if (dataUser?.data) {
+          setUserProfile(dataUser.data)
+
+          const isProfileComplete = Object.values(dataUser.data).every(
+            (value) =>
+              Array.isArray(value)
+                ? value.length > 0
+                : !!value?.toString().trim()
+          )
+          setIsCompleted(isProfileComplete)
+        }
+      } catch (e) {
+        console.error('Error al obtener el perfil del usuario:', e)
+      }
+    }
+
+    fetchUserProfile()
+  }, [userId])
 
   const handleEditClick = () => {
     router.push('/edit-profile')
@@ -56,7 +76,7 @@ export default function ProfilePage() {
             </button>
           </div>
           <Title
-            text='Fernando González'
+            text={userProfile?.name || 'Usuario sin nombre'}
             size='small'
             className='mt-5 text-xl'
           />
