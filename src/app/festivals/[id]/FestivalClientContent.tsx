@@ -5,12 +5,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Container from "@/components/elements/Container/Container";
 import Title from "@/components/elements/Titles/Title";
 import Button from "@/components/elements/Buttons/Button";
-import Link from "next/link";
+
 import Image from "next/image";
 import FestivalsHeader from "@/components/elements/headers/FestivalsHeader";
 import { festivalIdContext } from "@/context/FestivalIdContext";
 import { getFestivals } from "@/services/festivals";
 import { festivalsInterface } from "@/interfaces/festivals";
+import { logicTime } from "@/utils/calculateTime";
 
 export default function FestivalClientContent({
   params,
@@ -82,9 +83,9 @@ export default function FestivalClientContent({
 
   return (
     <Container className="w-full">
+      <FestivalsHeader />
       {festival ? (
         <>
-          <FestivalsHeader />
           <main className="flex flex-col py-20 pb-24 px-2">
             <Title
               text={festival.name}
@@ -110,7 +111,7 @@ export default function FestivalClientContent({
                   {festival.date}
                 </button>
                 <button className="border border-white text-black font-bold bg-customWhite/30 rounded-full px-4 py-2 text-xs">
-                  {festival.time} hrs
+                  {logicTime(festival.time)} hrs
                 </button>
               </div>
             </div>
@@ -159,17 +160,7 @@ export default function FestivalClientContent({
             </div>
           </main>
         </>
-      ) : (
-        <div className="py-10 text-center">
-          <h1 className="text-2xl font-bold">Festival no encontrado</h1>
-          <Link
-            href="/"
-            className="mt-4 inline-block px-4 py-2 bg-[#9747FF] text-white rounded-lg shadow-md hover:bg-[#8637e6] transition"
-          >
-            Volver a inicio
-          </Link>
-        </div>
-      )
+      ) : null
       }
     </Container >
   );

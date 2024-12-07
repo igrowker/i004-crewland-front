@@ -12,6 +12,7 @@ import { festivalIdContext } from '@/context/FestivalIdContext'
 import Link from 'next/link'
 import { postPublication } from '@/services/posts'
 import { useRouter } from 'next/navigation'
+// import { postReservation } from '@/services/reservations'
 
 
 export default function NewPost() {
@@ -36,7 +37,6 @@ export default function NewPost() {
   // envio de datos al back para crear un nuevo post
   const handleCreatePublication = async () => {
     try {
-      // setStateModal(prev => ({ ...prev, createPost: true }))
       const dataCreatePost = { ...createdPost, festivalId: contexto?.festivalData.festivalId }
       const response = await postPublication(contexto?.festivalData.festivalId || "", dataCreatePost)
       console.log(response)
@@ -44,6 +44,17 @@ export default function NewPost() {
         setStateModal(prev => ({ ...prev, errorPost: true }))
         setErrosBack(response?.response.data)
       } else {
+
+        // const newReservation = {
+        //   type: response.response.data.type,
+        //   postId: response.response.data.id,
+        //   usersId: response.
+        // }
+        
+        // // envia de datos al back para crear una nueva reserva
+        // const reservationPost = await postReservation();
+        
+        
         setStateModal(prev => ({ ...prev, createPost: true }))
         router.push('/search')
       }
