@@ -18,11 +18,11 @@ export function NavFooter() {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > lastScrollTop) {
-        setIsFixed(false); // Scrolling down
+        setIsFixed(false);
       } else {
-        setIsFixed(true); // Scrolling up
+        setIsFixed(true);
       }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     };
 
     window.addEventListener("scroll", handleScroll);
