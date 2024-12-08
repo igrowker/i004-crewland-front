@@ -3,6 +3,7 @@ import { Menu } from "lucide-react";
 import Title from "@/components/elements/Titles/Title";
 import Avatar from "../Avatar/UniqueAvatar/Avatar";
 import { useBurguerButton } from "@/hooks/useBurgerBotton";
+import Link from "next/link";
 
 export default function FestivalsHeader() {
   const [state, setGlobalState] = useBurguerButton();
@@ -22,13 +23,15 @@ export default function FestivalsHeader() {
           className="text-white text-[24px] sm:text-[35px] font-bold"
         />
       </div>
-      <Avatar
-        src="/users/01.png"
-        alt="Usuario"
-        width={40}
-        height={40}
-        className="w-10 h-10 rounded-full shadow-md overflow-hidden"
-      />
+      <Link href={'/profile'}>
+        <Avatar
+          src="/users/01.png"
+          alt="Usuario"
+          width={40}
+          height={40}
+          className="w-10 h-10 rounded-full shadow-md overflow-hidden"
+        />
+      </Link>
     </header>
   );
 }
