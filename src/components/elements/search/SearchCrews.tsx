@@ -30,15 +30,6 @@ export default function SearchCrews({ participants, dataUsers }: searchCrewsType
   };
 
   useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const response = await getUsersForPublications();
-        setDataUsers(response.data.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getUsers();
     participants(users);
   }, [users, participants]);
 
