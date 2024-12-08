@@ -1,3 +1,4 @@
+import server from "@/server.config";
 import axios from "axios";
 
 export const userRegister = async (
@@ -12,7 +13,8 @@ export const userRegister = async (
 ) => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER}/users/register`,
+      // `${process.env.NEXT_PUBLIC_SERVER}/users/register`,
+      `${server}/users/register`,
       {
         email,
         password,

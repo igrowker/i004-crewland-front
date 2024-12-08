@@ -1,34 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { CheckCheck } from 'lucide-react'
 
-interface ChatMessageProps {
-    message: {
-        id: number;
-        text: string;
-        timestamp: string;
-        sentByCurrentUser: boolean;
-        isRead?: boolean;
-    };
-}
+import {  USER_1_ID_AUX } from "@/server.config";
 
-export default function ChatMessage({ message }: ChatMessageProps): JSX.Element {
+// import { CheckCheck } from 'lucide-react'
 
+export default function ChatMessage({ message }: any){
+    
+    // const sentByCurrentUser = message.senderId !== "a2f15f5b-f2ef-4207-a92d-49e2005271d1";
+    const sentByCurrentUser = message.senderId !== USER_1_ID_AUX;
     return (
         <div
-            key={message.id}
-            className={`flex flex-col ${message.sentByCurrentUser ? 'items-end' : 'items-start'
+            //reemplazarlo por id del cookie
+            className={`flex flex-col ${sentByCurrentUser ? 'items-end' : 'items-start'
                 } w-full`}>
-            <div className={`text-[14px] rounded-3xl ${message.sentByCurrentUser ? 'rounded-br-none bg-primary text-black' : 'rounded-bl-none bg-customWhite text-black'
+            <div className={`text-[14px] rounded-3xl ${sentByCurrentUser ? 'rounded-br-none bg-primary text-black' : 'rounded-bl-none bg-customWhite text-black'
                 } p-4`}>
-                <p>{message.text}</p>
-            </div>
-
-            <div className={`flex ${message.sentByCurrentUser ? 'justify-end' : 'justify-start'} items-center gap-2 mt-[2px] min-h-[20px]`}>
-                <span className='text-[10px] text-gray-400'>{message.timestamp}</span>
-                {message.sentByCurrentUser && (
-                    <CheckCheck
-                        className={`w-[20px] ${message.isRead ? 'text-[#62C0FA]' : 'text-white'}`} />
-                )}
+                <p>{message.content}</p>
             </div>
         </div>)
 }

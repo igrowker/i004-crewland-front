@@ -6,8 +6,11 @@ import { io } from "socket.io-client";
 
 // IDs de los usuarios (simulados)
 // const USER_1_ID = "790722b9-1a6b-4330-a30d-3e05af00c2a4"; //el primer id obtenerlo cuando el user inicia secion
-const USER_1_ID = "a2f15f5b-f2ef-4207-a92d-49e2005271d1"; //el primer id obtenerlo cuando el user inicia secion
-const USER_2_ID = "b8a40fd4-f1c3-4482-ac73-b4493b095f89"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+const USER_1_ID = "c2775f77-2c1a-42bf-bea9-348aff72821c"; //el primer id obtenerlo cuando el user inicia secion
+// const USER_2_ID = "8ace492f-d973-41c1-9509-3a4c7ed635c7"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+const USER_2_ID = "796ac1e5-47a1-4068-89a6-88df77e676f3"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+
+// 796ac1e5-47a1-4068-89a6-88df77e676f3
 
 
 //juan b258f496-421e-445d-878c-ddb5a78d032e
@@ -63,7 +66,7 @@ const Chat = () => {
     const handleSendMessage = () => {
         if (socket && message.trim() !== "" && roomId) {
             const messageData = {
-                senderId: USER_2_ID,
+                senderId: USER_1_ID,
                 content: message,
                 // roomId: "ac62cf5b-5884-433d-a5b8-0b17b087a1f3", // Usamos el roomId recibido al unirse a la sala
                 roomId: roomId, // Usamos el roomId recibido al unirse a la sala

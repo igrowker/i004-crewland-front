@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 'use client'
-import CrewContainer from "@/components/elements/Chat/CrewContainer";
 import Container from "@/components/elements/Container/Container";
 import InputSearch from "@/components/elements/Inputs/InputSearch";
-import { UserInterface } from "@/interfaces/publication";
 import ChatsContainer from "../elements/Chat/Container/ChatsContainer";
 import NavTitle from "../elements/headers/NavTitle";
 import { useEffect, useState } from "react";
-import { token } from "@/server.config";
+import { USER_1_ID_AUX } from "@/server.config";
 export default function ChatPage() {
 
     const [chatUsers, setChatUsers] = useState<string[]>([]);
@@ -22,16 +20,10 @@ export default function ChatPage() {
 
             const response = await request.json();
 
-            console.log("Respuesta desde el servidor:");
-            console.log(response);
-
             // Filtrar los usuarios cuyo ID esté en el idsArray
             const filteredUsers = response?.data?.data?.filter((user: { id: string; }) =>
                 idsArray.includes(user.id)
             );
-
-            console.log("Usuarios filtrados:");
-            console.log(filteredUsers);
 
             // Opcional: puedes retornar los usuarios filtrados aquí
             return filteredUsers;
@@ -41,17 +33,12 @@ export default function ChatPage() {
         }
     };
 
-
     const obtenerMensajes = async () => {
         //este trae los chats 
         //opciones: user el for-publication q trae la imagen, nombre y id del user --> comprobar el id guardado en localsotorage para no traer el id del usuario actual y no q no se muestre su a si mismo como chat
-        const request = await fetch("http://localhost:3000/chat/rooms/a2f15f5b-f2ef-4207-a92d-49e2005271d1");
+        // const request = await fetch("http://localhost:3000/chat/rooms/a2f15f5b-f2ef-4207-a92d-49e2005271d1"); //cambiar por id obtenido de la cookie
+        const request = await fetch(`http://localhost:3000/chat/rooms/${USER_1_ID_AUX}`);
         const response = await request.json();
-
-        // setUser()
-
-        // console.log(response);
-        // console.log(response.data.data);
 
         const arrayChatsRooms = response.data.data;
         const auxArray: string[] = [];
@@ -70,7 +57,8 @@ export default function ChatPage() {
                     if (key === "senderId") {
                         const senderId = obj.senderId;
 
-                        if (senderId !== "a2f15f5b-f2ef-4207-a92d-49e2005271d1") { //esto obtenerlo de cookie o localS
+                        // if (senderId !== "a2f15f5b-f2ef-4207-a92d-49e2005271d1") { //esto obtenerlo de cookie o localS
+                        if (senderId !== USER_1_ID_AUX) { //esto obtenerlo de cookie o localS
                             auxArray.push(senderId);
                         }
 
@@ -80,10 +68,9 @@ export default function ChatPage() {
             }
         }
 
-        console.log(auxArray);
-        setChatUsers(auxArray);
         const result = await getUsers(auxArray);
-        console.log(result);
+        console.log("RESULT", result);
+        setChatUsers(result);
 
 
         //este trae los mensajes previos
@@ -96,18 +83,15 @@ export default function ChatPage() {
 
     useEffect(() => {
         obtenerMensajes();
-
     }, [])
-
 
     return (
         <>
-            <Container className="flex flex-col px-4 gap-6">
+            {chatUsers.length > 0 ? <Container className="flex flex-col px-4 gap-6">
                 <NavTitle link="festivals" title="Sala de chat" />
                 <InputSearch />
-                {/* <CrewContainer users={users}/> */}
-                <ChatsContainer />
-            </Container>
+                <ChatsContainer chats={chatUsers} />
+            </Container> : "loading..."}
         </>
     );
 };
