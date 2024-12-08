@@ -11,8 +11,30 @@ export const getFestivals = async (token: string) => {
         },
       }
     );
+    return {
+      data: response.data.data.data
+    } 
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-    return response.data.data.data;
+export const festivalById = async (token: string, festivalId: string) => {
+  try {
+    if (festivalId) {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER}/festivals/${festivalId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return {
+        data: response.data.data.data
+      }
+    }
   } catch (e) {
     console.error(e);
   }

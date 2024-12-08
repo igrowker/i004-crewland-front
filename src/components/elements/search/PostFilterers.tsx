@@ -1,5 +1,5 @@
 "use client"
-import { publicationInterface, UserInterface } from '@/interfaces/publication'
+import { publicationInterface } from '@/interfaces/publication'
 import { festivalsInterface } from '@/interfaces/festivals'
 import { ListFilter, Search, X } from 'lucide-react'
 import React, { useContext, useMemo, useState } from 'react'
@@ -10,13 +10,11 @@ import { festivalIdContext } from '@/context/FestivalIdContext'
 interface PostFiltererInterface {
   publications: publicationInterface[],
   festivals: festivalsInterface[],
-  userByPublications: UserInterface[],
 }
 
 export default function PostFilterers({ publications, festivals }: PostFiltererInterface) {
   const contexto = useContext(festivalIdContext);
   const [resetInput, setResetInput] = useState<string>("")
-
   const filteredPosts = useMemo(() => {
     if (contexto?.festivalData.festivalId !== "") {
       return publications.filter(post => post.festivalId === contexto?.festivalData.festivalId);
@@ -38,7 +36,7 @@ export default function PostFilterers({ publications, festivals }: PostFiltererI
       post.title?.toLowerCase().includes(searchValue.toLowerCase())
     ));
   };
-  // Restaura el input al hacer clic en el ícono "X"
+
   const handleResetInput = () => {
     setResetInput("");  // Borra el texto en el input
     setPosts(filteredPosts); // Restaura las publicaciones filtradas

@@ -1,11 +1,11 @@
 import CrewContainer from "@/components/elements/Chat/CrewContainer";
 import Container from "@/components/elements/Container/Container";
 import InputSearch from "@/components/elements/Inputs/InputSearch";
-import { User } from "@/interfaces/publication";
+import { UserInterface } from "@/interfaces/publication";
 import ChatsContainer from "../elements/Chat/Container/ChatsContainer";
 import NavTitle from "../elements/headers/NavTitle";
 export default function ChatPage() {
-    const users:User[] = [
+    const users: UserInterface[] = [
         {
             id: 1,
             name: "John Doe",
