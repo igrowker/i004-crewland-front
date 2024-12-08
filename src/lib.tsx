@@ -108,8 +108,6 @@ export async function updateSession(req: NextRequest) {
     if (!session && !publicPaths.has(pathname)) {
       existedCookies.delete("session");
       return NextResponse.redirect(new URL("/", url));
-    } else if (session.token !== "unkown" && publicPaths.has(pathname)) {
-      return NextResponse.redirect(new URL("/festivals", url));
     }
   }
 }
