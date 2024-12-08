@@ -41,19 +41,19 @@ export const userRegister = async (
         request: response.request.status,
       };
     }
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
-      const statusCode = e.response?.status;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const statusCode = error.response?.status;
       return {
         response: {
           status: statusCode,
-          statusText: e.response?.statusText,
+          statusText: error.response?.statusText,
           data:
             statusCode === 409
-              ? e.response?.data.message
-              : e.response?.data.message.message,
+              ? error.response?.data.message
+              : error.response?.data.message.message,
         },
-        request: e.request.status,
+        request: error.request.status,
       };
     }
   }
