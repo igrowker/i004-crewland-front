@@ -93,14 +93,19 @@ export async function updateSession(req: NextRequest) {
   const url = req.url;
   const { pathname } = req.nextUrl;
 
-  if (!pathname.split("").includes(".") === true) {
-    const publicPaths = ["/auth/login", "/auth/register", "/home", "/"];
+  if (!pathname.includes(".") === true) {
+    const publicPaths = new Set([
+      "/auth/login",
+      "/auth/register",
+      "/home",
+      "/",
+    ]);
     if (pathname === "/logout") {
       existedCookies.delete("session");
       return NextResponse.redirect(new URL("/", url));
     }
 
-    if (!session && !publicPaths.includes(pathname)) {
+    if (!session && !publicPaths.has(pathname)) {
       existedCookies.delete("session");
       return NextResponse.redirect(new URL("/", url));
     }

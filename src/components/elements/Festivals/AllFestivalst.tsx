@@ -12,7 +12,7 @@ export default function AllFestivalst({ token }: { token: string }) {
 
   useEffect(() => {
     getFestivals(token).then((data) => {
-      setDataFestivals(data?.data);
+      setDataFestivals(data);
     });
   }, [token]);
 
