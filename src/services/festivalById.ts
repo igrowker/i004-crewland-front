@@ -3,7 +3,7 @@ import axios from "axios";
 import { token } from '@/server.config';
 
 
-export const getFestivalById = async (festivalId: string) => {
+export const getFestivalById = async (token: string, festivalId: string) => {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/festivals/${festivalId}`, {
       headers: {

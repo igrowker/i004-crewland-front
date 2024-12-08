@@ -1,6 +1,6 @@
 'use client'
 import Container from '@/components/elements/Container/Container'
-import '@/components/elements/calendar/Calendar.css'
+//import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
 import GroupSection from '@/components/elements/Profile/GroupSection'
 import { chats } from '@/json/historial'

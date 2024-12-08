@@ -3,7 +3,7 @@ import axios from "axios";
 import { token } from '@/server.config';
 
 
-export const getPublicationById = async (publicationId: string) => {
+export const getPublicationById = async (token: string, publicationId: string) => {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/publications/${publicationId}`, {
       headers: {
@@ -13,7 +13,9 @@ export const getPublicationById = async (publicationId: string) => {
     });
 
     return response.data;
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('Error fetching publications:', error)
+
+    throw error;
   }
 };
