@@ -55,13 +55,19 @@ La interfaz está diseñada con:
 | customGreen       | ![#26874A](https://via.placeholder.com/10/26874A?text=+) #26874A |
 | customBlue        | ![#62C0FA](https://via.placeholder.com/10/62C0FA?text=+) #62C0FA |
 
+## Tech Stack
+
+- Next.js: Framework de React para aplicaciones web rápidas optimizaadas y escalables con renderizado del lado del servidor.
+- React: interfaces de usuario interactivas y dinámicas
+- TypeScript: Para un código más seguro y sostenible.
+- Tailwind CSS: Para un diseño ágil y personalizable.
+- Zod: Validación de esquemas garantizando que los datos sean correctos y seguros
+- Axios: Manejo eficiente de solicitudes HTTP.
+- ESLint: Asegurando un código limpio y consistente.
+
 ## Authors
 
 - [Alicia Gálvez](https://www.github.com/alicia4079)
 - [Débora García](https://www.github.com/debi312)
 - [Fran Salvatierra](https://www.github.com/Ridie-Kings)
 - [Juan Ramirez](https://www.github.com/juanRcoder)
-
-## Tech Stack
-
-NextJs 15, React 19, TailwindCSS & Axios.
