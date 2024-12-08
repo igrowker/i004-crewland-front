@@ -12,7 +12,9 @@ export const userLogin = async (
   const existedCookies = await cookies();
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER}/auth/login`,
+      // `${process.env.NEXT_PUBLIC_SERVER}/auth/login`,
+      // `http://localhost:3000/auth/login`,
+      `http://crewland.mooo.com:3000/auth/login`,
       {
         email,
         password,
@@ -108,8 +110,9 @@ export async function updateSession(req: NextRequest) {
     if (!session && !publicPaths.has(pathname)) {
       existedCookies.delete("session");
       return NextResponse.redirect(new URL("/", url));
-    } else if (session.token !== "unkown" && publicPaths.has(pathname)) {
-      return NextResponse.redirect(new URL("/festivals", url));
-    }
+    } 
+    // else if (session.token !== "unkown" && publicPaths.has(pathname)) {
+    //   return NextResponse.redirect(new URL("/festivals", url));
+    // }
   }
 }
