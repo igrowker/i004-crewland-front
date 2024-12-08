@@ -5,17 +5,11 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
 // IDs de los usuarios (simulados)
-// const USER_1_ID = "790722b9-1a6b-4330-a30d-3e05af00c2a4"; //el primer id obtenerlo cuando el user inicia secion
-const USER_1_ID = "c2775f77-2c1a-42bf-bea9-348aff72821c"; //el primer id obtenerlo cuando el user inicia secion
-// const USER_2_ID = "8ace492f-d973-41c1-9509-3a4c7ed635c7"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
-const USER_2_ID = "796ac1e5-47a1-4068-89a6-88df77e676f3"; //el segundo id obtenerlo de la card cuando se le da al btn chat del user de la publicacion
+const USER_1_ID = "0ac42224-d26c-4393-ac55-5a6c46f3301d"; 
+const USER_2_ID = "a21ac128-dc62-4cb5-89f3-b8588b9a478b"; 
 
-// 796ac1e5-47a1-4068-89a6-88df77e676f3
-
-
-//juan b258f496-421e-445d-878c-ddb5a78d032e
-//ali 702086fc-e46d-4e3c-b34a-b64bb48ae9ae
-// b8a40fd4-f1c3-4482-ac73-b4493b095f89
+// export const USER_1_ID_AUX = "8ace492f-d973-41c1-9509-3a4c7ed635c7";
+// export const USER_1_ID_AUX = "796ac1e5-47a1-4068-89a6-88df77e676f3";
 
 
 // Componente de chat

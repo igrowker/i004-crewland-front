@@ -2,9 +2,7 @@
 // const server = 'https://i004-crewland-back.onrender.com'; // test en render de ulises
 const server = 'http://localhost:3000'; // test local
 
-// export const USER_1_ID_AUX = "c2775f77-2c1a-42bf-bea9-348aff72821c";
 export const USER_1_ID_AUX = "8ace492f-d973-41c1-9509-3a4c7ed635c7";
-// export const USER_1_ID_AUX = "796ac1e5-47a1-4068-89a6-88df77e676f3";
 
 //1a2
 //room_c2775f77-2c1a-42bf-bea9-348aff72821c_8ace492f-d973-41c1-9509-3a4c7ed635c7

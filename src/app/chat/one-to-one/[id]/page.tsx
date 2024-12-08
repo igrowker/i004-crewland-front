@@ -27,6 +27,7 @@ export default function OneToOne({ params }: { params: Promise<{ id: string }> }
   const getUserId2 = async () => {
     try {
       const result = await params;
+      console.log(result);
       setUSER_2_ID(result.id);
     } catch (error) {
       console.error("Error al resolver params:", error);
@@ -36,15 +37,31 @@ export default function OneToOne({ params }: { params: Promise<{ id: string }> }
   }
 
   // Inicializar el socket
+  // useEffect(() => {
+  //   const newSocket = io("http://localhost:3000");
+  //   setSocket(newSocket);
+
+  //   // Limpiar conexión al desmontar
+  //   return () => {
+  //     newSocket.close();
+  //   };
+  // }, []);
+
   useEffect(() => {
     const newSocket = io("http://localhost:3000");
+  
+    newSocket.on('connect', () => {
+      console.log('Conectado con socket');
+      newSocket.emit('register', { userId: USER_1_ID });
+    });
+  
     setSocket(newSocket);
-
-    // Limpiar conexión al desmontar
+  
     return () => {
       newSocket.close();
     };
   }, []);
+  
 
   // Configurar listeners del socket cuando esté listo
   useEffect(() => {
@@ -77,28 +94,54 @@ export default function OneToOne({ params }: { params: Promise<{ id: string }> }
   //   }
   // };
 
-  const handleSendMessage = () => {
-    if (socket && message.trim() !== "" && roomId) {
-      const messageData = {
-        senderId: USER_1_ID,
-        content: message,
-        roomId: roomId, // Usamos el roomId recibido al unirse a la sala
-      };
+  // const handleSendMessage = () => {
+  //   if (socket && message.trim() !== "" && roomId) {
+  //     const messageData = {
+  //       senderId: USER_1_ID,
+  //       content: message,
+  //       roomId: roomId, // Usamos el roomId recibido al unirse a la sala
+  //     };
 
-      // Emitir mensaje
-      socket.emit("sendMessage", messageData);
-      setMessage(""); // Limpiar el campo de texto
-    }
-  };
+  //     // Emitir mensaje
+  //     socket.emit("sendMessage", messageData);
+  //     setMessage(""); // Limpiar el campo de texto
+  //   }
+  // };
 
   useEffect(() => {
     getUserId2();
   }, [])
 
+  const handleSendMessage = () => {
+    if (socket && message.trim() !== "" && roomId) {
+      const messageData = {
+        senderId: USER_1_ID, // Asegurar que esto es único por cliente
+        content: message,
+        roomId: roomId,
+      };
+  
+      console.log("Mensaje enviado al servidor:", messageData);
+      socket.emit("sendMessage", messageData);
+      setMessage("");
+    }
+  };
+  
+
   // Unirse a la sala cuando `USER_2_ID` esté definido y `socket` esté listo
+  // useEffect(() => {
+  //   if (socket && USER_2_ID) {
+  //     socket.emit("joinRoom", { userId1: USER_1_ID, userId2: USER_2_ID }); //ACA PROBLEMA DE LAS ROOM CON LOS MISMO USUARIOS PERO CON ID EN DISTINTO ORDEN EN EL NOMBRE
+  //   }
+  // }, [socket, USER_2_ID, USER_1_ID]);
+
   useEffect(() => {
     if (socket && USER_2_ID) {
-      socket.emit("joinRoom", { userId1: USER_1_ID, userId2: USER_2_ID }); //ACA PROBLEMA DE LAS ROOM CON LOS MISMO USUARIOS PERO CON ID EN DISTINTO ORDEN EN EL NOMBRE
+      const sortedIds = [USER_1_ID, USER_2_ID].sort(); // ORDENAR LOS IDs ALFABÉTICAMENTE
+      console.log("Datos ordenados enviados al servidor:", {
+        userId1: sortedIds[0],
+        userId2: sortedIds[1],
+      });
+      socket.emit("joinRoom", { userId1: sortedIds[0], userId2: sortedIds[1] }); // ENVÍAR LOS IDs ORDENADOS
     }
   }, [socket, USER_2_ID, USER_1_ID]);
   

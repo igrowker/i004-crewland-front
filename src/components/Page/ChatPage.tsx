@@ -71,13 +71,6 @@ export default function ChatPage() {
         const result = await getUsers(auxArray);
         console.log("RESULT", result);
         setChatUsers(result);
-
-
-        //este trae los mensajes previos
-        // const request2 = await fetch("http://localhost:3000/chat/rooms/5b3b36e7-83bc-4224-80d9-43b8c7a41b85/messages/algo");
-        // const response2 = await request2.json();
-
-        // console.log(response2);
     }
 
 

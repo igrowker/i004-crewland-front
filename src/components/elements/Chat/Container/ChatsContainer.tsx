@@ -5,15 +5,16 @@ import Avatar from "../../Avatar/UniqueAvatar/Avatar";
 
 export default function ChatsContainer({ chats }: any) {
   const router = useRouter();
-  // console.log("CHATS DESDE CHATSCONTAINER");
-  // console.log(chats);
+  console.log("CHATS DESDE CHATSCONTAINER");
+  console.log(chats);
   
   const isNewMessage = true;
   return (
     <div className="flex flex-col w-full">
       {chats.map((chat: object, index: number) => (
         <div onClick={() => {
-          router.push(`http://localhost:3001/chat/one-to-one/${chats[index]["id"]}`) //cambiar ruta para q no este hardcodeada
+          router.push(`http://localhost:3001/chat/one-to-one/${chats[index]["id"]}`)
+          // console.log(chats[index]["id"]);
           }} key={chats[index]["id"]} className="flex justify-between items-center gap-4 w-full border-b p-2 border-customGray">
           <Avatar src={chats[index]["image"]} alt="Image avatar" width={50} height={50} className="flex-shrink-0" />
           <div className="flex flex-col flex-grow overflow-hidden">
