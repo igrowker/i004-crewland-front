@@ -1,46 +1,58 @@
 'use client'
+import { useContext, useEffect } from 'react'
+import { ProfileContext } from '@/context/ProfileContext'
+import { getSession } from '@/lib'
+import { getAllPublications } from '@/services/publications' 
+import { getFestivalById } from '@/services/festivalById'
 import Container from '@/components/elements/Container/Container'
-//import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
 import GroupSection from '@/components/elements/Profile/GroupSection'
-import { chats } from '@/json/historial'
-import { useState, useEffect } from 'react'
-import { getFestivalById } from '@/services/festivalById'
-import { getPublicationById } from '@/services/publicationById'
 
-
-export default function CurrentCrews() {
-  const [publications, setPublications] = useState<any>(null)
-  const [festival, setFestival] = useState<any>(null)
-  const postId = "8303e915-ccb3-4354-9ebc-16540765df36"
-  const festivalId = "2eb48296-17b8-4058-9ab6-2f2dd64af42c"
-
+export default function currentCrews() {
+  const profileContext = useContext(ProfileContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const [posts, fest] = await Promise.all([getPublicationById(postId), getFestivalById(festivalId)])
-      setPublications(posts.data.data)
-      setFestival(fest.data.data)
+    if (profileContext) {
+      const fetchData = async () => {
+        const { id, token } = await getSession();
+
+        const publicationsResponse = await getAllPublications(token);
+        const allPublications = publicationsResponse.data.data;
+
+        const filteredPublications = allPublications.filter((publication: any) => publication.userId === id);
+
+        const festivalPromises = filteredPublications.map(async (publication: any) => {
+          if (publication.postId) {
+            const festivalResponse = await getFestivalById(token, publication.postId);
+            return { postId: publication.postId, festival: festivalResponse.data.data };
+          }
+        });
+
+        const festivalData = await Promise.all(festivalPromises);
+        const festivalMap = festivalData.reduce((acc: any, { postId, festival }: any) => {
+          if (postId) {
+            acc[postId] = festival;
+          }
+          return acc;
+        }, {});
+
+        profileContext.setDataProfile({
+          ...profileContext.dataProfile,
+          publications: filteredPublications, 
+          festivals: festivalMap,  
+        });
+      };
+
+      fetchData();
     }
-    fetchData()
-  }, [])
-
-
-  const groups = publications ? [{
-    id: publications.id,
-    name: festival?.name || 'Desconocido',
-    location: festival?.location || 'Desconocido',
-    date: festival?.date || 'Desconocida',
-    usuarios: publications.participants,
-    titulo: publications.title,
-    isActive: publications.isActive,
-    typeService: publications.type,
-    creationDate: publications.creationDate
-  }] : []
-
+  }, [profileContext]);
 
   const handleDelete = (chatIndex: number) => {
     console.log(`Eliminar chat en índice: ${chatIndex}`)
+  }
+
+  if (!profileContext) {
+    return null;
   }
 
   return (
@@ -48,21 +60,11 @@ export default function CurrentCrews() {
       <article className='flex flex-col w-full min-h-screen bg-background'>
         <NavTitle link='profile' title='Crews Actuales' />
         <div className='flex flex-col justify-center mt-3 gap-6'>
-          {groups.map((group) => (
-            <GroupSection
-              key={group.id}
-              festival={festival} 
-              publications={publications} 
-              chats={chats} 
-              showAddButton={true}
-              onDelete={handleDelete}
-              {...group}
-            />
-          ))}
+          <GroupSection
+            onDelete={handleDelete}
+          />
         </div>
       </article>
     </Container>
   )
 }
-
-

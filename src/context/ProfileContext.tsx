@@ -9,7 +9,16 @@ export const ProfileContext = createContext<ProfileContextInterface | null>(null
 export const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
   const [dataProfile, setDataProfile] = useState<ProfileInterface>({
     groupName: "",
-    status: "",
+    isActive: "",
+    service: "otro",
+    publications: [],
+    festivals: {},
+    festivalName: "",
+    date: "",
+    place: "",
+
+
+
   });
 
   return (

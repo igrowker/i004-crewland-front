@@ -1,32 +1,31 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { ProfileContext } from '@/context/ProfileContext'
+
 import { Car, Building, Users, CirclePlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import AddUserModal from '../Profile/AddUserModal'
 
 
-export interface HeaderProps {
-    festivalName: string
-    date: string
-    place: string
-    isActive: boolean
-    typeService?: 'alojamiento' | 'transporte' | 'compañero' | 'otro'
-    chatsLength?: number
-    showAddButton?: boolean
+
+interface HeaderProps {
+    festivalName?: string; 
+    date?: string;
+    place?: string;
+    isActive?: boolean;
+    typeService?: string;
+    chatsLength: number;
+    showAddButton: boolean;
 }
 
-const HistorialHeader: React.FC<HeaderProps> = ({
-    festivalName,
-    date,
-    place,
-    isActive,
-    typeService,
-    chatsLength,
-    showAddButton
-}) => {
+const HistorialHeader: React.FC<HeaderProps> = ({ chatsLength, showAddButton }) => {
+
     const pathname = usePathname()
     const headerText = pathname === '/profile/historial' ? 'Miembros Actuales' : 'Acompañantes'
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const { dataProfile } = useContext(ProfileContext) ?? {};
+
+    const { festivalName, date, place, isActive, service } = dataProfile || {};
 
     const handleAddUser = (email: string) => {
         console.log(`Usuario añadido: ${email}`);
@@ -59,7 +58,7 @@ const HistorialHeader: React.FC<HeaderProps> = ({
                     <button className='border border-white rounded-md px-4 py-1 text-sm'>{place}</button>
                 </span>
 
-                {typeService && serviceIcons[typeService]}
+                {service && serviceIcons[service]}
 
             </div>
             {/* Subtitul */}

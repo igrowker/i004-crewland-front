@@ -1,9 +1,9 @@
 "use server";
 import axios from "axios";
 
-export const getPublicationById = async (token: string, publicationId: string) => {
+export const getAllPublications = async (token: string) => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/publications/${publicationId}`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/publications}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'

@@ -1,59 +1,43 @@
-import HistorialHeader from "../headers/HistorialHeader"
+import React, { useContext } from 'react'
+import { ProfileContext } from '@/context/ProfileContext'
 import UserChatItem from "../Chat/UserChatCard/UserChatItem"
+import HistorialHeader from "../headers/HistorialHeader"
 import { usePathname } from 'next/navigation'
-import { festivalsInterface } from '@/interfaces/festivals'
-import { publicationInterface, UserInterface } from '@/interfaces/publication'
+import { groups, chats } from '@/json/historial'
+
 
 interface GroupSectionProps {
-    festival: festivalsInterface[];
-    publications: publicationInterface[];
-    chats: {
-        avatar: string;
-        username: string;
-    }[];
-    showAddButton?: boolean;
-    onDelete?: (chatIndex: number) => void
-    id: string;
-    name: string;
-    location: string;
-    date: string;
-    typeService?: "alojamiento" | "transporte" | "compañero" | "otro" | undefined;
-    usuarios: any[]; // o el tipo adecuado para los participantes
-    isActive: boolean;
-    creationDate: string;
+    onDelete: (index: number) => void;
 }
-const GroupSection: React.FC<GroupSectionProps> = ({
-    chats,
-    showAddButton = false,
-    onDelete,
-    name: festivalName,
-    date,
-    location: place,
-    isActive,
-    usuarios,
-    typeService,
-    creationDate
-}) => {
+
+const GroupSection: React.FC<GroupSectionProps> = ({ onDelete }) => {
     const pathname = usePathname();
+    const { dataProfile } = useContext(ProfileContext) ?? {};
+    const { publications, festivals } = dataProfile || {};
+
+    const groups = publications?.map((publication: any) => ({
+        ...publication,
+        festival: festivals && festivals[publication.postId], 
+    })) || [];
 
     return (
         <section className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
             <HistorialHeader
-                festivalName={festivalName}
-                date={date}
-                place={place}
-                isActive={isActive}
-                typeService={typeService}
-                chatsLength={chats.length}
-                showAddButton={showAddButton}
+                festivalName={groups[0]?.festival?.name || ''}
+                date={groups[0]?.date || ''}
+                place={groups[0]?.place || ''}
+                isActive={groups[0]?.isActive || false}
+                typeService={groups[0]?.typeService}
+                chatsLength={groups.length}
+                showAddButton={true}
             />
-            <div className='flex flex-col w-full '>
 
-                {chats.map((chat, chatIndex) => (
+            <div className='flex flex-col w-full '>
+                {groups.map((group, chatIndex) => (
                     <UserChatItem
                         key={chatIndex}
-                        avatar={chat.avatar}
-                        username={chat.username}
+                        avatar={group.festival?.avatar}
+                        username={group.festival?.username}
                         onDelete={onDelete && (() => onDelete(chatIndex))}
                     />
                 ))}
@@ -66,8 +50,12 @@ const GroupSection: React.FC<GroupSectionProps> = ({
                     </button>
                 </div>
             )}
+
         </section>
-    )
+    );
 }
 
-export default GroupSection
+export default GroupSection;
+
+
+

@@ -2,108 +2,89 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { getSession } from '@/lib'
-import { getAllReservations } from '@/services/reservations/reservations'
-import { getPublicationById } from '@/services/publicationById'
+import { getAllPublications } from '@/services/publications'  
 import { getFestivalById } from '@/services/festivalById'
 
 export default function ReservationsPage() {
-    const [reservations, setReservations] = useState<any>(null)
-    const [userData, setUserData] = useState<{ id: string; token: string; name: string }>({ id: '', token: '', name: '' })
-    const [posts, setPosts] = useState<any>({})
-    const [festivals, setFestivals] = useState<any>({}) 
+    const [publications, setPublications] = useState<any>(null)
+    const [userData, setUserData] = useState<{ id: string; token: string }>({ id: '', token: '' })
+    const [festivals, setFestivals] = useState<any>({})
 
     useEffect(() => {
         const fetchData = async () => {
-            const { id, token, name } = await getSession()
-            setUserData({ id, token, name })
             try {
-                const response = await getAllReservations(token) 
-                const allReservations = response.data.data
-                const testId = "9ed774b0-97cf-48c0-9dc6-08d91da03c8b"
+                const { id, token } = await getSession()
+                setUserData({ id, token })
 
-                
-                const filteredReservations = allReservations.filter(
-                  (reservation: any) => Array.isArray(reservation.userIds) && reservation.userIds.includes(testId)
-                );
-                
-                console.log(filteredReservations);
-                
+                // Obtener todas las publicaciones
+                const response = await getAllPublications(token)
+                const publicationsData = response.data.data
 
-                // Resultado después de filtrar
-                console.log('Filtered Reservations:', filteredReservations)
-                setReservations(filteredReservations)
+                // Filtrar publicaciones que contienen al usuario logueado
+                const userPublications = publicationsData.filter((publication: any) => 
+                    publication.userIds.includes(id)
+                )
+                setPublications(userPublications)
 
-                // POST
-                const hardcodedPostId = '60fac0ef-0d49-45bc-9462-f4b709906dcd'
-                const postResponse = await getPublicationById(token, hardcodedPostId)
-
-                const postData = postResponse.data.data
-                const postMap = filteredReservations.reduce((acc: any, reservation: any) => {
-                    acc[reservation.postId] = postData
-                    return acc
-                }, {})
-                setPosts(postMap)
-
-                // FESTIVAL
-                const festivalPromises = filteredReservations.map(async (reservation: any) => {
-                    const post = postMap[reservation.postId]
-                    if (post) {
-                        const festivalResponse = await getFestivalById(token, post.festivalId)
-                        return { festivalId: post.festivalId, festival: festivalResponse.data.data }
+                // Obtener los festivales relacionados con las publicaciones
+                const festivalIdharcoded = '299b9453-3a14-47e8-b2cf-673210fa54ee'
+                const festivalPromises = userPublications.map(async (publication: any) => {
+                    if (publication.postId) {
+                        const festivalResponse = await getFestivalById(token, festivalIdharcoded)
+                        return { postId: publication.postId, festival: festivalResponse.data.data }
                     }
                 })
 
                 const festivalData = await Promise.all(festivalPromises)
-                const festival = festivalData.reduce((acc: any, { festivalId, festival }: any) => {
-                    if (festivalId) {
-                        acc[festivalId] = festival
+                const festivalMap = festivalData.reduce((acc: any, { postId, festival }: any) => {
+                    if (postId) {
+                        acc[postId] = festival
                     }
                     return acc
                 }, {})
-                setFestivals(festival)
+                setFestivals(festivalMap)
+
             } catch (error) {
-                console.error('Error fetching reservations:', error)
+                console.error('Error fetching data:', error)
             }
         }
 
         fetchData()
-    }, [])  
+    }, [])
 
-   
-    const memoizedPosts = useMemo(() => posts, [posts])
-
-    const memoizedFestivals = useMemo(() => festivals, [festivals])
+    const mFestivals = useMemo(() => festivals, [festivals])
 
     return (
         <div>
-            <h1>Welcome, {userData.name}!</h1>
-            <h1>ID: {userData.id}</h1>
-            <h2>Your Reservations:</h2>
             <ul>
-                {reservations?.length > 0 ? (
-                    reservations.map((reservation: any) => {
-                        const post = memoizedPosts[reservation.postId] 
-                        const festival = memoizedFestivals[post?.festivalId]
-                        console.log(reservation)
+                {publications?.length > 0 ? (
+                    publications.map((publication: any) => {
+                        const festival = mFestivals[publication.postId]
                         return (
-                            <li key={reservation.id}>
-                                <h3 className='text-2xl'>- RESERVATION {reservation.type} </h3>
-                                {post ? (
-                                    <div>
-                                        <h4>Post Title: {post.id}</h4>
-                                        <p><strong>Active:</strong> {post.isActive ? 'Yes' : 'No'}</p>
-                                        <p><strong>Festival Name:</strong> {festival ? festival.name : 'Festival not found'}</p>
-                                        <p><strong>Creation Date:</strong> {post.creationDate}</p>
-                                        <p><strong>Users</strong>{reservation.userIds}</p>
-                                    </div>
-                                ) : (
-                                    <p>Post not found.</p>
-                                )}
+                            <li key={publication.id}>
+                                <h3 className='text-2xl'>- PUBLICATION {publication.type}</h3>
+                                <div>
+                                    <p><strong>Status:</strong> {publication.status}</p>
+                                    <p><strong>Created At:</strong> {new Date(publication.createdAt).toLocaleString()}</p>
+                                    <p><strong>Festival Name:</strong> {festival ? festival.name : 'Festival not found'}</p>
+                                    <p><strong>Festival Place:</strong> {festival ? festival.location : 'Festival not found'}</p>
+                                    <p><strong>Festival Date:</strong> {festival ? festival.date : 'Festival not found'}</p>
+                                    <p><strong>User IDs:</strong></p>
+                                    <ul>
+                                        {publication.userIds?.length > 0 ? (
+                                            publication.userIds.map((userId: string) => (
+                                                <li key={userId}>{userId}</li>
+                                            ))
+                                        ) : (
+                                            <li>No users joined yet</li>
+                                        )}
+                                    </ul>
+                                </div>
                             </li>
                         )
                     })
                 ) : (
-                    <li>No reservations available.</li> 
+                    <li>No publications found for the logged-in user.</li>
                 )}
             </ul>
         </div>

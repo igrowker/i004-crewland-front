@@ -17,8 +17,13 @@ export interface UserInterface {
 
 export interface ProfileInterface {
   groupName: '',
-  status: '',
-  service?: 'alojamiento' | 'transporte' | 'compañero' | 'otro'
+  isActive: '',
+  service?: 'alojamiento' | 'transporte' | 'compañero' | 'otro',
+  publications: any[]; 
+  festivals: Record<string, any>;
+  festivalName: string;
+  date: string;
+  place: string;
 }
 
 
