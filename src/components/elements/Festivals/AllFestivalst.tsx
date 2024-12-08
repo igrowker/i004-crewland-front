@@ -11,10 +11,8 @@ export default function AllFestivalst({ token }: { token: string }) {
   const [dataFestivals, setDataFestivals] = useState<festivalsInterface[]>([]);
 
   useEffect(() => {
-    console.log("Antes peticion");
     getFestivals(token).then((data) => {
-      console.log("Data", data);
-      setDataFestivals(data);
+      setDataFestivals(data?.data);
     });
   }, [token]);
 

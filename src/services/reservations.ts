@@ -1,9 +1,8 @@
 "use server";
 import axios from "axios";
-import { token } from '@/server.config';
 import { ReservationInterface } from "@/interfaces/reservations";
 
-export const postReservation = async ( createReservation: ReservationInterface ) => {
+export const postReservation = async ( token: string, createReservation: ReservationInterface ) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER}/reservations`,
@@ -20,7 +19,7 @@ export const postReservation = async ( createReservation: ReservationInterface )
         response: {
           status: response.status,
           statusText: response.statusText,
-          data: response.data
+          data: response.data.data.data
         },
         request: response.request.status
       }

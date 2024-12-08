@@ -10,16 +10,22 @@ import NavTitle from '@/components/elements/headers/NavTitle'
 import usePost from '@/hooks/usePost'
 import { festivalIdContext } from '@/context/FestivalIdContext'
 import Link from 'next/link'
-import { postPublication } from '@/services/posts'
+import { getUsersForPublications, postPublication } from '@/services/posts'
 import { useRouter } from 'next/navigation'
-// import { postReservation } from '@/services/reservations'
+import { getSession } from '@/lib'
+import { UserInterface } from '@/interfaces/publication'
+import { postReservation } from '@/services/reservations'
 
 
 export default function NewPost() {
   const router = useRouter()
   const contexto = useContext(festivalIdContext)
   const [isFestivalId, setIsFestivalId] = useState<boolean>(false);
-  const [errosBack, setErrosBack] = useState<string[] | string>()
+  const [errosBack, setErrosBack] = useState<string[] | string>();
+  const [dataUsers, setDataUsers] = useState<{users: UserInterface[], usersId: string[]}>({
+    users: [],
+    usersId: []
+  })
   const { createdPost, handleChange, setCreatedPost } = usePost();
   const [stateModal, setStateModal] = useState({
     cancelPost: false,
@@ -29,32 +35,69 @@ export default function NewPost() {
 
   // Si no se ha escogido un festival no puede acceder a esta pantalla
   useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const session = await getSession();
+        const response = await getUsersForPublications(session.token);
+        setDataUsers(prev => ({...prev, users: response?.data}))
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    getUsers();
+
     if (!contexto?.festivalData.festivalId) {
       setIsFestivalId(true);
     }
+
   }, [contexto]);
+
+  // Recoleccion de usuarios
+  const handleParticipants = useCallback((participants: string[]) => {
+    setCreatedPost((prev) => ({ ...prev, participants }));
+
+    const participantIds = participants.map(name => {
+      const matchedUser = dataUsers.users.find(user => user.name === name);
+      return matchedUser ? String(matchedUser.id) : "";
+    })
+    setDataUsers(prev => ({...prev, usersId: participantIds}))
+  }, [dataUsers.users, setCreatedPost]);
+
 
   // envio de datos al back para crear un nuevo post
   const handleCreatePublication = async () => {
     try {
-      const dataCreatePost = { ...createdPost, festivalId: contexto?.festivalData.festivalId }
-      const response = await postPublication(contexto?.festivalData.festivalId || "", dataCreatePost)
-      console.log(response)
+      const session = await getSession()
+      const dataCreatePost =
+      {
+        ...createdPost,
+        festivalId: contexto?.festivalData.festivalId
+      }
+
+      const response = await postPublication(session.token, contexto?.festivalData.festivalId || "", dataCreatePost)
+
+      console.log("NUEVA PUBLICACION")
+      console.log(response?.response.data);
+
       if (response?.response.status !== 201) {
         setStateModal(prev => ({ ...prev, errorPost: true }))
         setErrosBack(response?.response.data)
       } else {
 
-        // const newReservation = {
-        //   type: response.response.data.type,
-        //   postId: response.response.data.id,
-        //   usersId: response.
-        // }
-        
-        // // envia de datos al back para crear una nueva reserva
-        // const reservationPost = await postReservation();
-        
-        
+        const newReservation = {
+          type: response.response.data.type,
+          postId: response.response.data.id,
+          userIds: dataUsers.usersId,
+          peopleAmount: response.response.data.maxParticipants
+        }
+        console.log("RESERVA A ENVIAR")
+        console.log(newReservation)
+
+        // envia de datos al back para crear una nueva reserva
+        const reservationPost = await postReservation(session.token, newReservation);
+        console.log("`NUEVA RESERVACION")
+        console.log(reservationPost?.response.data)
+
         setStateModal(prev => ({ ...prev, createPost: true }))
         router.push('/search')
       }
@@ -70,11 +113,6 @@ export default function NewPost() {
       console.error(e)
     }
   }
-
-  // Recoleccion de usuarios
-  const handleParticipants = useCallback((participants: string[]) => {
-    setCreatedPost((prev) => ({ ...prev, participants }));
-  }, [setCreatedPost]);
 
   // Enviar el tipado en ingles al black
   const changePostType = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,10 +144,10 @@ export default function NewPost() {
           ? (
             <Container className='flex flex-col gap-3'>
               <h1 className='text-2xl text-center'>Festival no seleccionado</h1>
-              <p className='w-4/5 text-center'>Necesitas escoger un festival para crear una publicacion</p>
+              <p className='text-center'>Necesitas escoger un festival para crear una publicacion</p>
               <Link
                 href={"/festivals"}
-                className="w-4/5 cursor-pointer z-50 bg-primary text-background rounded-lg py-4 leading-4 mt-3 text-center"
+                className="mx-4 cursor-pointer z-50 bg-primary text-background rounded-lg py-4 leading-4 mt-3 text-center"
                 aria-label="Redigir a interfaz festivales">
                 Ir a festivales
               </Link>
@@ -145,7 +183,7 @@ export default function NewPost() {
                     onChange={(e) => handleChange(e)}
                     value={createdPost.maxParticipants}
                   />
-                  <SearchCrews participants={handleParticipants} />
+                  <SearchCrews participants={handleParticipants} dataUsers={dataUsers.users} />
                   <div className="flex flex-col gap-2 relative">
                     <label htmlFor='details'>Detalles</label>
                     <textarea

@@ -1,6 +1,6 @@
 export interface ReservationInterface {
   type: string;
   postId: string;
-  userId: string[];
+  userIds: string[];
   peopleAmount: number;
 }
