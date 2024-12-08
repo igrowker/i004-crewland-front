@@ -33,18 +33,11 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
         if (dataUser?.data) {
           setUserProfile(dataUser.data)
 
-          // Log para inspeccionar los valores de dataUser.data
-          console.log('Datos del perfil del usuario:', dataUser.data)
+          const isProfileComplete =
+            dataUser.data.location?.toString().trim() &&
+            dataUser.data.age?.toString().trim()
 
-          const isProfileComplete = Object.values(dataUser.data).every(
-            (value) =>
-              Array.isArray(value)
-                ? value.length > 0
-                : !!value?.toString().trim()
-          )
-
-          console.log('isProfileComplete:', isProfileComplete) // Log
-          setIsCompleted(isProfileComplete)
+          setIsCompleted(!!isProfileComplete)
         }
       } catch (e) {
         console.error('Error al obtener el perfil del usuario:', e)

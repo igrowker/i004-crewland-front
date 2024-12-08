@@ -78,8 +78,47 @@ export default function CompletedProfile({
     return <p>Cargando perfil...</p>
   }
 
+  const birthDate = new Date(userProfile.age)
+  const currentDate = new Date()
+  const age = currentDate.getFullYear() - birthDate.getFullYear()
+  const monthDifference = currentDate.getMonth() - birthDate.getMonth()
+  const dayDifference = currentDate.getDate() - birthDate.getDate()
+  const calculatedAge =
+    monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)
+      ? age - 1
+      : age
+
+  const birthDateFormatted = `${('0' + birthDate.getDate()).slice(-2)}/${(
+    '0' +
+    (birthDate.getMonth() + 1)
+  ).slice(-2)}/${birthDate.getFullYear()}`
+
+  const description =
+    userProfile.description ||
+    'Amante de los festivales, los road trips y las buenas vibras. Deseando disfrutar de nuevos amigos y música en vivo.'
+
+  const location =
+    userProfile.location === 'Sin definir' || !userProfile.location
+      ? 'Rosario'
+      : userProfile.location
   return (
     <div className='flex flex-col m-4'>
+      <div className='flex items-center rounded-lg bg-primary text-black relative'>
+        <button className='flex-1 p-2 rounded-l-lg'>
+          <span className='block font-bold'>{location}</span> Lugar
+        </button>
+        <div className='w-px h-6 bg-black mx-2'></div>
+        <button className='flex-1 p-2'>
+          <span className='block font-bold'>{calculatedAge}</span> Edad
+        </button>
+        <div className='w-px h-6 bg-black mx-2'></div>
+        <button className='flex-1 p-2 rounded-r-lg'>
+          <span className='block font-bold'>{birthDateFormatted}</span>{' '}
+          Cumpleaños
+        </button>
+      </div>
+
+      <p className='m-3'>{description}</p>
       <Title
         text='Tus géneros musicales favoritos'
         size='small'

@@ -93,7 +93,7 @@ export async function updateSession(req: NextRequest) {
   const url = req.url
   const { pathname } = req.nextUrl
 
-  if (!pathname.split('').includes('.') === true) {
+  if (!pathname.includes('.') === true) {
     const publicPaths = new Set(['/auth/login', '/auth/register', '/home', '/'])
     if (pathname === '/logout') {
       existedCookies.delete('session')
@@ -103,8 +103,6 @@ export async function updateSession(req: NextRequest) {
     if (!session && !publicPaths.has(pathname)) {
       existedCookies.delete('session')
       return NextResponse.redirect(new URL('/', url))
-    } else if (session.token !== 'unknown' && publicPaths.has(pathname)) {
-      return NextResponse.redirect(new URL('/festivals', url))
     }
   }
 }

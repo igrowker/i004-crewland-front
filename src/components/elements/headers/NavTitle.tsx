@@ -11,7 +11,7 @@ interface NavTitleProps {
 export default function NavTitle({ link, title, className }: NavTitleProps) {
   return (
     <section
-      className={`flex justify-start items-center w-full pb-4 gap-5 ${className}`}
+      className={`flex justify-start items-center w-full gap-5 ${className}`}
     >
       <Link href={`/${link}`} aria-label={`Volver a la interface de ${link}`}>
         <BackArrow />
