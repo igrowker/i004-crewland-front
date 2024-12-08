@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "res.cloudinary.com", // Dominio para imágenes en Cloudinary
-      "s3-alpha-sig.figma.com"
+      "s3-alpha-sig.figma.com",
     ],
   },
 };
