@@ -3,34 +3,37 @@ import Link from "next/link";
 import { Search, Home, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useBurguerButton } from "@/hooks/useBurgerBotton";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { festivalIdContext } from "@/context/FestivalIdContext";
+// import { useEffect, useState } from "react";
 
 export function NavFooter() {
+  const contexto = useContext(festivalIdContext)
   const [state] = useBurguerButton();
   const pathName = usePathname().split("/")[1];
   const forbiddenPaths = ["", "auth", "home", "chat"];
-  const [isFixed, setIsFixed] = useState(true);
+  // const [isFixed, setIsFixed] = useState(true);
 
-  useEffect(() => {
-    let lastScrollTop = 0;
+  // useEffect(() => {
+  //   let lastScrollTop = 0;
 
-    const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > lastScrollTop) {
-        setIsFixed(false);
-      } else {
-        setIsFixed(true);
-      }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    };
+  //   const handleScroll = () => {
+  //     const scrollTop =
+  //       window.pageYOffset || document.documentElement.scrollTop;
+  //     if (scrollTop > lastScrollTop) {
+  //       setIsFixed(false);
+  //     } else {
+  //       setIsFixed(true);
+  //     }
+  //     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   if (forbiddenPaths.includes(pathName)) return null;
 
@@ -44,9 +47,9 @@ export function NavFooter() {
     <nav
       className="fixed h-20 bottom-0 left-0 right-0 bg-gray-900/60 backdrop-blur-sm text-white flex justify-around items-center"
       style={{
-        transform: `translateY(${
-          state.isToggled ? "150%" : isFixed ? "0" : "100%"
-        })`,
+        // transform: `translateY(${
+        //   state.isToggled ? "150%" : isFixed ? "0" : "100%"
+        // })`,
         transition: `transform 0.3s ${state.isToggled ? "" : ".5s"}`,
       }}
     >
@@ -54,6 +57,13 @@ export function NavFooter() {
         <Link
           key={index}
           href={href}
+          onClick={() => {
+            if (label === "Search") {
+              if (contexto) {
+                contexto.updateFestId("")
+              }
+            }
+          }}
           className="flex flex-col items-center justify-center w-full h-full"
         >
           <div
@@ -65,7 +75,7 @@ export function NavFooter() {
           >
             <Icon size={26} />
           </div>
-          <span className="text-xs">{label}</span>
+          <span className="text-xs py-1">{label}</span>
         </Link>
       ))}
     </nav>

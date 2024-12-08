@@ -3,16 +3,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { images } from "@/json/post";
-import { getUsersForPublications } from "@/services/posts";
 import { UserInterface } from "@/interfaces/publication";
 import "../calendar/Calendar.css";
 
 type searchCrewsType = {
-  participants: (participant: string[]) => void;
-};
+  participants: (participant: string[]) => void
+  dataUsers: UserInterface[]
+}
 
-export default function SearchCrews({ participants }: searchCrewsType) {
-  const [dataUsers, setDataUsers] = useState<UserInterface[]>([]);
+export default function SearchCrews({ participants, dataUsers }: searchCrewsType) {
   const [users, setUsers] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const Icon = openModal ? ChevronUp : ChevronDown;
@@ -76,11 +75,7 @@ export default function SearchCrews({ participants }: searchCrewsType) {
               >
                 <div className="flex items-center gap-3">
                   <Image
-                    src={
-                      crew.image ||
-                      process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY ||
-                      ""
-                    }
+                    src={crew.imgUser || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
                     alt={`user-${crew.id}`}
                     width={40}
                     height={40}

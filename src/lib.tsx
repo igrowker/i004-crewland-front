@@ -109,5 +109,8 @@ export async function updateSession(req: NextRequest) {
       existedCookies.delete("session");
       return NextResponse.redirect(new URL("/", url));
     }
+    // } else if (session && publicPaths.includes(pathname)) {
+    //   return NextResponse.redirect(new URL("/festivals", url));
+    // }
   }
 }
