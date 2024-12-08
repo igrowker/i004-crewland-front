@@ -1,7 +1,7 @@
 export interface UserInterface {
-  id: string;
+  id: string | number;
   name: string;
-  image: string | null;
+  imgUser: string | null;
 }
 
 export interface publicationInterface {

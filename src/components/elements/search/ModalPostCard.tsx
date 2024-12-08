@@ -3,7 +3,7 @@ import { publicationInterface } from '@/interfaces/publication'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import BoxIcons from './BoxIcons'
-import { calculateTime } from '@/utils/calculateTime'
+//import { calculateTime } from '@/utils/calculateTime'
 import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
 import { festivalIdContext } from '@/context/FestivalIdContext'
@@ -35,22 +35,29 @@ export default function ModalPostCard({ post, setModal }: ModalPostCardProps) {
           <div className="flex items-center gap-2">
             <Image
               className="rounded-full"
-              src={post.user?.image || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
+              src={post.user?.imgUser || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
               alt={`user02`}
               width={40}
               height={40}
             />
-            <p>{post.user?.name}</p>
+            <p>{post.user?.name || "Pedro Rodriguez"}</p>
           </div>
-          <time>{calculateTime(post.creationDate || "")}</time>
+          <time className='text-sm'>{post.creationDate}</time>
         </header>
         <h2 className="my-4 text-xl leading-5 font-semibold">{post.title}</h2>
         <p className="text-[14px] leading-[15.4px] text-left">{post.details}</p>
         <button
-          onClick={() => handleChat(post.user?.id || "")}
+          onClick={() => {
+            const userId = post.user?.id;
+            if (typeof userId === "number") {
+              handleChat(userId.toString());
+            } else if (typeof userId === "string") {
+              handleChat(userId);
+            }
+          }}
           aria-label={`Ver más sobre ${post.title}`}
           className="w-full flex justify-center my-3 p-1 py-2 mt-4 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]">
-          Chatear con {post.user?.name.split(" ")[0]}
+          Chatear con {post.user?.name.split(" ")[0] || "Pedro"}
         </button>
         <BoxIcons />
       </div>

@@ -20,8 +20,8 @@ export const getUserById = async (id: string, token: string) => {
 }
 export const patchUser = async (
   id: string,
-  token: string,
-  updateData: Partial<UserInterface>
+  updateData: Partial<UserInterface>,
+  token: string
 ) => {
   try {
     const response = await axios.patch(

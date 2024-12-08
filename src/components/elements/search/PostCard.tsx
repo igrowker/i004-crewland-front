@@ -3,7 +3,6 @@ import { publicationInterface } from '@/interfaces/publication'
 import Image from 'next/image'
 import { useState } from 'react';
 import ModalPostCard from './ModalPostCard';
-import { calculateTime } from '@/utils/calculateTime';
 
 export default function PostCard(post: publicationInterface) {
   const [modal, setModal] = useState<boolean>(false);
@@ -16,14 +15,14 @@ export default function PostCard(post: publicationInterface) {
             <div className="flex items-center gap-2">
               <Image
                 className='rounded-full'
-                src={post.user?.image || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
+                src={post.user?.imgUser || process.env.NEXT_PUBLIC_DEFAULT_IMG_USER_CLOUDINARY || ""}
                 alt={`user-${post.user?.name}`}
                 width={40}
                 height={40}
               />
-              <p>{post.user?.name}</p>
+              <p>{post.user?.name || "Pedro Rodriguez"}</p>
             </div>
-            <time>{calculateTime(post.creationDate || "")}</time>
+            <time className='text-sm'>{post.creationDate}</time>
           </header>
           <h2 className="my-3 text-xl leading-5 font-semibold">{post.title}</h2>
           <p className="line-clamp-4  text-[14px] leading-[15.4px] text-left">{post.details}</p>
