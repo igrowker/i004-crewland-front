@@ -14,3 +14,16 @@ export interface UserInterface {
   description: string
   location: string
 }
+
+export interface ProfileInterface {
+  groupName: '',
+  status: '',
+  service?: 'alojamiento' | 'transporte' | 'compañero' | 'otro'
+}
+
+
+// Interfaz del contexto completo
+export interface ProfileContextInterface {
+  dataProfile: ProfileInterface;
+  setDataProfile: (data: ProfileInterface) => void
+}

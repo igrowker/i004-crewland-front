@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { FestivalProvider } from "@/context/FestivalIdContext";
-import {Unbounded, Roboto} from "next/font/google";
+import { Unbounded, Roboto } from "next/font/google";
 import "./globals.css";
 import { NavFooter } from '../components/elements/Footer/NavFooter';
 import { SideBar } from "@/components/elements/SideBar/SideBar";
+import { ProfileProvider } from "@/context/ProfileContext";
 
 const unbounded = Unbounded(
   {
@@ -33,11 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${unbounded.variable} ${roboto.variable}`}>
       <body>
-        <FestivalProvider>
-          <SideBar />
+        <ProfileProvider>
+          <FestivalProvider>
+            <SideBar />
             {children}
-          <NavFooter />  
-        </FestivalProvider>
+            <NavFooter />
+          </FestivalProvider>
+        </ProfileProvider>
       </body>
     </html>
   );
