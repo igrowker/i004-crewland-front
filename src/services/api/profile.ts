@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { token } from '@/server.config'
 import { UserInterface } from '@/interfaces/user'
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: string, token: string) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER}/users/${id}`,
@@ -21,6 +20,7 @@ export const getUserById = async (id: string) => {
 }
 export const patchUser = async (
   id: string,
+  token: string,
   updateData: Partial<UserInterface>
 ) => {
   try {

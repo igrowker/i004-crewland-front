@@ -1,28 +1,45 @@
-'use client'
-
 import React, { useEffect, useState } from 'react'
 import Button from '../Buttons/Button'
 import Title from '../Titles/Title'
 import { getUserById, patchUser } from '@/services/api/profile'
 import { UserInterface } from '@/interfaces/user'
 
-export default function CompletedProfile() {
+interface CompletedProfileProps {
+  userId: string
+  token: string
+}
+
+const defaultGenres = [
+  'Electrónica',
+  'Heavy Metal',
+  'Cumbia',
+  'Indie Rock',
+  'Rock Nacional',
+  'Rock',
+  'Jazz',
+  'Pop',
+  'Hip-Hop'
+]
+
+export default function CompletedProfile({
+  userId,
+  token
+}: CompletedProfileProps) {
   const [userProfile, setUserProfile] = useState<UserInterface | null>(null)
   const [preferences, setPreferences] = useState<string[]>([])
   const [isSaved, setIsSaved] = useState<boolean>(false)
-  const userId = '55268970-068d-468a-8523-6314034a53e2'
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const dataUser = await getUserById(userId)
-        if (dataUser && dataUser.data && dataUser.data.preferences) {
+        console.log('Fetching user profile...')
+        const dataUser = await getUserById(userId, token)
+
+        if (dataUser?.data?.preferences) {
           setUserProfile(dataUser.data)
           setPreferences(dataUser.data.preferences)
         } else {
-          console.warn(
-            'Las preferencias están vacías o no definidas en la respuesta de la API.'
-          )
+          console.warn('Las preferencias están vacías o no definidas.')
           setUserProfile(dataUser.data)
           setPreferences([])
         }
@@ -32,33 +49,7 @@ export default function CompletedProfile() {
     }
 
     fetchUserProfile()
-  }, [userId])
-
-  const calculateAge = (birthdate: string) => {
-    const birthDate = new Date(birthdate)
-    const today = new Date()
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const month = today.getMonth()
-    const day = today.getDate()
-
-    if (
-      month < birthDate.getMonth() ||
-      (month === birthDate.getMonth() && day < birthDate.getDate())
-    ) {
-      age--
-    }
-
-    return age
-  }
-
-  const formatBirthday = (birthdate: string) => {
-    const birthDate = new Date(birthdate)
-    const day = String(birthDate.getDate()).padStart(2, '0')
-    const month = String(birthDate.getMonth() + 1).padStart(2, '0')
-    const year = birthDate.getFullYear()
-
-    return `${day}/${month}/${year}`
-  }
+  }, [userId, token])
 
   const toggleGenreSelection = (genre: string) => {
     setPreferences((prev) =>
@@ -69,42 +60,26 @@ export default function CompletedProfile() {
 
   const handleSave = async () => {
     try {
-      await patchUser(userId, { preferences: preferences })
+      console.log('Saving preferences...', preferences)
+      await patchUser(userId, token, { preferences })
       setIsSaved(true)
+      console.log('Preferences saved.')
     } catch (e) {
       console.error('Error al guardar los datos del usuario:', e)
     }
   }
 
-  if (!userProfile) return <p>Cargando perfil...</p>
+  const availableGenres = Array.from(
+    new Set([...(userProfile?.preferences || []), ...defaultGenres])
+  )
+
+  if (!userProfile) {
+    console.log('User profile is not loaded yet.')
+    return <p>Cargando perfil...</p>
+  }
 
   return (
     <div className='flex flex-col m-4'>
-      <div className='flex items-center rounded-lg bg-primary text-black relative'>
-        <button className='flex-1 p-2 rounded-l-lg hover:bg-primaryHover'>
-          <span className='block font-bold'>
-            {userProfile.location ?? 'Sin definir'}
-          </span>
-          Lugar
-        </button>
-        <div className='w-px h-6 bg-black mx-2'></div>
-        <button className='flex-1 p-2 hover:bg-primaryHover'>
-          <span className='block font-bold'>
-            {calculateAge(userProfile.age) ?? 'N/A'}
-          </span>
-          Edad
-        </button>
-        <div className='w-px h-6 bg-black mx-1'></div>
-        <button className='flex-1 p-2 rounded-r-lg hover:bg-primaryHover'>
-          <span className='block font-bold'>
-            {formatBirthday(userProfile.age) ?? 'N/A'}
-          </span>
-          Cumpleaños
-        </button>
-      </div>
-
-      <p className='m-3'>{userProfile.description || 'Sin descripción'}</p>
-
       <Title
         text='Tus géneros musicales favoritos'
         size='small'
@@ -113,19 +88,24 @@ export default function CompletedProfile() {
       />
 
       <div className='flex flex-wrap gap-1'>
-        {userProfile.preferences?.map((genre, index) => (
-          <Button
-            variant='ghost'
-            key={index}
-            text={genre}
-            className={`rounded-full ${
-              preferences.includes(genre)
-                ? 'bg-purple-500 text-white'
-                : 'bg-gray-200 text-black'
-            } hover:bg-primaryHover`}
-            onClick={() => toggleGenreSelection(genre)}
-          />
-        ))}
+        {availableGenres.length === 0 ? (
+          <p>No hay géneros disponibles.</p>
+        ) : (
+          availableGenres.map((genre, index) => (
+            <Button
+              variant='ghost'
+              key={index}
+              text={genre}
+              className={`rounded-full ${
+                preferences.includes(genre)
+                  ? 'bg-purple-500 text-white'
+                  : 'bg-gray-200 text-black'
+              } hover:bg-primaryHover`}
+              onClick={() => toggleGenreSelection(genre)}
+            />
+          ))
+        )}
+
         <Button
           variant='primary'
           text={isSaved ? 'Guardado' : 'Guardar'}
