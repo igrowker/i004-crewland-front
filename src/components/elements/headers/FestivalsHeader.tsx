@@ -25,7 +25,7 @@ export default function FestivalsHeader() {
       </div>
       <Link href={'/profile'}>
         <Avatar
-          src="/users/01.png"
+          src="/users/profile.png"
           alt="Usuario"
           width={40}
           height={40}

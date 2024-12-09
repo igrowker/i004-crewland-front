@@ -152,6 +152,7 @@ export default function FestivalClientContent({
                 href={dataFestival.url}
                 variant="primary"
                 text="Comprar entradas"
+                target="_BLANK"
                 className="text-[15px] w-full"
               />
               <Button
