@@ -41,7 +41,7 @@ export default function AllFestivalst({ token }: { token: string }) {
                   className="absolute top-2 right-2 bg-[#CE9DF9] rounded-full p-2 shadow-md hover:shadow-lg transition-all"
                   aria-label={`Más detalles sobre ${festival.name}`}
                 >
-                  <ArrowUpRight className="text-black w-5 h-5" />
+                  <ArrowUpRight color="#000000" size={30} />
                 </Link>
               </div>
               <div
@@ -54,15 +54,16 @@ export default function AllFestivalst({ token }: { token: string }) {
                 }}
               >
                 <Asterisk
-                  className="absolute top-8 right-2 text-[#0d0b0f] w-5 h-5"
+                  size={30}
+                  className="absolute top-8 right-2 text-black"
                   aria-label="Campo obligatorio"
                 />
 
-                <h3 className="bottom-2 left-2 text-lg font-bold pt-4">
+                <h3 className="bottom-2 left-2 text-xl font-bold pt-4">
                   {festival.name}
                 </h3>
 
-                <p className="text-sm my-4 text-black font-[450]">
+                <p className="my-4 text-black">
                   {festival.description}
                 </p>
 

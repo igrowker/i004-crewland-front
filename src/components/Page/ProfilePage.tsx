@@ -54,7 +54,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
   return (
     <div style={{ position: 'absolute', width: '100%', minHeight: '100vh' }}>
       <Image src='/flower.svg' alt='Background' fill quality={100} />
-      <Container className='flex flex-col items-center'>
+      <Container className='flex flex-col items-center outline outline-1 outline-slate-200 pb-24'>
         <div className='flex flex-col items-center'>
           <Title text='Perfil de usuario' size='medium' className='m-4' />
           <div className='relative w-48 h-48 mt-4'>
@@ -89,7 +89,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
         ) : (
           <UncompletedProfile />
         )}
-        <div className='grid grid-cols-2 gap-4 text-sm px-4'>
+        <div className='grid grid-cols-2 gap-4 text-sm px-4 mt-4'>
           <Button
             variant='primary'
             text='Información de Contacto'

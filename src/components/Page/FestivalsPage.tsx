@@ -30,7 +30,7 @@ export default function FestivalsPage({
     <Container>
       <FestivalsHeader />
       <main className="pt-[50px] sm:pt-[70px] lg:pt-[80px] px-3 ">
-        <div className="shadow-md rounded-lg py-6 px-4 mb-6">
+        <div className="shadow-md rounded-lg pt-6 px-4 mb-6">
           <Title
             text={`Bienvenido, ${name}`}
             size="medium"

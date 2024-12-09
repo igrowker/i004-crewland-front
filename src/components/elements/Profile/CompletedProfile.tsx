@@ -118,15 +118,15 @@ export default function CompletedProfile({
         </button>
       </div>
 
-      <p className='m-3'>{description}</p>
+      <p className='my-4'>{description}</p>
       <Title
         text='Tus géneros musicales favoritos'
         size='small'
         align='left'
-        className='mt-4 mb-3'
+        className='mb-3 text-xl'
       />
 
-      <div className='flex flex-wrap gap-1'>
+      <div className='flex flex-wrap gap-2'>
         {availableGenres.length === 0 ? (
           <p>No hay géneros disponibles.</p>
         ) : (

@@ -155,9 +155,9 @@ export default function NewPost() {
           )
           : (
             <Container>
-              <article className="flex flex-col w-full min-h-screen bg-background mb-20 m-4">
+              <article className="flex flex-col w-full min-h-screen bg-background m-4">
                 <NavTitle link="search" title="Creá tu post" />
-                <p>Encontrá alojamiento, transporte o compañeros para tu próximo evento</p>
+                <p className='mt-3'>Encontrá alojamiento, transporte o compañeros para tu próximo evento</p>
                 <form className="flex flex-col py-4 gap-6">
                   <InputSelect
                     id='type'
