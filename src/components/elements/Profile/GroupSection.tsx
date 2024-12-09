@@ -5,7 +5,7 @@ import HistorialHeader from '../headers/HistorialHeader'
 import { usePathname } from 'next/navigation'
 import { chats } from '@/json/historial'
 import { boolean } from 'zod'
-
+import Link from 'next/link'
 interface GroupSectionProps {
     showAddButton?: boolean; // add this line
 
@@ -46,7 +46,7 @@ const GroupSection: React.FC<GroupSectionProps> = ({ onDelete, showAddButton }) 
                             place={festival?.location || ''}
                             isActive={publication?.isActive || false}
                             typeService={publication?.type}
-                            chatsLength={chats?.length || 0}  
+                            chatsLength={chats?.length || 0}
                             showAddButton={showAddButton || false}
                         />
 
@@ -57,19 +57,21 @@ const GroupSection: React.FC<GroupSectionProps> = ({ onDelete, showAddButton }) 
                                 return (
                                     <UserChatItem
                                         key={index}
-                                        avatar={participantAvatar}  
-                                        username={participant}  
+                                        avatar={participantAvatar}
+                                        username={participant}
                                         onDelete={onDelete && (() => onDelete(index))}
                                     />
                                 )
                             })}
                         </div>
                         {pathname === '/profile/currentCrews' && (
-                            <div className='flex flex-row gap-1'>
-                                <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
-                                    Ir al Chat
-                                </button>
-                            </div>
+                             <div className='flex flex-row items-center gap-1'>
+                             <Link
+                                 href="/chat"
+                                 className='w-full my-3 p-2 rounded-lg outline outline-1 text-customWhite outline-customWhite text-[14px] text-center flex justify-center items-center'>
+                                 Ir al Chat
+                             </Link>
+                         </div>
                         )}
                     </div>
                 )
