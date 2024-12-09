@@ -8,8 +8,12 @@ export default function Config() {
   return (
     <Container>
       <article className='w-full p-4 flex flex-col items-'>
-        <NavTitle link='historial' title='Configuracion' />
-        <p className='text-left leading-5 font-semibold'>
+        <NavTitle 
+          link='profile' 
+          title='Configuracion'
+          className='mt-2'
+        />
+        <p className='mt-5 text-left leading-5 font-semibold'>
           Centro de ayuda
         </p>
         <section className='flex flex-col gap-6 mt-5'>

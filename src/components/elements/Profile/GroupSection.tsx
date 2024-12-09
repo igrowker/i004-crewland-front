@@ -4,7 +4,6 @@ import UserChatItem from '../Chat/UserChatCard/UserChatItem'
 import HistorialHeader from '../headers/HistorialHeader'
 import { usePathname } from 'next/navigation'
 import { chats } from '@/json/historial'
-import { boolean } from 'zod'
 import Link from 'next/link'
 interface GroupSectionProps {
     showAddButton?: boolean; // add this line

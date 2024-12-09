@@ -36,7 +36,7 @@ export default function LandingPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActivePage((prevPage) => (prevPage + 1) % pages.length)
-    }, 3000)
+    }, 6000)
 
     return () => clearInterval(interval)
   }, [])
@@ -62,7 +62,7 @@ export default function LandingPage() {
               <div className='absolute inset-0 bg-black bg-opacity-20'></div>
               <LandingPageHeader />
 
-              <div className='flex flex-col items-center justify-center h-full text-center text-white'>
+              <div className='mt-32 flex flex-col items-center justify-start h-full text-center text-white'>
                 <h1 className='text-4xl font-normal z-10'>{page.title}</h1>
                 {page.img && (
                   <Image

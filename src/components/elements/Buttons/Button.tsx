@@ -8,6 +8,7 @@ type ButtonProps = {
     onClick?: () => void;
     href?: string;
     className?: string;
+    target?: string
 };
 
 export default function Button({
@@ -18,6 +19,7 @@ export default function Button({
     onClick,
     href,
     className = '',
+    target
 }: ButtonProps) {
 
     const buttonStyles = {
@@ -35,7 +37,7 @@ export default function Button({
     );
 
     return href ? (
-        <Link href={href} className={className}>
+        <Link href={href} className={className} target={target}>
             {content}
         </Link>
     ) : (

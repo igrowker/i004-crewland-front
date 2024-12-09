@@ -44,7 +44,7 @@ const HistorialHeader: React.FC<HeaderProps> = ({
     return (
         <>
             {/* Titulo  */}
-            <div className='flex flex-row justify-between items-center'>
+            <div className='flex flex-row justify-between items-center mb-3'>
                 <h3 className='text-xl leading-none'>{festivalName}</h3>
                 <div className='flex flex-row gap-4 items-center'>
                     <span

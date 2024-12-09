@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { ProfileContext } from '@/context/ProfileContext'
 import UserChatItem from "../Chat/UserChatCard/UserChatItem"
 import HistorialHeader from "../headers/HistorialHeader"
-import { usePathname } from 'next/navigation'
 
 interface GroupSectionProps {
   onDelete: (index: number) => void;
@@ -29,7 +28,7 @@ const GroupSection: React.FC<GroupSectionProps> = ({ onDelete }) => {
         showAddButton={true}
       />
       <div className='flex flex-col w-full '>
-        {groups.map((group, chatIndex) => (
+        {groups.map((group, chatIndex: number) => (
           <UserChatItem
             key={chatIndex}
             avatar={group.festival?.avatar}

@@ -8,7 +8,7 @@ import Container from '@/components/elements/Container/Container'
 import NavTitle from '@/components/elements/headers/NavTitle'
 import GroupSection from '@/components/elements/Profile/GroupSection'
 
-export default function currentCrews() {
+export default function CurrentCrews() {
   const profileContext = useContext(ProfileContext)
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function currentCrews() {
   return (
     <Container className='flex flex-col px-4 gap-6'>
       <article className='flex flex-col w-full min-h-screen bg-background'>
-        <NavTitle link='profile' title='Crews Actuales' />
+        <NavTitle link='profile' title='Crews Actuales' className='mt-4'/>
         <div className='flex flex-col justify-center mt-3 gap-6'>
           <GroupSection
             onDelete={handleDelete}

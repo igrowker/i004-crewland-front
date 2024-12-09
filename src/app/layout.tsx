@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${unbounded.variable} ${roboto.variable}`}>
-      <body>
+      <body className="min-h-screen">
         <ProfileProvider>
           <FestivalProvider>
             <SideBar />

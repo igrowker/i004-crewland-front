@@ -55,9 +55,9 @@ export default function information() {
       <NavTitle
         link='profile'
         title='Información de Contacto'
-        className='absolute top-5 left-1 bg-background'
+        className='my-4 bg-background'
       />
-      <div className='flex flex-col gap-4 w-full px-5 sm:w-3/4 sm:px-0'>
+      <div className='flex flex-col gap-4 w-full px-5 sm:w-3/4 sm:px-0 pb-28'>
         {data.map((item, index) => (
           <div key={index} className='flex gap-2 nth-2:items-end'>
             {item.icon}

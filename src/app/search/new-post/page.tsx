@@ -196,7 +196,7 @@ export default function NewPost() {
                       value={createdPost.details}
                     />
                   </div>
-                  <div className='flex gap-2'>
+                  <div className='flex gap-2 mb-20'>
                     <button
                       type="button"
                       className="bg-primary text-background w-full text-center py-3 rounded-lg"
