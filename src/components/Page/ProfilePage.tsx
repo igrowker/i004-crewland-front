@@ -102,7 +102,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
             text='Crews actuales'
             icon={<User className='w-5 h-5' />}
             className='w-full h-16 text-left'
-            onClick={() => router.push('/chat/crew')}
+            onClick={() => router.push('/profile/currentCrews')}
           />
           <Button
             variant='primary'

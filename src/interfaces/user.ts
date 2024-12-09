@@ -16,13 +16,20 @@ export interface UserInterface {
 }
 
 export interface ProfileInterface {
-  groupName: '',
-  status: '',
-  service?: 'alojamiento' | 'transporte' | 'compañero' | 'otro'
+  isActive: boolean; 
+  type: 'transport' | 'accommodation' | 'crew' 
+  participants: { name: string }[]; 
+  festival: {
+    name: string; 
+    location: string; 
+    date: string; 
+  };
+  publications: any[];
+  festivals: Record<string, any>;
+  
 }
 
 
-// Interfaz del contexto completo
 export interface ProfileContextInterface {
   dataProfile: ProfileInterface;
   setDataProfile: (data: ProfileInterface) => void

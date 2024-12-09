@@ -1,13 +1,67 @@
 'use client'
+import { useContext, useEffect } from 'react'
+import { ProfileContext } from '@/context/ProfileContext'
+import { getSession } from '@/lib'
+import { getAllPublications } from '@/services/publications'
+import { getFestivalById } from '@/services/festivalById'
 import Container from '@/components/elements/Container/Container'
-import '@/components/elements/calendar/Calendar.css'
 import NavTitle from '@/components/elements/headers/NavTitle'
 import GroupSection from '@/components/elements/Profile/GroupSection'
-import { groups, chats } from '@/json/historial'
 
-export default function CurrentCrews() {
+export default function currentCrews() {
+  const profileContext = useContext(ProfileContext)
+
+  useEffect(() => {
+    if (profileContext) {
+      const fetchData = async () => {
+        const { id, token } = await getSession()
+
+        const publicationsResponse = await getAllPublications(token)
+        const allPublications = publicationsResponse.data.data
+
+        const filteredPublications = allPublications.filter((publication: any) => publication.userId === id)
+        //console.log(`filteredPublications: ${JSON.stringify(filteredPublications, null, 2)}`)
+        const festivalPromises = filteredPublications.map(async (publication: any) => {
+          if (publication.festivalId) {
+            try {
+              const festivalResponse = await getFestivalById(token, publication.festivalId)
+              return { festivalId: publication.festivalId, festival: festivalResponse.data.data }
+            } catch (error) {
+              console.error(`Error fetching festival for festivalId ${publication.festivalId}:`, error)
+              return null 
+            }
+          }
+          return null 
+        })
+
+        const festivalData = await Promise.all(festivalPromises)
+        const festivalMap = festivalData.reduce((acc: any, item: any) => {
+          if (item && item.festivalId) {  
+            acc[item.festivalId] = item.festival
+          }
+          console.log(`festivalid: ${item.festivalId}}`)
+          return acc
+        }, {})
+
+        profileContext.setDataProfile({
+          ...profileContext.dataProfile,
+          publications: filteredPublications,
+          festivals: festivalMap,
+        })
+        console.log(filteredPublications)
+
+      }
+
+      fetchData()
+    }
+  }, [])
+
   const handleDelete = (chatIndex: number) => {
     console.log(`Eliminar chat en índice: ${chatIndex}`)
+  }
+
+  if (!profileContext) {
+    return null
   }
 
   return (
@@ -15,21 +69,12 @@ export default function CurrentCrews() {
       <article className='flex flex-col w-full min-h-screen bg-background'>
         <NavTitle link='profile' title='Crews Actuales' />
         <div className='flex flex-col justify-center mt-3 gap-6'>
-          {groups.map((group) => (
-            <GroupSection
-              key={group.id}
-              groupName={group.name}
-              status={group.status}
-              service={group.service as 'transporte' | 'alojamiento' | 'compañero' | 'otro'}
-              chats={chats}
-              showAddButton={true}
-              onDelete={handleDelete}
-            />
-          ))}
+          <GroupSection
+            onDelete={handleDelete}
+            showAddButton={true}
+          />
         </div>
       </article>
     </Container>
   )
 }
-
-
