@@ -59,7 +59,7 @@ export default function PostFilterers({ publications, festivals }: PostFiltererI
   return (
     <>
       <div className="flex justify-center items-center gap-2 w-full">
-        <div className="flex items-center justify-center relative w-full">
+        <div className="mt-4 flex items-center justify-center relative w-full">
           <Search className="absolute left-3 size-4" />
           <input
             onClick={() => setToggle({ festivals: !toggle.festivals, typePost: false })}
@@ -79,7 +79,7 @@ export default function PostFilterers({ publications, festivals }: PostFiltererI
         <ListFilter
           size={30}
           onClick={() => setToggle({ typePost: !toggle.typePost, festivals: false })}
-          className='cursor-pointer'
+          className='cursor-pointer mt-4'
         />
       </div>
       {toggle.festivals && (
