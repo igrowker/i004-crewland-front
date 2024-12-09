@@ -95,7 +95,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
             text='Información de Contacto'
             icon={<User className='w-5 h-5' />}
             className='w-full h-16 text-start'
-            onClick={() => router.push('/informacion-contacto')}
+            onClick={() => router.push('/profile/information')}
           />
           <Button
             variant='primary'
@@ -116,7 +116,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
             text='Configuración de la cuenta'
             icon={<Settings className='w-5 h-5' />}
             className='w-full h-16 text-start'
-            onClick={() => router.push('/configuracion-cuenta')}
+            onClick={() => router.push('/profile/config')}
           />
         </div>
       </Container>
