@@ -1,6 +1,5 @@
 "use server";
 import axios from "axios";
-import { token } from '@/server.config';
 
 
 export const getFestivalById = async (token: string, festivalId: string) => {

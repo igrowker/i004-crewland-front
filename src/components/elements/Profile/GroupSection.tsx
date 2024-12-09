@@ -1,61 +1,81 @@
 import React, { useContext } from 'react'
 import { ProfileContext } from '@/context/ProfileContext'
-import UserChatItem from "../Chat/UserChatCard/UserChatItem"
-import HistorialHeader from "../headers/HistorialHeader"
+import UserChatItem from '../Chat/UserChatCard/UserChatItem'
+import HistorialHeader from '../headers/HistorialHeader'
 import { usePathname } from 'next/navigation'
-import { groups, chats } from '@/json/historial'
-
+import { chats } from '@/json/historial'
+import { boolean } from 'zod'
 
 interface GroupSectionProps {
-    onDelete: (index: number) => void;
+    showAddButton?: boolean; // add this line
+
+    onDelete?: (index: number) => void
 }
 
-const GroupSection: React.FC<GroupSectionProps> = ({ onDelete }) => {
-    const pathname = usePathname();
-    const { dataProfile } = useContext(ProfileContext) ?? {};
-    const { publications, festivals } = dataProfile || {};
-
-    const groups = publications?.map((publication: any) => ({
-        ...publication,
-        festival: festivals && festivals[publication.postId], 
-    })) || [];
+const GroupSection: React.FC<GroupSectionProps> = ({ onDelete, showAddButton }) => {
+    const pathname = usePathname()
+    const { dataProfile } = useContext(ProfileContext) ?? {}
+    const { publications, festivals } = dataProfile || {}
+    const userPhotos = [
+        '/users/01.png',
+        '/users/02.png',
+        '/users/03.png',
+        '/users/04.png',
+        '/users/05.png',
+        '/users/06.png',
+        '/users/07.png',
+        '/users/08.png',
+        '/users/09.png',
+        '/users/10.png'
+    ]
+    const getRandomPhoto = () => {
+        const randomIndex = Math.floor(Math.random() * userPhotos.length)
+        return userPhotos[randomIndex]
+    }
 
     return (
         <section className='flex flex-col w-full border-b-[1px] border-gray-200 gap-2 pb-4'>
-            <HistorialHeader
-                festivalName={groups[0]?.festival?.name || ''}
-                date={groups[0]?.date || ''}
-                place={groups[0]?.place || ''}
-                isActive={groups[0]?.isActive || false}
-                typeService={groups[0]?.typeService}
-                chatsLength={groups.length}
-                showAddButton={true}
-            />
+            {publications && festivals && publications.length > 0 && publications.map((publication, index) => {
+                const festival = festivals[publication.festivalId] // Obtener el festival relacionado con la publicación
 
-            <div className='flex flex-col w-full '>
-                {groups.map((group, chatIndex) => (
-                    <UserChatItem
-                        key={chatIndex}
-                        avatar={group.festival?.avatar}
-                        username={group.festival?.username}
-                        onDelete={onDelete && (() => onDelete(chatIndex))}
-                    />
-                ))}
-            </div>
+                return (
+                    <div key={index}>
+                        <HistorialHeader
+                            festivalName={festival?.name || ''}
+                            date={festival?.date || ''}
+                            place={festival?.location || ''}
+                            isActive={publication?.isActive || false}
+                            typeService={publication?.type}
+                            chatsLength={chats?.length || 0}  
+                            showAddButton={showAddButton || false}
+                        />
 
-            {pathname === '/profile/currentCrews' && (
-                <div className='flex flex-row gap-1'>
-                    <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
-                        Ir al Chat
-                    </button>
-                </div>
-            )}
+                        <div className='flex flex-col w-full'>
+                            {publication.participants?.map((participant: any, index: number) => {
+                                const participantAvatar = getRandomPhoto()
 
+                                return (
+                                    <UserChatItem
+                                        key={index}
+                                        avatar={participantAvatar}  
+                                        username={participant}  
+                                        onDelete={onDelete && (() => onDelete(index))}
+                                    />
+                                )
+                            })}
+                        </div>
+                        {pathname === '/profile/currentCrews' && (
+                            <div className='flex flex-row gap-1'>
+                                <button className='w-full my-3 p-2 rounded-lg outline-1 text-customWhite outline outline-customWhite text-[14px]'>
+                                    Ir al Chat
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )
+            })}
         </section>
-    );
+    )
 }
 
-export default GroupSection;
-
-
-
+export default GroupSection
