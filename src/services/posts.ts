@@ -1,9 +1,8 @@
 'use server'
 import axios from 'axios'
-import { token } from '@/server.config'
 import { publicationInterface } from '@/interfaces/publication'
 
-export const getPosts = async () => {
+export const getPosts = async (token: string) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER}/publications`,
@@ -14,32 +13,15 @@ export const getPosts = async () => {
         }
       }
     )
-
-    return response.data
+    return {
+      data: response.data.data.data
+    }
   } catch (e) {
     console.error(e)
   }
 }
 
-export const getPublicationsByFestival = async (id: string) => {
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER}/publications?festivalId=${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-
-    return response.data
-  } catch (e) {
-    console.error(e)
-  }
-}
-
-export const getUsersForPublications = async () => {
+export const getUsersForPublications = async (token: string) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER}/users/for-publications`,
@@ -50,17 +32,15 @@ export const getUsersForPublications = async () => {
         }
       }
     )
-
-    return response.data
+    return {
+      data: response.data.data.data
+    }
   } catch (e) {
     console.error(e)
   }
 }
 
-export const postPublication = async (
-  festivalId: string,
-  createPost: publicationInterface
-) => {
+export const postPublication = async (token: string, festivalId: string, createPost: publicationInterface) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER}/publications/${festivalId}`,
@@ -77,7 +57,7 @@ export const postPublication = async (
         response: {
           status: response.status,
           statusText: response.statusText,
-          data: response.data
+          data: response.data.data.data
         },
         request: response.request.status
       }
