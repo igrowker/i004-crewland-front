@@ -23,7 +23,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
   const router = useRouter()
 
   const userPhoto = '/users/profile.png'
-  const defaultPhoto = '/profile-img.png'
+  const defaultPhoto = '/users/profile.png'
   const editIcon = '/edit-profile.png'
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
   }, [userId, token])
 
   const handleEditClick = () => {
-    router.push('/edit-profile')
+    router.push('/profile/information')
   }
 
   return (
