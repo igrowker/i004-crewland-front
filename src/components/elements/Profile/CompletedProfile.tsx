@@ -78,7 +78,7 @@ export default function CompletedProfile({
     return <p>Cargando perfil...</p>
   }
 
-  const birthDate = new Date(userProfile.age)
+  const birthDate = new Date(userProfile.age + 'T00:00:00')
   const currentDate = new Date()
   const age = currentDate.getFullYear() - birthDate.getFullYear()
   const monthDifference = currentDate.getMonth() - birthDate.getMonth()
