@@ -63,7 +63,7 @@ export default function LoginPage() {
         <div className="absolute top-0 left-0 w-full h-full bg-background opacity-50"></div>
         <section className="relative z-10 mt-32">
           <div className="flex flex-row justify-center items-center mb-8">
-            <Title text="CREWLAND" className="text-[36px]" />
+            <Title text="CREWLAND" className="text-[46px]" />
             <Image
               className="white top-[0px]"
               src="/crewland_logo.svg"

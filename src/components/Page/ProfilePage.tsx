@@ -23,7 +23,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
   const router = useRouter()
 
   const userPhoto = '/users/profile.png'
-  const defaultPhoto = '/profile-img.png'
+  const defaultPhoto = '/users/profile.png'
   const editIcon = '/edit-profile.png'
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
   }, [userId, token])
 
   const handleEditClick = () => {
-    router.push('/edit-profile')
+    router.push('/profile/information')
   }
 
   return (
@@ -95,14 +95,14 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
             text='Información de Contacto'
             icon={<User className='w-5 h-5' />}
             className='w-full h-16 text-start'
-            onClick={() => router.push('/informacion-contacto')}
+            onClick={() => router.push('/profile/information')}
           />
           <Button
             variant='primary'
             text='Crews actuales'
             icon={<User className='w-5 h-5' />}
             className='w-full h-16 text-left'
-            onClick={() => router.push('/chat/crew')}
+            onClick={() => router.push('/profile/currentCrews')}
           />
           <Button
             variant='primary'
@@ -116,7 +116,7 @@ export default function ProfilePage({ token, userId }: ProfilePageProps) {
             text='Configuración de la cuenta'
             icon={<Settings className='w-5 h-5' />}
             className='w-full h-16 text-start'
-            onClick={() => router.push('profile/config')}
+            onClick={() => router.push('/configuracion-cuenta')}
           />
         </div>
       </Container>

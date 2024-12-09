@@ -9,7 +9,7 @@ export default function PostCard(post: publicationInterface) {
 
   return (
     <>
-      <section className="flex flex-col mt-6">
+      <section className="flex flex-col mt-6 select-none">
         <div className="rounded-[20px] pb-1 p-4 bg-[url('/background_card.png')] bg-[length:140%_155%] bg-[position:-38px_-48px] text-background">
           <header className="flex items-center justify-between">
             <div className="flex items-center gap-2">
